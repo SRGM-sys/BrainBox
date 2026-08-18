@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - BrainBox</title>
+    
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Hojas de estilo unificadas -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    
+    <!-- NUEVO: Archivo exclusivo para el Dashboard -->
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+
+    <!-- Barra Superior (Estilo Gamificado) -->
+    <header class="dashboard-header">
+        
+        <!-- Busca esta parte en tu header y reemplázala: -->
+        <div class="greeting-row">
+            <!-- Le agregamos el id="user-greeting" -->
+            <h2 id="user-greeting">¡Hola, Cargando...! 👋</h2>
+            <div class="header-actions">
+                <button class="icon-btn" title="Ajustes">⚙️</button>
+                <a href="../index.html" class="exit-btn" title="Volver al inicio">🚪</a>
+            </div>
+        </div>
+
+        <script src="../js/dashboard.js"></script>
+
+        <!-- Tarjeta de Nivel y Experiencia -->
+        <div class="level-card">
+            <div class="level-info">
+                <div class="avatar-img" id="user-avatar-container">
+                </div>
+                <div class="level-text">
+                    <div class="level-title">Nivel 1</div>
+                    <div class="level-subtitle">Explorador</div>
+                </div>
+                <div class="level-badge">🟣</div>
+            </div>
+            <div class="progress-section">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill"></div>
+                </div>
+                <div class="xp-text">150 / 500 XP</div>
+            </div>
+        </div>
+
+        <!-- Sección de Racha Diaria -->
+        <div class="streak-section">
+            <div class="streak-header">
+                <span class="streak-title">Racha diaria 🔥</span>
+                <span class="streak-days">3 días</span>
+            </div>
+            <div class="days-row">
+                <!-- Lunes -->
+                <div class="day-item completed">
+                    <div class="circle">✓</div>
+                    <span class="day-label">L</span>
+                </div>
+                <!-- Martes -->
+                <div class="day-item completed">
+                    <div class="circle">✓</div>
+                    <span class="day-label">M</span>
+                </div>
+                <!-- Miércoles -->
+                <div class="day-item completed">
+                    <div class="circle">✓</div>
+                    <span class="day-label">X</span>
+                </div>
+                <!-- Jueves -->
+                <div class="day-item">
+                    <div class="circle"></div>
+                    <span class="day-label">J</span>
+                </div>
+                <!-- Viernes -->
+                <div class="day-item">
+                    <div class="circle"></div>
+                    <span class="day-label">V</span>
+                </div>
+                <!-- Sábado -->
+                <div class="day-item">
+                    <div class="circle"></div>
+                    <span class="day-label">S</span>
+                </div>
+                <!-- Domingo -->
+                <div class="day-item">
+                    <div class="circle"></div>
+                    <span class="day-label">D</span>
+                </div>
+            </div>
+        </div>
+        
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="container">
+        <h2 class="section-title">Elige una materia</h2>
+        
+        <div class="subject-grid">
+            <div class="subject-card">
+                <div class="subject-icon">📐</div>
+                <h3 style="color: var(--text-main); font-size: 1.1rem;">Matemáticas</h3>
+            </div>
+            
+            <div class="subject-card">
+                <div class="subject-icon">⚛️</div>
+                <h3 style="color: var(--text-main); font-size: 1.1rem;">Física</h3>
+            </div>
+            
+            <div class="subject-card">
+                <div class="subject-icon">🧪</div>
+                <h3 style="color: var(--text-main); font-size: 1.1rem;">Química</h3>
+            </div>
+        </div>
+
+        <div class="challenge-card">
+            <div>
+                <h3>Retos Combinados</h3>
+                <p style="font-size: 0.9rem; opacity: 0.9;">Preguntas aleatorias de lo que ya sabes.</p>
+            </div>
+            <div style="font-size: 2rem;">🧠</div>
+        </div>
+    </main>
+
+    <!-- Navegación Inferior -->
+    <nav class="bottom-nav">
+        <div class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span>Principal</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon">🎁</span>
+            <span>Canjeo</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon">👤</span>
+            <span>Perfil</span>
+        </div>
+    </nav>
+
+</body>
+</html>

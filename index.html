@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainBox - Aprende STEM</title>
+    
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Hojas de Estilo Modulares -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+
+    <style>
+        /* Estilos específicos solo para el Hero (Index) */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Estilos para las opciones del modal */
+        .auth-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sección Principal (Hero) -->
+    <main class="hero">
+        <h1>🧠 BrainBox</h1>
+        <p>Aprende. Reta tu mente. Construye tu futuro.</p>
+        
+        <div class="hero-buttons">
+            <button id="btn-comenzar" class="btn btn-primary">Comenzar</button>
+            <a href="pages/carreras-stem.html" class="btn btn-outline">Explorar el mundo STEM</a>
+        </div>
+    </main>
+
+    <!-- Modal de Autenticación -->
+    <div id="modal-auth" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn" onclick="showView('view-options')">&times;</span>
+            
+            <!-- Vista 1: Opciones Iniciales -->
+            <div id="view-options" class="view active">
+                <h2 style="text-align: center; margin-bottom: 10px;">¡Bienvenido!</h2>
+                <p style="text-align: center; color: var(--text-muted);">Inicia tu aventura STEM</p>
+                <div class="auth-options">
+                    <button class="btn btn-primary" id="btn-show-login">Iniciar sesión</button>
+                    <button class="btn btn-outline" id="btn-show-register">Crear cuenta</button>
+                </div>
+            </div>
+
+            <!-- Vista 2: Iniciar Sesión -->
+            <div id="view-login" class="view">
+                <button class="back-btn" onclick="showView('view-options')">← Volver</button>
+                <h2 style="text-align: center; margin-bottom: 20px;">Iniciar Sesión</h2>
+                <!-- Formulario de Login -->
+                <form id="form-login" action="pages/dashboard.html">
+                    <div class="form-group">
+                        <label>Correo electrónico</label>
+                        <input type="email" id="login-email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Contraseña</label>
+                        <input type="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Entrar</button>
+                </form>
+            </div>
+
+            <!-- Vista 3: Crear Cuenta -->
+            <div id="view-register" class="view">
+                <button class="back-btn" onclick="showView('view-options')">← Volver</button>
+                <h2 style="text-align: center; margin-bottom: 20px;">Crear Cuenta</h2>
+                
+                <!-- Formulario de Registro -->
+                <form id="form-register" action="pages/dashboard.html">
+                    
+                    <!-- Foto de Perfil (Ocupa todo el ancho siempre) -->
+                    <div class="form-group full-width" style="text-align: center; margin-top: 5px;">
+                        <label>Foto de Perfil (Opcional)</label>
+                        <input type="file" id="reg-profile-pic" accept="image/*" style="display: none;">
+                        <div id="profile-pic-container" style="width: 80px; height: 80px; margin: 10px auto; border-radius: 50%; border: 2px dashed var(--primary-color); background-color: rgba(108, 92, 231, 0.05); display: flex; justify-content: center; align-items: center; cursor: pointer; overflow: hidden; transition: background-color var(--transition-fast);">
+                            <span id="profile-pic-icon" style="font-size: 1.5rem; opacity: 0.7;">📷</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">Clic en el círculo para subir foto</p>
+                    </div>
+
+                    <!-- Contenedor Grid (2 columnas en PC, 1 en móvil) -->
+                    <div class="form-grid">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Nombre Completo</label>
+                            <input type="text" id="reg-fullname" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Colegio del que viene</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Correo electrónico</label>
+                            <input type="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Fecha de Nacimiento</label>
+                            <input type="date" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Contraseña</label>
+                            <input type="password" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Confirmar Contraseña</label>
+                            <input type="password" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <!-- Botón de Registro (Ocupa todo el ancho al final) -->
+                    <button type="submit" class="btn btn-primary full-width" style="width: 100%; margin-top: 20px;">Registrarme</button>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Scripts unificados -->
+    <script src="js/ui.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

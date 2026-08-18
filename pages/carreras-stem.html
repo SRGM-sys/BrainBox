@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explora tu carrera - BrainBox</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/carreras.css">
+</head>
+<body>
+
+    <!-- Cabecera de navegación -->
+    <header class="top-nav">
+        <!-- Regresa al dashboard, ya que el usuario debe estar logueado para ver esto -->
+        <a href="dashboard.html" class="back-btn">← Volver</a>
+        <h2 id="page-title" style="color: var(--primary-color);">Explora tu carrera</h2>
+        <div style="width: 60px;"></div> <!-- Espaciador para mantener el título en el centro -->
+    </header>
+
+    <main class="container">
+        
+        <!-- LAS 4 TARJETAS PRINCIPALES (S.T.E.M) -->
+        <div class="stem-grid">
+            
+            <div class="stem-card bg-science" onclick="window.location.href='lista-carreras.html?area=science'">
+                <div class="stem-letter">S</div>
+                <div class="stem-info">
+                    <h3>Science (Ciencias)</h3>
+                    <p>Estudio del mundo natural, ecosistemas, tierra y vida.</p>
+                </div>
+            </div>
+
+            <div class="stem-card bg-technology" onclick="window.location.href='lista-carreras.html?area=technology'">
+                <div class="stem-letter">T</div>
+                <div class="stem-info">
+                    <h3>Technology (Tecnología)</h3>
+                    <p>Sistemas informáticos, redes, software e IA.</p>
+                </div>
+            </div>
+
+            <div class="stem-card bg-engineering" onclick="window.location.href='lista-carreras.html?area=engineering'">
+                <div class="stem-letter">E</div>
+                <div class="stem-info">
+                    <h3>Engineering (Ingeniería)</h3>
+                    <p>Diseño, construcción y optimización de procesos y máquinas.</p>
+                </div>
+            </div>
+
+            <div class="stem-card bg-math" onclick="window.location.href='lista-carreras.html?area=math'">
+                <div class="stem-letter">M</div>
+                <div class="stem-info">
+                    <h3>Mathematics (Matemáticas)</h3>
+                    <p>Estudio puro y aplicado de números y modelos.</p>
+                </div>
+            </div>
+            
+        </div>
+
+    </main>
+
+</body>
+</html>
