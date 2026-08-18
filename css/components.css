@@ -78,6 +78,25 @@
     border-radius: 10px;
 }
 
+/* --- LOGO DEL MODAL --- */
+.modal-logo {
+    display: block;
+    margin: 0 0 0 0; /* Centrado horizontalmente y con margen abajo */
+    max-width: 920px; /* Tamaño grandecito pero controlado */
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.modal-computadora {
+    display: block;
+    margin: 50 auto 50 auto; /* Centrado horizontalmente y con margen abajo */
+    max-width: 220px; /* Tamaño grandecito pero controlado */
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
 /* --- SISTEMA DE CUADRÍCULA PARA FORMULARIOS --- */
 .form-grid {
     display: grid;
