@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canjeo de Puntos - BrainBox</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/canjeo.css">
+</head>
+<body>
+
+    <!-- Cabecera con los puntos del usuario -->
+    <header class="top-nav" style="position: sticky; top: 0; z-index: 10; background-color: var(--surface-color); box-shadow: var(--shadow-sm); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+        <a href="javascript:history.back()" class="back-btn" style="color: var(--text-muted); font-weight: 600; text-decoration: none;">← Volver</a>
+        
+        <h2 style="font-size: 1.2rem; margin: 0; color: var(--text-main);">Tienda</h2>
+        
+        <!-- Contador de Puntos -->
+        <div class="points-badge">
+            <span id="user-points-display">--</span> <span style="font-size: 1.2rem;">🪙</span>
+        </div>
+    </header>
+
+    <!-- NUEVO: Partículas flotantes de fondo -->
+    <div class="store-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Main estructurado para usar todo el alto de la pantalla -->
+    <main class="container store-container">
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 30px;">Canjea tus puntos por recompensas increíbles.</p>
+        
+        <!-- Contenedor dinámico -->
+        <div class="rewards-grid" id="rewards-container">
+            <!-- Las tarjetas aparecerán aquí mágicamente -->
+        </div>
+    </main>
+
+    <!-- Navegación Inferior -->
+    <nav class="bottom-nav" style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: var(--surface-color); display: flex; justify-content: space-around; padding: 6px 0; height: 55px; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 100;">
+        <div class="nav-item" onclick="window.location.href='dashboard.html'" style="text-align: center; color: var(--text-muted); font-size: 0.7rem; display: flex; flex-direction: column; justify-content: center; gap: 2px; cursor: pointer;">
+            <span class="nav-icon" style="font-size: 1.2rem;">🏠</span>
+            <span>Principal</span>
+        </div>
+        <div class="nav-item active" style="text-align: center; color: var(--primary-color); font-size: 0.7rem; display: flex; flex-direction: column; justify-content: center; gap: 2px; cursor: pointer;">
+            <span class="nav-icon" style="font-size: 1.2rem;">🎁</span>
+            <span>Canjeo</span>
+        </div>
+        <div class="nav-item" onclick="window.location.href='perfil.html'" style="text-align: center; color: var(--text-muted); font-size: 0.7rem; display: flex; flex-direction: column; justify-content: center; gap: 2px; cursor: pointer;">
+            <span class="nav-icon" style="font-size: 1.2rem;">👤</span>
+            <span>Perfil</span>
+        </div>
+    </nav>
+
+    <script src="../js/canjeo.js"></script>
+</body>
+</html>

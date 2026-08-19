@@ -1,0 +1,250 @@
+/* =========================================
+   ESTILOS EXCLUSIVOS DEL PERFIL
+   ========================================= */
+
+body {
+    background-color: var(--bg-color);
+    padding-bottom: 70px; /* Espacio para que el menú no tape nada */
+}
+
+/* --- FONDO CON DEGRADADO Y PARTÍCULAS --- */
+.profile-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(108, 92, 231, 0.05) 0%, rgba(248, 249, 252, 1) 40%);
+}
+
+.particle {
+    position: absolute;
+    background: var(--primary-color);
+    border-radius: 50%;
+    filter: blur(20px);
+    opacity: 0.15;
+    animation: floatProfile 10s infinite alternate ease-in-out;
+}
+
+.p1 { width: 150px; height: 150px; top: 5%; left: -20px; }
+.p2 { width: 100px; height: 100px; top: 20%; right: -10px; background: var(--accent-color); animation-delay: -2s; }
+.p3 { width: 80px; height: 80px; top: 40%; left: 30%; background: var(--gamification-color); filter: blur(10px); opacity: 0.1; }
+
+@keyframes floatProfile {
+    0% { transform: translateY(0px) scale(1); }
+    100% { transform: translateY(30px) scale(1.1); }
+}
+
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* --- TARJETA DE IDENTIDAD --- */
+.profile-header-card {
+    margin-top: 40px;
+    background-color: var(--surface-color);
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.2);
+    border: 3px solid white;
+}
+
+.avatar-img-large {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #E2DDF8;
+}
+
+.avatar-edit-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.avatar-edit-overlay span {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.avatar-wrapper:hover .avatar-edit-overlay {
+    opacity: 1;
+}
+
+.profile-name {
+    font-size: 1.4rem;
+    color: var(--text-main);
+    margin-bottom: 5px;
+}
+
+.profile-school {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* --- ESTADÍSTICAS (Alineadas como en tu imagen) --- */
+.stats-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Distribuye el espacio entre ellas */
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background-color: var(--surface-color);
+    border-radius: 16px;
+    padding: 10px 20px; 
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: var(--shadow-sm);
+    flex: 1; 
+}
+
+.stat-icon {
+    font-size: 2rem;
+    background-color: #F8F7FF;
+    width: 40px; height: 40px;
+    display: flex; justify-content: center; align-items: center;
+    border-radius: 12px;
+}
+
+.stat-details h4 {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+.stat-details p {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin: 0;
+}
+
+/* --- DIAGRAMAS CIRCULARES --- */
+.section-title {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--text-main);
+}
+
+.progress-grid {
+    display: flex; 
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap; /* Para que no se rompan en pantallas pequeñas */
+}
+
+.progress-card {
+    background-color: var(--surface-color);
+    border-radius: 16px;
+    padding: 25px 30px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast);
+    flex: 1;
+    min-width: 140px;
+    max-width: 200px;
+}
+
+.progress-card:hover {
+    transform: translateY(-5px);
+}
+
+.progress-card h4 {
+    margin-top: 15px;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    font-weight: 800;
+}
+
+.circular-chart {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: conic-gradient(var(--color) calc(var(--p) * 1%), #E6E4F4 0deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inner-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: var(--surface-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-text {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+
+
+/* --- NAVEGACIÓN INFERIOR COMPACTA (La pieza que faltaba) --- */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--surface-color);
+    display: flex;
+    justify-content: space-around;
+    padding: 6px 0; 
+    height: 55px; 
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    z-index: 100;
+}
+
+.nav-item {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.7rem; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    cursor: pointer;
+    transition: color var(--transition-fast);
+}
+
+.nav-item.active, .nav-item:hover { color: var(--primary-color); }
+
+.nav-icon { 
+    font-size: 1.2rem; 
+}

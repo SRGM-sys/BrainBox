@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - BrainBox</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/perfil.css">
+</head>
+<body>
+
+
+    <!-- Fondo con partículas sutiles -->
+    <div class="profile-bg">
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="particle p3"></div>
+    </div>
+
+    <main class="container profile-container">
+        
+        <!-- 1. Tarjeta Principal de Identidad -->
+        <div class="profile-header-card">
+            <!-- Contenedor del Avatar (Clickable) -->
+            <div class="avatar-wrapper" id="btn-change-avatar" title="Cambiar foto de perfil">
+                <div class="avatar-img-large" id="profile-avatar-container">
+                    <!-- JS inyectará la foto aquí -->
+                </div>
+                <!-- Overlay de edición que aparece al pasar el mouse -->
+                <div class="avatar-edit-overlay">
+                    <span>✏️</span>
+                </div>
+            </div>
+            <!-- Input oculto para subir la nueva foto -->
+            <input type="file" id="input-update-pic" accept="image/*" style="display: none;">
+
+            <h2 id="profile-name" class="profile-name">Cargando...</h2>
+            <p id="profile-school" class="profile-school">Unidad Educativa no especificada</p>
+        </div>
+
+        <!-- 2. Fila de Estadísticas -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <span class="stat-icon">🌟</span>
+                <div class="stat-details">
+                    <h4>Nivel</h4>
+                    <p id="profile-level">1</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🪙</span>
+                <div class="stat-details">
+                    <h4>Puntos</h4>
+                    <p id="profile-points">--</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Avance por Materias (Diagramas Circulares) -->
+        <h3 class="section-title">Tu Avance Académico</h3>
+        <div class="progress-grid">
+            
+            <!-- Matemáticas -->
+            <div class="progress-card">
+                <!-- La variable --p define el porcentaje en CSS -->
+                <div class="circular-chart" style="--p: 0; --color: #6C5CE7;">
+                    <div class="inner-circle"><span class="progress-text">0%</span></div>
+                </div>
+                <h4>Matemáticas</h4>
+            </div>
+
+            <!-- Física -->
+            <div class="progress-card">
+                <div class="circular-chart" style="--p: 0; --color: #00CEC9;">
+                    <div class="inner-circle"><span class="progress-text">0%</span></div>
+                </div>
+                <h4>Física</h4>
+            </div>
+
+            <!-- Química -->
+            <div class="progress-card">
+                <div class="circular-chart" style="--p: 0; --color: #44BD6E;">
+                    <div class="inner-circle"><span class="progress-text">0%</span></div>
+                </div>
+                <h4>Química</h4>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Navegación Inferior -->
+    <nav class="bottom-nav">
+        <div class="nav-item" onclick="window.location.href='dashboard.html'">
+            <span class="nav-icon">🏠</span>
+            <span>Principal</span>
+        </div>
+        <div class="nav-item" onclick="window.location.href='canjeo.html'">
+            <span class="nav-icon">🎁</span>
+            <span>Canjeo</span>
+        </div>
+        <div class="nav-item active" onclick="window.location.href='perfil.html'">
+            <span class="nav-icon">👤</span>
+            <span>Perfil</span>
+        </div>
+    </nav>
+
+    <script src="../js/perfil.js"></script>
+</body>
+</html>
