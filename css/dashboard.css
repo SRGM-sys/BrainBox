@@ -2,10 +2,9 @@
    ESTILOS EXCLUSIVOS DEL DASHBOARD
    ========================================= */
 
-/* --- CONFIGURACIÓN BASE DEL DASHBOARD --- */
 body {
     background-color: var(--bg-color);
-    padding-bottom: 70px; /* Deja espacio para que el menú inferior no tape el contenido */
+    padding-bottom: 55px; /* Reducido para el nuevo menú compacto */
 }
 
 .container {
@@ -15,27 +14,28 @@ body {
 }
 
 .section-title {
-    margin: 20px 0 15px;
-    font-size: 1.2rem;
-    color: var(--text-muted);
+    margin: 10px 0 20px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-main);
+    text-align: center; 
 }
 
-/* --- HEADER GAMIFICADO (Racha, Nivel y Saludo) --- */
+/* --- HEADER GAMIFICADO --- */
 .dashboard-header {
     background-color: #FFFFFF;
-    padding: 20px 20px 30px;
+    padding: 15px 20px 20px;
     border-bottom-left-radius: 24px;
     border-bottom-right-radius: 24px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
-/* Fila del saludo y botones de acción */
 .greeting-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .greeting-row h2 {
@@ -44,87 +44,79 @@ body {
     margin: 0;
 }
 
-.header-actions {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-}
-
-.icon-btn, .exit-btn {
-    background: none;
+/* Botón de Cerrar Sesión Rojito */
+.btn-logout {
+    background-color: #ff7675;
+    color: white;
     border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 5px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 8px 14px;
     border-radius: 8px;
-    transition: transform var(--transition-fast), background-color var(--transition-fast);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
 }
 
-.icon-btn:hover, .exit-btn:hover { 
-    transform: scale(1.1); 
-    background-color: rgba(0, 0, 0, 0.05);
+.btn-logout:hover {
+    background-color: #d63031;
+    transform: scale(1.05);
 }
 
-/* Tarjeta de Nivel y Experiencia */
-.level-card {
+/* Fila dividida a la mitad para Nivel y Racha */
+.stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    align-items: stretch;
+}
+
+/* Tarjeta de Nivel */
+.level-card, .streak-section {
     background-color: #F8F7FF; 
     border-radius: 16px;
-    padding: 18px;
-    margin-bottom: 25px;
+    padding: 12px 15px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .level-info {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
-    position: relative;
+    margin-bottom: 8px;
 }
 
 .avatar-img {
-    width: 50px;
-    height: 50px;
+    width: 35px; /* Más pequeño para ahorrar espacio */
+    height: 35px;
     background-color: #E2DDF8;
     border-radius: 50%;
-    margin-right: 15px;
+    margin-right: 10px;
 }
 
-.level-text {
-    flex-grow: 1;
-}
+.level-text { flex-grow: 1; }
 
 .level-title {
     font-weight: 800;
     color: #2D3436;
-    font-size: 1.05rem;
+    font-size: 0.95rem;
 }
 
 .level-subtitle {
     color: #636E72;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 600;
 }
 
-.level-badge {
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 1.2rem;
-}
-
-/* Barra de Progreso (Verde) */
 .progress-section {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .progress-bar-bg {
     flex-grow: 1;
-    height: 12px;
+    height: 8px; /* Barra más delgada */
     background-color: #E6E4F4;
     border-radius: 10px;
     overflow: hidden;
@@ -138,29 +130,23 @@ body {
 }
 
 .xp-text {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 800;
     color: #636E72;
     white-space: nowrap;
 }
 
-/* Sección de Racha Diaria (Días de la semana) */
-.streak-section {
-    padding: 0 5px;
-}
-
+/* Sección de Racha Diaria */
 .streak-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 18px;
+    margin-bottom: 8px;
     font-weight: 800;
     color: #2D3436;
-    font-size: 1.05rem;
+    font-size: 0.9rem;
 }
 
-.streak-days {
-    color: #2D3436;
-}
+.streak-days { color: #2D3436; }
 
 .days-row {
     display: flex;
@@ -171,12 +157,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
 }
 
 .circle {
-    width: 38px;
-    height: 38px;
+    width: 22px; /* Círculos reducidos */
+    height: 22px;
     border-radius: 50%;
     border: 2px solid #DFE6E9;
     display: flex;
@@ -184,7 +170,7 @@ body {
     align-items: center;
     font-weight: bold;
     color: white;
-    font-size: 1rem;
+    font-size: 0.7rem;
     background-color: transparent;
 }
 
@@ -194,7 +180,7 @@ body {
 }
 
 .day-label {
-    font-size: 0.85rem;
+    font-size: 0.7rem;
     font-weight: 800;
     color: #636E72;
 }
@@ -202,33 +188,53 @@ body {
 /* --- TARJETAS DE SELECCIÓN DE MATERIAS --- */
 .subject-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
 }
 
 .subject-card {
     background-color: var(--surface-color);
-    padding: 20px;
-    border-radius: 16px;
+    padding: 30px 20px; /* Reducido un poquito para encajar todo */
+    border-radius: 20px;
     text-align: center;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.06);
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: all var(--transition-smooth);
     border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px; 
 }
 
 .subject-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px) scale(1.03);
     border-color: var(--primary-color);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 15px 30px rgba(108, 92, 231, 0.15);
 }
 
 .subject-icon {
-    font-size: 2.5rem;
+    font-size: 4rem; 
     margin-bottom: 10px;
+    animation: floatIcon 3s ease-in-out infinite;
 }
 
-/* Tarjeta del Reto Combinado */
+.subject-card:nth-child(2) .subject-icon { animation-delay: -1s; }
+.subject-card:nth-child(3) .subject-icon { animation-delay: -2s; }
+
+@keyframes floatIcon {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); } 
+    100% { transform: translateY(0px); }
+}
+
+.subject-card h3 {
+    color: var(--text-main);
+    font-size: 1.3rem; 
+    font-weight: 800;
+}
+
 .challenge-card {
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
     color: white;
@@ -242,16 +248,10 @@ body {
     transition: transform var(--transition-fast);
 }
 
-.challenge-card:hover {
-    transform: scale(1.02);
-}
+.challenge-card:hover { transform: scale(1.02); }
+.challenge-card h3 { color: white; margin-bottom: 5px; }
 
-.challenge-card h3 { 
-    color: white; 
-    margin-bottom: 5px; 
-}
-
-/* --- NAVEGACIÓN INFERIOR (Bottom Nav) --- */
+/* --- NAVEGACIÓN INFERIOR COMPACTA --- */
 .bottom-nav {
     position: fixed;
     bottom: 0;
@@ -260,7 +260,8 @@ body {
     background-color: var(--surface-color);
     display: flex;
     justify-content: space-around;
-    padding: 10px 0;
+    padding: 6px 0; /* Padding drásticamente reducido */
+    height: 55px; /* Altura forzada en pequeño */
     box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
     z-index: 100;
 }
@@ -268,18 +269,17 @@ body {
 .nav-item {
     text-align: center;
     color: var(--text-muted);
-    font-size: 0.8rem;
+    font-size: 0.7rem; /* Letra más pequeña */
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    justify-content: center;
+    gap: 2px;
     cursor: pointer;
     transition: color var(--transition-fast);
 }
 
-.nav-item.active, .nav-item:hover {
-    color: var(--primary-color);
-}
+.nav-item.active, .nav-item:hover { color: var(--primary-color); }
 
 .nav-icon { 
-    font-size: 1.5rem; 
+    font-size: 1.2rem; /* Icono más pequeño */
 }

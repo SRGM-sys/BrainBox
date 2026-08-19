@@ -90,7 +90,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 users.push(newUser);
                 localStorage.setItem('brainbox_users', JSON.stringify(users));
                 localStorage.setItem('brainbox_current_user', JSON.stringify(newUser));
-                window.location.href = 'pages/dashboard.html';
+                
+                // MAGIA AQUÍ: En vez de redirigir, mostramos la pantalla de éxito
+                showView('view-success');
             };
 
             // Verificar si el usuario subió una imagen
@@ -122,6 +124,15 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 alert('Correo o contraseña incorrectos. ¡Inténtalo de nuevo!');
             }
+        });
+    }
+
+    // --- 3. LÓGICA DEL BOTÓN DE ÉXITO ---
+    const btnEnterDashboard = document.getElementById('btn-enter-dashboard');
+    if (btnEnterDashboard) {
+        btnEnterDashboard.addEventListener('click', () => {
+            // Cuando le den clic al botón verde de éxito, redirigimos al Dashboard
+            window.location.href = 'pages/dashboard.html';
         });
     }
 });
