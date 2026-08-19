@@ -11,18 +11,13 @@
     <!-- Hojas de estilo unificadas -->
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/base.css">
-    
-    <!-- NUEVO: Archivo exclusivo para el Dashboard -->
     <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 <body>
 
     <!-- Barra Superior (Estilo Gamificado) -->
     <header class="dashboard-header">
-        
-        <!-- Busca esta parte en tu header y reemplázala: -->
         <div class="greeting-row">
-            <!-- Le agregamos el id="user-greeting" -->
             <h2 id="user-greeting">¡Hola, Cargando...! 👋</h2>
             <div class="header-actions">
                 <button class="icon-btn" title="Ajustes">⚙️</button>
@@ -30,13 +25,10 @@
             </div>
         </div>
 
-        <script src="../js/dashboard.js"></script>
-
         <!-- Tarjeta de Nivel y Experiencia -->
         <div class="level-card">
             <div class="level-info">
-                <div class="avatar-img" id="user-avatar-container">
-                </div>
+                <div class="avatar-img" id="user-avatar-container"></div>
                 <div class="level-text">
                     <div class="level-title">Nivel 1</div>
                     <div class="level-subtitle">Explorador</div>
@@ -95,7 +87,6 @@
                 </div>
             </div>
         </div>
-        
     </header>
 
     <!-- Contenido Principal -->
@@ -144,5 +135,7 @@
         </div>
     </nav>
 
+    <!-- Script de lógica Dashboard (Asegurar que carga al final) -->
+    <script src="../js/dashboard.js"></script>
 </body>
 </html>

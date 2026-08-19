@@ -14,120 +14,7 @@
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components.css">
-
-    <style>
-        /* --- ESTILOS DEL HERO (PÁGINA PRINCIPAL) --- */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            /* Fondo sutilmente gris/azulado para destacar el blanco */
-            background-color: #F8F9FC; 
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        /* 1. Animación de entrada de todo el bloque */
-        .hero-content {
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            animation: slideUpFade 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-        }
-
-        @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 2. Logo */
-        .hero-logo {
-            max-width: 650px; /* Un poco más ancho para que se lea el eslogan */
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        /* 3. Ilustración levitando */
-        .illustration-container {
-            margin: 10px 0 40px 0;
-        }
-
-        .hero-illustration {
-            max-width: 300px; /* Tamaño perfecto para el centro */
-            width: 100%;
-            /* Le damos un sombreado bonito a la imagen (solo a la forma, no al cuadro) */
-            filter: drop-shadow(0 20px 25px rgba(0,0,0,0.1));
-            /* La animación infinita de flotar */
-            animation: levitate 4s ease-in-out infinite;
-        }
-
-        @keyframes levitate {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); } /* Sube 15 píxeles */
-            100% { transform: translateY(0px); }
-        }
-
-        /* 4. Botones y pulso */
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .pulse-effect {
-            box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.6);
-            animation: pulseBtn 2s infinite;
-        }
-
-        @keyframes pulseBtn {
-            0% { box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.6); }
-            70% { box-shadow: 0 0 0 15px rgba(108, 92, 231, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(108, 92, 231, 0); }
-        }
-
-        /* 5. Luces dinámicas en el fondo (El toque premium) */
-        .bg-shape {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            z-index: -1;
-            opacity: 0.4;
-            animation: floatBg 12s infinite alternate ease-in-out;
-        }
-
-        .shape-1 {
-            width: 400px; height: 400px;
-            background: var(--primary-color);
-            top: -100px; left: -100px;
-        }
-
-        .shape-2 {
-            width: 350px; height: 350px;
-            background: var(--accent-color);
-            bottom: -50px; right: -50px;
-            animation-delay: -5s; /* Se mueve a destiempo de la otra */
-        }
-
-        @keyframes floatBg {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, 80px) scale(1.2); }
-        }
-
-        /* Ajuste para las opciones del modal (mantener lo que tenías) */
-        .auth-options {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/index.css"> <!-- NUEVO CSS -->
 </head>
 <body>
 
@@ -141,14 +28,13 @@
             <!-- Logo y Eslogan -->
             <img src="assets/img/logo.svg" alt="BrainBox Logo" class="hero-logo">
             
-            <!-- Ilustración central -->
+            <!-- Ilustración central levitando -->
             <div class="illustration-container">
                 <img src="assets/img/computadora.png" alt="Aprende STEM" class="hero-illustration">
             </div>
             
             <!-- Botones -->
             <div class="hero-buttons">
-                <!-- Nota la clase 'pulse-effect' nueva -->
                 <button id="btn-comenzar" class="btn btn-primary pulse-effect">Comenzar</button>
                 <a href="pages/carreras-stem.html" class="btn btn-outline">Explorar el mundo STEM</a>
             </div>

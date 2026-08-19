@@ -60,41 +60,22 @@
     padding: 2rem;
     border-radius: 16px;
     width: 90%;
-    max-width: 650px; /* Aumentamos de 400px a 650px para dar espacio horizontal */
-    max-height: 90vh; /* Evita que el modal sea más alto que la pantalla */
-    overflow-y: auto; /* Activa el scroll interno si falta espacio vertical */
+    max-width: 650px; 
+    max-height: 90vh; 
+    overflow-y: auto; 
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     transform: translateY(20px);
     transition: transform var(--transition-smooth);
     position: relative;
 }
 
-/* Ocultar barra de scroll para un diseño más limpio (opcional pero recomendado) */
+/* Ocultar barra de scroll para un diseño más limpio */
 .modal-content::-webkit-scrollbar {
     width: 6px;
 }
 .modal-content::-webkit-scrollbar-thumb {
     background-color: var(--border-color);
     border-radius: 10px;
-}
-
-/* --- LOGO DEL MODAL --- */
-.modal-logo {
-    display: block;
-    margin: 0 0 0 0; /* Centrado horizontalmente y con margen abajo */
-    max-width: 920px; /* Tamaño grandecito pero controlado */
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-
-.modal-computadora {
-    display: block;
-    margin: 50 auto 50 auto; /* Centrado horizontalmente y con margen abajo */
-    max-width: 220px; /* Tamaño grandecito pero controlado */
-    width: 100%;
-    height: auto;
-    object-fit: contain;
 }
 
 /* --- SISTEMA DE CUADRÍCULA PARA FORMULARIOS --- */
@@ -105,7 +86,7 @@
 }
 
 .full-width {
-    grid-column: 1 / -1; /* Obliga al elemento a ocupar todo el ancho disponible */
+    grid-column: 1 / -1; 
 }
 
 /* Cuando la pantalla sea mayor a 600px, pasamos a 2 columnas */
