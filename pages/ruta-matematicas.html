@@ -19,14 +19,25 @@
         <div style="width: 60px;"></div> <!-- Espaciador -->
     </header>
 
+    <div class="path-bg">
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="particle p3"></div>
+        <div class="particle p4"></div>
+        <div class="particle p5"></div>
+    </div>
+
     <main class="container path-container">
         <!-- Línea central que conecta todo -->
         <div class="path-line"></div>
 
-        <!-- Módulo 1 -->
         <div class="node-wrapper pos-1">
-            <div class="module-node active">
-                <span class="node-icon">➕</span>
+            <div class="module-node active" onclick="unlockModule(this)">
+                <div class="icon-container">
+                    <span class="lock-icon">🔒</span>
+                    <!-- Aquí va tu imagen: -->
+                    <img src="../assets/icons/math-1.png" alt="img" class="module-img">
+                </div>
             </div>
             <span class="module-title">Proposiciones</span>
         </div>
@@ -34,7 +45,10 @@
         <!-- Módulo 2 -->
         <div class="node-wrapper pos-2">
             <div class="module-node locked">
-                <span class="node-icon">🔒</span>
+                <div class="icon-container">
+                    <span class="lock-icon">🔒</span>
+                    <img src="../assets/icons/math-2.png" alt="img" class="module-img">
+                </div>  
             </div>
             <span class="module-title">Conjuntos</span>
         </div>
@@ -42,7 +56,10 @@
         <!-- Módulo 3 -->
         <div class="node-wrapper pos-3">
             <div class="module-node locked">
-                <span class="node-icon">🔒</span>
+                <div class="icon-container">
+                    <span class="lock-icon">🔒</span>
+                    <img src="../assets/icons/math-3.png" alt="img" class="module-img">
+                </div>
             </div>
             <span class="module-title">Números Reales</span>
         </div>
@@ -50,7 +67,10 @@
         <!-- Módulo 4 (ACTIVO) -->
         <div class="node-wrapper pos-4">
             <div class="module-node locked">
-                <span class="node-icon">🔒</span>
+                <div class="icon-container">
+                    <span class="lock-icon">🔒</span>
+                    <img src="../assets/icons/math-4.png" alt="img" class="module-img">
+                </div>
             </div>
             <span class="module-title">Funciones</span>
         </div>
@@ -58,7 +78,10 @@
         <!-- Módulo 5 (BLOQUEADO) -->
         <div class="node-wrapper pos-5">
             <div class="module-node locked">
-                <span class="node-icon">🔒</span>
+                <div class="icon-container">
+                    <span class="lock-icon">🔒</span>
+                    <img src="../assets/icons/math-5.png" alt="img" class="module-img">
+                </div>
             </div>
             <span class="module-title">Trigonometria</span>
         </div>
@@ -66,7 +89,10 @@
         <!-- Módulo 6 -->
         <div class="node-wrapper pos-6">
             <div class="module-node locked">
-                <span class="node-icon">🔒</span>
+                <div class="icon-container">
+                    <span class="lock-icon">🔒</span>
+                    <img src="../assets/icons/math-6.png" alt="img" class="module-img">
+                </div>
             </div>
             <span class="module-title">Números Complejos</span>
         </div>
@@ -74,7 +100,10 @@
         <!-- Módulo 7 -->
         <div class="node-wrapper pos-7">
             <div class="module-node locked">
-                <span class="node-icon">🔒</span>
+                <div class="icon-container">
+                    <span class="lock-icon">🔒</span>
+                    <img src="../assets/icons/math-7.png" alt="img" class="module-img">
+                </div>
             </div>
             <span class="module-title">Matrices</span>
         </div>
@@ -82,7 +111,10 @@
         <!-- Módulo 8 -->
         <div class="node-wrapper pos-8">
             <div class="module-node locked">
-                <span class="node-icon">🔒</span>
+                <div class="icon-container">
+                    <span class="lock-icon">🔒</span>
+                    <img src="../assets/icons/math-8.png" alt="img" class="module-img">
+                </div>
             </div>
             <span class="module-title">Geometria Plana</span>
         </div>
@@ -90,7 +122,10 @@
         <!-- Módulo 9 -->
         <div class="node-wrapper pos-9">
             <div class="module-node locked">
-                <span class="node-icon">🔒</span>
+                <div class="icon-container">
+                    <span class="lock-icon">🔒</span>
+                    <img src="../assets/icons/math-9.png" alt="img" class="module-img">
+                </div>
             </div>
             <span class="module-title">Geometria en el Espacio</span>
         </div>
@@ -98,7 +133,10 @@
         <!-- Módulo 10 (JEFE FINAL) -->
         <div class="node-wrapper pos-10">
             <div class="module-node locked boss-node">
-                <span class="node-icon">🔒</span>
+                <div class="icon-container">
+                    <span class="lock-icon">🔒</span>
+                    <img src="../assets/icons/math-10.png" alt="img" class="module-img">
+                </div>
             </div>
             <span class="module-title">Geometría Analítica</span>
         </div>
