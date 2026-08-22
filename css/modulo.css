@@ -1,0 +1,235 @@
+/* =========================================
+   ESTILOS DE LOS MÓDULOS Y TEMAS
+   ========================================= */
+
+/* Fondo oscuro que simula que la página es un cuadro emergente */
+body.module-page {
+    background-color: rgba(15, 15, 20, 0.85); /* Fondo oscuro con desenfoque */
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* El cuadro principal (90% alto, 50% ancho en PC) */
+.module-box {
+    background-color: var(--surface-color);
+    width: 50%;
+    height: 90vh;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* En celulares, que abarque casi toda la pantalla */
+@media (max-width: 800px) {
+    .module-box { width: 95%; height: 95vh; }
+}
+
+.module-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- CORRECCIÓN DE LA CABECERA --- */
+.module-header h2 {
+    color: #FFFFFF !important; /* Forzamos a que el texto sea blanco */
+    text-shadow: 0 2px 5px rgba(0,0,0,0.15); /* Pequeña sombra para dar profundidad */
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.close-module-btn {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    width: 35px; height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.close-module-btn:hover { background: rgba(255,255,255,0.4); }
+
+/* Área de contenido (Scrollable) */
+.module-content {
+    padding: 30px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+/* Separador Lectura / Quiz */
+.section-divider {
+    height: 2px;
+    background-color: var(--border-color);
+    margin: 40px 0;
+}
+
+/* =========================================
+   VISTA DE TARJETAS DE TEMAS MEJORADA
+   ========================================= */
+.topic-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 10px; /* Un poco de respiro lateral */
+}
+
+.topic-card {
+    background-color: #FFFFFF;
+    border: 2px solid var(--border-color); /* Borde gris definido */
+    border-radius: 16px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Más espacio entre el ícono y el texto */
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animación elástica */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+}
+
+.topic-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 12px 25px rgba(108, 92, 231, 0.15);
+    transform: translateY(-5px); /* Ahora la tarjeta se "levanta" hacia arriba */
+}
+
+/* Contenedor del ícono/imagen */
+.topic-icon-bg {
+    width: 60px;
+    height: 60px;
+    /* Un fondo sutil mezclando nuestros colores STEM */
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(0, 206, 201, 0.1));
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    border: 1px solid rgba(108, 92, 231, 0.15);
+}
+
+/* Asegura que la imagen encaje perfecto en el recuadro */
+.topic-icon-bg img {
+    width: 65%;
+    height: 65%;
+    object-fit: contain;
+}
+
+.topic-info h4 {
+    margin: 0 0 6px 0;
+    color: var(--text-main);
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.topic-info p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Botón interno para volver atrás en la lectura */
+.btn-back-topic {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 0;
+    transition: color var(--transition-fast);
+}
+
+.btn-back-topic:hover {
+    color: var(--primary-color);
+}
+
+/* --- ESTILOS DEL QUIZ Y PREGUNTAS --- */
+.question-block {
+    background: #F8F9FC;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.question-block h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--text-main);
+    font-size: 1.05rem;
+    line-height: 1.4;
+}
+
+.option-label {
+    display: block;
+    padding: 12px 15px;
+    background: #FFFFFF;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.option-label:hover {
+    border-color: var(--primary-hover);
+    background-color: #F0EEFC;
+}
+
+/* Cuando el radio button está seleccionado, cambia el estilo de la caja */
+.option-label input[type="radio"]:checked + span {
+    font-weight: 800;
+    color: var(--primary-color);
+}
+.option-label:has(input[type="radio"]:checked) {
+    border-color: var(--primary-color);
+    background-color: #F0EEFC;
+}
+
+.option-label input[type="radio"] {
+    display: none; /* Ocultamos el circulito feo del navegador */
+}
+
+/* --- BOTÓN DE VERIFICAR (ESTILO GAMIFICADO 3D) --- */
+.btn-verify {
+    background: linear-gradient(135deg, var(--primary-color), #a29bfe);
+    color: #FFFFFF;
+    border: none;
+    padding: 16px 24px;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    /* Efecto de botón físico en 3D */
+    box-shadow: 0 6px 0 var(--primary-hover), 0 15px 20px rgba(108, 92, 231, 0.4);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn-verify:hover {
+    filter: brightness(1.1);
+}
+
+/* Efecto al aplastar el botón (se hunde) */
+.btn-verify:active {
+    transform: translateY(6px);
+    box-shadow: 0 0px 0 var(--primary-hover), 0 5px 10px rgba(108, 92, 231, 0.4);
+}

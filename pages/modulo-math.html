@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Matemáticas - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <div class="module-header">
+            <h2 id="module-main-title">Módulo: Proposiciones</h2>
+            <button class="close-module-btn" onclick="javascript:history.back()">X</button>
+        </div>
+
+        <div class="module-content">
+            
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                <div class="topic-grid">
+                    <div class="topic-card" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg"><span style="font-size: 1.5rem;">📖</span></div>
+                        <div class="topic-info">
+                            <h4>Proposiciones</h4>
+                            <p>Diferencia entre una expresión y una proposición lógica.</p>
+                        </div>
+                    </div>
+                    <div class="topic-card" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg"><span style="font-size: 1.5rem;">⚡</span></div>
+                        <div class="topic-info">
+                            <h4>Operadores Lógicos</h4>
+                            <p>Negación, conjunción, disyunción y más.</p>
+                        </div>
+                    </div>
+                    <div class="topic-card" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg"><span style="font-size: 1.5rem;">⚖️</span></div>
+                        <div class="topic-info">
+                            <h4>Condición Necesaria y Suficiente</h4>
+                            <p>Aprende la estructura de la condicional p → q.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
+
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <!-- Botón de Verificación Mejorado -->
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    Completar Lectura
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleData = {
+            "tema1": {
+                title: "Proposiciones vs Expresiones",
+                reading: `
+                    <br>
+                    <h4>¿Qué es una proposición?</h4>
+                    <p>Una <b>proposición lógica</b> es un enunciado o afirmación que puede ser calificado como <b>Verdadero (V)</b> o <b>Falso (F)</b>, pero no ambos a la vez.</p>
+                    <p>Por otro lado, las <b>expresiones</b> como preguntas (<i>¿Qué hora es?</i>), órdenes (<i>¡Siéntate!</i>), exclamaciones (<i>¡Qué frío!</i>) o enunciados abiertos (<i>x + 2 = 5</i>, sin saber quién es x), <b>no son proposiciones</b> porque no se les puede asignar un valor de verdad definitivo.</p>
+                    <p><b>Ejemplo resuelto:</b><br>"Quito es la capital de Ecuador" -> Es una proposición (Verdadera).<br>"¡Feliz cumpleaños!" -> No es una proposición (es una exclamación).</p>
+                `,
+                questions: [
+                    { id: "math_m1_t1_q1", text: "Elige la oración que NO es una proposición:", options: ["París está en Europa.", "2 + 2 = 4.", "¡Lávate las manos!", "El agua hierve a 100 grados."], correctIndex: 2 },
+                    { id: "math_m1_t1_q2", text: "Elige la oración que NO es una proposición:", options: ["¿Cómo te llamas?", "El sol es una estrella.", "10 es un número par.", "Ecuador está en Sudamérica."], correctIndex: 0 },
+                    { id: "math_m1_t1_q3", text: "¿Cuál de los siguientes es un enunciado abierto (y por ende NO es proposición)?", options: ["5 > 3", "x + 5 = 10", "El cielo es azul", "La semana tiene 7 días"], correctIndex: 1 }
+                ]
+            },
+            "tema2": {
+                title: "Operadores Lógicos",
+                reading: `
+                    <h4>Conectores principales</h4>
+                    <p>Los operadores cambian o unen proposiciones dándoles un nuevo valor de verdad:</p>
+                    <ul>
+                        <li><b>Negación (~p):</b> Cambia el valor. Si p es V, ~p es F.</li>
+                        <li><b>Conjunción (p ∧ q):</b> "Y". Solo es Verdadera si <b>ambas</b> son Verdaderas.</li>
+                        <li><b>Disyunción (p ∨ q):</b> "O". Es Falsa solo si <b>ambas</b> son Falsas.</li>
+                        <li><b>Condicional (p → q):</b> "Si p, entonces q". Es Falsa <b>solo</b> cuando p es Verdadera y q es Falsa.</li>
+                    </ul>
+                    <p><b>Ejemplo resuelto:</b> Si p=Verdadero y q=Falso. ¿Valor de (p ∧ q)? Falso, porque en la "Y" ambas deben ser V.</p>
+                `,
+                questions: [
+                    { id: "math_m1_t2_q1", text: "Si p = Verdadero y q = Falso, ¿cuál es el valor de verdad de (p ∧ q)?", options: ["Verdadero", "Falso"], correctIndex: 1 },
+                    { id: "math_m1_t2_q2", text: "Si p = Verdadero y q = Falso, ¿cuál es el valor de verdad de (p ∨ q)?", options: ["Verdadero", "Falso"], correctIndex: 0 },
+                    { id: "math_m1_t2_q3", text: "Si p = Verdadero y q = Falso, ¿cuál es el valor de verdad de (p → q)?", options: ["Verdadero", "Falso"], correctIndex: 1 }
+                ]
+            },
+            "tema3": {
+                title: "Condición Necesaria y Suficiente",
+                reading: `
+                    <h4>Entendiendo el (p → q)</h4>
+                    <p>En una proposición condicional "Si p, entonces q" (p → q):</p>
+                    <p><b>p</b> es la <b>condición suficiente</b> (Basta con que ocurra p para que se cumpla q).</p>
+                    <p><b>q</b> es la <b>condición necesaria</b> (Para que haya ocurrido p, forzosamente debió cumplirse q).</p>
+                    <p><b>Ejemplo:</b> "Si llueve (p), entonces la calle se moja (q)". <br>Llover es <i>suficiente</i> para que se moje la calle. Que la calle esté mojada es <i>necesario</i> si es que llovió.</p>
+                `,
+                questions: [
+                    { id: "math_m1_t3_q1", text: "En 'Si estudio, aprobaré el examen', ¿qué tipo de condición es 'estudiar'?", options: ["Necesaria", "Suficiente", "Ambas", "Ninguna"], correctIndex: 1 },
+                    { id: "math_m1_t3_q2", text: "En 'Si soy ecuatoriano, entonces soy sudamericano', ¿qué tipo de condición es 'ser sudamericano'?", options: ["Suficiente", "Necesaria", "Bicondicional", "Negativa"], correctIndex: 1 },
+                    { id: "math_m1_t3_q3", text: "Tener 18 años es condición _____ para sacar la licencia de conducir.", options: ["Suficiente", "Necesaria", "Falsa", "Contradictoria"], correctIndex: 1 }
+                ]
+            }
+        };
+    </script>
+    <script src="../js/modulo.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Química - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <!-- Cabecera del Módulo -->
+        <div class="module-header">
+            <h2 id="module-title" style="margin: 0; font-size: 1.3rem;">Química: [Tema]</h2>
+            <button class="close-module-btn" onclick="javascript:history.back()">X</button>
+        </div>
+
+        <!-- Contenido Central Scrollable -->
+        <div class="module-content">
+            
+            <!-- SECCIÓN 1: LECTURA Y EJEMPLOS -->
+            <div id="reading-section">
+                <!-- AQUÍ INYECTAREMOS LA LECTURA QUE ME PASES -->
+                <p style="color: var(--text-muted); text-align: center; margin-top: 50px;">
+                    Espacio preparado para la lectura y los ejercicios resueltos...
+                </p>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <!-- SECCIÓN 2: PREGUNTAS (QUIZ) -->
+            <div id="quiz-section">
+                <h3 style="color: var(--primary-color);">Preguntas del Módulo</h3>
+                <!-- AQUÍ INYECTAREMOS LAS 3 PREGUNTAS -->
+                <p style="color: var(--text-muted); text-align: center;">
+                    Espacio preparado para el test...
+                </p>
+            </div>
+
+            <!-- Botón para completar (Alineado al final) -->
+            <button id="btn-complete-module" class="btn btn-primary" style="width: 100%; margin-top: 30px; display: none;">
+                Completar Módulo y Reclamar Recompensa
+            </button>
+
+        </div>
+    </div>
+
+    <script src="../js/modulo.js"></script>
+</body>
+</html>

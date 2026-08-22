@@ -27,3 +27,12 @@ a {
 a:hover {
     color: var(--primary-hover);
 }
+
+/* --- SISTEMA DE LIGAS (MARCOS DE AVATAR GLOBALES) --- */
+.avatar-wrapper, .avatar-img { transition: border 0.3s ease, box-shadow 0.3s ease; }
+
+.rank-bronce { border: 3px solid #cd7f32 !important; box-shadow: 0 0 10px rgba(205, 127, 50, 0.4) !important; }
+.rank-plata  { border: 3px solid #bdc3c7 !important; box-shadow: 0 0 10px rgba(189, 195, 199, 0.5) !important; }
+.rank-oro    { border: 3px solid #f1c40f !important; box-shadow: 0 0 15px rgba(241, 196, 15, 0.6) !important; }
+.rank-esmeralda { border: 3px solid #2ecc71 !important; box-shadow: 0 0 15px rgba(46, 204, 113, 0.7) !important; }
+.rank-diamante  { border: 3px solid #3498db !important; box-shadow: 0 0 20px rgba(52, 152, 219, 0.8) !important; }
