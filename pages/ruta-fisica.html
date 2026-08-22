@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruta Física - BrainBox</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/ruta.css">
+</head>
+<body>
+
+    <!-- Cabecera -->
+    <header class="top-nav" style="position: sticky; top: 0; z-index: 20; background-color: var(--surface-color); box-shadow: var(--shadow-sm); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+        <a href="javascript:history.back()" class="back-btn" style="color: var(--text-muted); font-weight: 600; text-decoration: none;">← Volver</a>
+        <h2 style="font-size: 1.2rem; margin: 0; color: var(--primary-color);">Ruta: Física</h2>
+        <div style="width: 60px;"></div> <!-- Espaciador -->
+    </header>
+
+    <main class="container path-container">
+        <!-- Línea central que conecta todo -->
+        <div class="path-line"></div>
+
+        <!-- Módulo 1 -->
+        <div class="node-wrapper pos-1">
+            <div class="module-node active">
+                <span class="node-icon">➕</span>
+            </div>
+            <span class="module-title">Mediciones</span>
+        </div>
+
+        <!-- Módulo 2 -->
+        <div class="node-wrapper pos-2">
+            <div class="module-node locked">
+                <span class="node-icon">🔒</span>
+            </div>
+            <span class="module-title">Vectores</span>
+        </div>
+
+        <!-- Módulo 3 -->
+        <div class="node-wrapper pos-3">
+            <div class="module-node locked">
+                <span class="node-icon">🔒</span>
+            </div>
+            <span class="module-title">Cinemática 1D</span>
+        </div>
+
+        <!-- Módulo 4 (ACTIVO) -->
+        <div class="node-wrapper pos-4">
+            <div class="module-node locked">
+                <span class="node-icon">🔒</span>
+            </div>
+            <span class="module-title">Cinemática 2D</span>
+        </div>
+
+        <!-- Módulo 5 (BLOQUEADO) -->
+        <div class="node-wrapper pos-5">
+            <div class="module-node locked">
+                <span class="node-icon">🔒</span>
+            </div>
+            <span class="module-title">Leyes de Newton</span>
+        </div>
+        
+        <!-- Espacio extra al final para que el último nodo no quede pegado al menú -->
+        <div style="height: 40px;"></div>
+    </main>
+
+</body>
+</html>

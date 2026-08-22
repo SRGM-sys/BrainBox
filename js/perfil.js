@@ -11,8 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. CARGAR DATOS EN EL DOM
     const nameEl = document.getElementById('profile-name');
+    const schoolEl = document.getElementById('profile-school'); // Elemento de la escuela
     const pointsEl = document.getElementById('profile-points');
     const levelEl = document.getElementById('profile-level');
+    
+    // Nombres y Escuela
+    if (nameEl) nameEl.textContent = currentUser.fullName;
+    if (schoolEl) schoolEl.textContent = currentUser.school || "Unidad Educativa no especificada";
+    
+    // Cargar puntos y nivel dinámicamente
+    if (pointsEl) pointsEl.textContent = currentUser.points !== undefined ? currentUser.points : 0;
+    if (levelEl) levelEl.textContent = currentUser.level !== undefined ? currentUser.level : 1;
     
     // Capitalizar nombres
     if (nameEl) nameEl.textContent = currentUser.fullName;
@@ -46,8 +55,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     renderAvatar();
 
+    // 3. ACTUALIZAR ESTADÍSTICAS DEL DASHBOARD
+    const elLevel = document.getElementById('dash-level');
+    const elXp = document.getElementById('dash-xp');
+    const elStreak = document.getElementById('dash-streak');
+    const elProgressFill = document.getElementById('dash-progress-fill');
 
-    // 3. CAMBIAR FOTO DE PERFIL
+    if (elLevel) elLevel.textContent = `Nivel ${currentUser.level || 1}`;
+    if (elXp) elXp.textContent = `${currentUser.xp || 0} / 500`;
+    if (elStreak) elStreak.textContent = `${currentUser.streak || 0} días`;
+    
+    if (elProgressFill) {
+        let xpPercentage = ((currentUser.xp || 0) / 500) * 100;
+        elProgressFill.style.width = `${xpPercentage}%`;
+    }
+
+
+    // 4. CAMBIAR FOTO DE PERFIL
     const btnChangeAvatar = document.getElementById('btn-change-avatar');
     const inputFile = document.getElementById('input-update-pic');
 
@@ -89,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 4. ANIMACIÓN INICIAL DE LOS GRÁFICOS CIRCULARES (Opcional, pero se ve genial)
+    // 5. ANIMACIÓN INICIAL DE LOS GRÁFICOS CIRCULARES (Opcional, pero se ve genial)
     // Actualmente están en 0%, pero si luego suben, esta lógica los animará.
     const progressCards = document.querySelectorAll('.circular-chart');
     progressCards.forEach(card => {

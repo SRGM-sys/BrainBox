@@ -63,6 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = formRegister.querySelector('input[type="email"]').value;
             const passwords = formRegister.querySelectorAll('input[type="password"]');
             
+            // NUEVO: Capturamos el colegio (es el segundo input de texto en tu HTML)
+            const textInputs = formRegister.querySelectorAll('input[type="text"]');
+            const schoolName = textInputs.length > 1 ? textInputs[1].value : "Unidad Educativa no especificada";
+            
             const pass1 = passwords[0].value;
             const pass2 = passwords[1].value;
 
@@ -84,7 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     fullName: fullName,
                     email: email,
                     password: pass1,
-                    profilePic: profilePicBase64 // Guardamos la foto aquí
+                    school: schoolName, // Guardamos la escuela real
+                    level: 1,           // Empieza en Nivel 1
+                    points: 0,          // Puntos en 0
+                    xp: 0,              // Experiencia en 0
+                    streak: 0,          // Racha en 0 días
+                    profilePic: profilePicBase64
                 };
 
                 users.push(newUser);
