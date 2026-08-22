@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 4 Física - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <div class="module-header">
+            <h2 id="module-main-title">Física: Cinemática 2D</h2>
+            <button class="close-module-btn" onclick="javascript:history.back()">X</button>
+        </div>
+
+        <div class="module-content">
+            
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                
+                <div class="topic-grid">
+                    <!-- Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=↗️'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Tiro Parabólico</h4>
+                            <p>Proyectiles y la combinación del MRU con Caída Libre.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=⟳'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>MCU</h4>
+                            <p>El Movimiento Circular Uniforme y sus características.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=α'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>MCUA</h4>
+                            <p>Movimiento Circular Uniformemente Acelerado.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
+
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    ✨ Verificar Respuestas
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleId = "phys_m4"; // Identificador único del Módulo 4 de Física
+
+        window.moduleData = {
+            "tema1": {
+                title: "Tiro Parabólico",
+                reading: `
+                    <br>
+                    <h4>Dos Movimientos en Uno</h4>
+                    <p>El <b>Tiro Parabólico</b> (como patear un balón de fútbol) es un movimiento en 2D. Galileo Galilei demostró que este movimiento es la combinación de dos movimientos independientes que ocurren al mismo tiempo:</p>
+                    <ul>
+                        <li><b>En el eje X (Horizontal):</b> El objeto no sufre aceleración, por lo que experimenta un <b>MRU</b> (Velocidad Constante).</li>
+                        <li><b>En el eje Y (Vertical):</b> El objeto está afectado por la gravedad, subiendo y luego bajando, experimentando un <b>MRUA (Caída Libre)</b>.</li>
+                    </ul>
+                    <p><b>Dato Clave:</b> Cuando el proyectil alcanza su altura máxima, su velocidad vertical es exactamente <b>Cero</b> (se detiene un instante antes de caer), pero sigue moviéndose horizontalmente.</p>
+                `,
+                questions: [
+                    { id: "phys_m4_t1_q1", text: "¿Qué tipo de movimiento ocurre en el eje horizontal (eje X) durante un tiro parabólico ideal sin resistencia del aire?", options: ["Caída Libre", "MCU", "MRUA", "MRU (Velocidad Constante)"], correctIndex: 3 },
+                    { id: "phys_m4_t1_q2", text: "¿Qué tipo de movimiento rige al objeto en el eje vertical (eje Y)?", options: ["MRU", "MRUA (Caída Libre)", "Movimiento Circular", "Aceleración Cero"], correctIndex: 1 },
+                    { id: "phys_m4_t1_q3", text: "En el punto más alto de la trayectoria de un proyectil, ¿cuánto vale su velocidad vertical (Vy)?", options: ["Cero", "Es máxima", "Es igual a la gravedad", "Es igual a la velocidad inicial"], correctIndex: 0 }
+                ]
+            },
+            "tema2": {
+                title: "Movimiento Circular Uniforme (MCU)",
+                reading: `
+                    <br>
+                    <h4>Dando Vueltas Constantes</h4>
+                    <p>En el <b>MCU</b>, un objeto se mueve en una trayectoria circular manteniendo una "rapidez" constante. Sin embargo, su <b>dirección cambia en cada instante</b> para poder dar la curva.</p>
+                    <p>Como la dirección de la velocidad está cambiando, <b>SÍ existe aceleración</b>. Esta se llama <b>Aceleración Centrípeta</b>, y siempre apunta hacia el centro del círculo, jalando al objeto para que no salga volando en línea recta.</p>
+                    <p>Conceptos importantes:</p>
+                    <ul>
+                        <li><b>Período (T):</b> El tiempo (en segundos) que tarda en dar UNA vuelta completa.</li>
+                        <li><b>Frecuencia (f):</b> Cuántas vueltas da en un solo segundo (se mide en Hertz o Hz).</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "phys_m4_t2_q1", text: "En un MCU, el objeto viaja con rapidez constante, pero ¿existe algún tipo de aceleración?", options: ["No, la aceleración es absolutamente cero.", "Sí, existe la Aceleración Centrípeta.", "Sí, la aceleración de la gravedad.", "Sí, la aceleración tangencial."], correctIndex: 1 },
+                    { id: "phys_m4_t2_q2", text: "¿Hacia dónde apunta siempre el vector de la aceleración centrípeta?", options: ["En la misma dirección del movimiento.", "Hacia afuera de la trayectoria.", "Hacia el centro de la trayectoria circular.", "Tangente al círculo."], correctIndex: 2 },
+                    { id: "phys_m4_t2_q3", text: "¿Cómo se llama al tiempo que tarda un objeto en completar exactamente UNA vuelta?", options: ["Período (T)", "Frecuencia (f)", "Velocidad Angular", "Amplitud"], correctIndex: 0 }
+                ]
+            },
+            "tema3": {
+                title: "Movimiento Circular Uniformemente Acelerado (MCUA)",
+                reading: `
+                    <br>
+                    <h4>Cuando el Círculo se Acelera</h4>
+                    <p>A diferencia del MCU, en el <b>MCUA</b> el objeto gira cada vez más rápido o cada vez más lento (como una lavadora arrancando o deteniéndose).</p>
+                    <p>Aquí aparecen dos nuevos actores principales:</p>
+                    <ul>
+                        <li><b>Aceleración Angular (α):</b> Es la responsable de que la velocidad de giro aumente o disminuya.</li>
+                        <li><b>Aceleración Tangencial:</b> A diferencia de la centrípeta (que solo cambia la dirección), la tangencial se encuentra en el borde del círculo y cambia la <b>magnitud</b> de la velocidad (la hace ir más rápido o más lento).</li>
+                    </ul>
+                    <p><b>Nota:</b> Las ecuaciones del MCUA son exactamente iguales a las del MRUA (v<sub>f</sub> = v<sub>0</sub> + a·t), pero reemplazando las letras lineales por letras griegas angulares.</p>
+                `,
+                questions: [
+                    { id: "phys_m4_t3_q1", text: "En el MCUA, el objeto gira cada vez más rápido. ¿Qué magnitud se encarga de este cambio en la velocidad de giro?", options: ["La Aceleración Centrípeta", "La Frecuencia constante", "La Aceleración Angular", "El Período"], correctIndex: 2 },
+                    { id: "phys_m4_t3_q2", text: "En el borde del círculo, ¿qué aceleración se encarga de aumentar o disminuir la magnitud de la velocidad del objeto?", options: ["Aceleración Normal", "Aceleración Tangencial", "Gravedad", "Fricción"], correctIndex: 1 },
+                    { id: "phys_m4_t3_q3", text: "Las fórmulas del MCUA son matemáticamente idénticas a las de otro movimiento que ya conoces. ¿A cuál se parecen?", options: ["MRU", "Caída Libre", "Tiro Parabólico", "MRUA"], correctIndex: 3 }
+                ]
+            }
+        };
+    </script>
+    <script src="../js/modulo.js"></script>
+</body>
+</html>

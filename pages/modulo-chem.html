@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo Química - BrainBox</title>
+    <title>Módulo 1 Química - BrainBox</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/base.css">
@@ -12,42 +12,139 @@
 <body class="module-page">
 
     <div class="module-box">
-        <!-- Cabecera del Módulo -->
         <div class="module-header">
-            <h2 id="module-title" style="margin: 0; font-size: 1.3rem;">Química: [Tema]</h2>
+            <h2 id="module-main-title">Química: Teoría Atómica</h2>
             <button class="close-module-btn" onclick="javascript:history.back()">X</button>
         </div>
 
-        <!-- Contenido Central Scrollable -->
         <div class="module-content">
             
-            <!-- SECCIÓN 1: LECTURA Y EJEMPLOS -->
-            <div id="reading-section">
-                <!-- AQUÍ INYECTAREMOS LA LECTURA QUE ME PASES -->
-                <p style="color: var(--text-muted); text-align: center; margin-top: 50px;">
-                    Espacio preparado para la lectura y los ejercicios resueltos...
-                </p>
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                
+                <div class="topic-grid">
+                    <!-- Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/chem-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/44BD6E?text=⚛️'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>El Átomo</h4>
+                            <p>Protones, neutrones y electrones: las piezas de Lego del universo.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/chem-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/44BD6E?text=Z'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Identidad Atómica</h4>
+                            <p>Aprende qué es el Número Atómico (Z) y el Número Másico (A).</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/chem-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/44BD6E?text=±'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Iones e Isótopos</h4>
+                            <p>¿Qué ocurre si un átomo pierde electrones o gana neutrones?</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+                </div>
             </div>
 
-            <div class="section-divider"></div>
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
 
-            <!-- SECCIÓN 2: PREGUNTAS (QUIZ) -->
-            <div id="quiz-section">
-                <h3 style="color: var(--primary-color);">Preguntas del Módulo</h3>
-                <!-- AQUÍ INYECTAREMOS LAS 3 PREGUNTAS -->
-                <p style="color: var(--text-muted); text-align: center;">
-                    Espacio preparado para el test...
-                </p>
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    ✨ Verificar Respuestas
+                </button>
             </div>
-
-            <!-- Botón para completar (Alineado al final) -->
-            <button id="btn-complete-module" class="btn btn-primary" style="width: 100%; margin-top: 30px; display: none;">
-                Completar Módulo y Reclamar Recompensa
-            </button>
 
         </div>
     </div>
 
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleId = "chem_m1"; // Identificador único del Módulo 1 de Química
+
+        window.moduleData = {
+            "tema1": {
+                title: "Estructura del Átomo",
+                reading: `
+                    <br>
+                    <h4>El bloque de construcción de la materia</h4>
+                    <p>Todo lo que puedes tocar y ver está hecho de átomos. El átomo tiene dos partes principales:</p>
+                    <ul>
+                        <li><b>El Núcleo:</b> Está en el centro. Es súper pequeño, pero concentra casi toda la masa del átomo. Aquí viven los <b>Protones</b> (tienen carga eléctrica positiva) y los <b>Neutrones</b> (no tienen carga, son neutros).</li>
+                        <li><b>La Nube Electrónica:</b> Es el espacio vacío alrededor del núcleo. Por ahí giran a toda velocidad los <b>Electrones</b>, que son partículas pequeñitas con carga eléctrica <b>negativa</b>.</li>
+                    </ul>
+                    <p>En un átomo neutral (normal), la cantidad de protones positivos es exactamente igual a la de electrones negativos, por lo que se anulan entre sí.</p>
+                `,
+                questions: [
+                    { id: "chem_m1_t1_q1", text: "¿Qué partículas subatómicas se encuentran en el núcleo del átomo?", options: ["Solo electrones.", "Protones y neutrones.", "Electrones y protones.", "Solo neutrones."], correctIndex: 1 },
+                    { id: "chem_m1_t1_q2", text: "¿Cuál es la carga eléctrica de los electrones?", options: ["Positiva (+)", "Neutra (0)", "No tienen carga", "Negativa (-)"], correctIndex: 3 },
+                    { id: "chem_m1_t1_q3", text: "En un átomo neutro, ¿qué cantidades deben ser iguales?", options: ["Los protones y los neutrones.", "Los neutrones y los electrones.", "Los protones y los electrones.", "El núcleo y la nube."], correctIndex: 2 }
+                ]
+            },
+            "tema2": {
+                title: "Número Atómico y Másico",
+                reading: `
+                    <br>
+                    <h4>El "Carnet de Identidad" de los elementos</h4>
+                    <p>Para diferenciar un átomo de otro, usamos dos números clave que puedes encontrar en cualquier Tabla Periódica:</p>
+                    <ul>
+                        <li><b>Número Atómico (Z):</b> Indica la cantidad de <b>Protones</b>. Es el número más importante porque define qué elemento es. Si cambias el número de protones, cambias el elemento por completo. (Ej: El Carbono siempre tiene Z=6).</li>
+                        <li><b>Número Másico (A):</b> Es la suma de todo lo que pesa en el núcleo, es decir, <b>Protones + Neutrones</b>.</li>
+                    </ul>
+                    <p><i>Truco:</i> Si quieres saber cuántos neutrones tiene un átomo, solo resta el Número Másico menos el Número Atómico (Neutrones = A - Z).</p>
+                `,
+                questions: [
+                    { id: "chem_m1_t2_q1", text: "¿Qué determina la identidad de un elemento químico (si es Carbono u Oxígeno, por ejemplo)?", options: ["El Número Másico (A)", "El Número Atómico (Z), es decir, sus protones", "Su cantidad de electrones", "Su cantidad de neutrones"], correctIndex: 1 },
+                    { id: "chem_m1_t2_q2", text: "¿Qué se suma para obtener el Número Másico (A)?", options: ["Protones + Neutrones", "Protones + Electrones", "Electrones + Neutrones", "Solo los Protones"], correctIndex: 0 },
+                    { id: "chem_m1_t2_q3", text: "Si un átomo tiene un Número Másico (A) de 14 y un Número Atómico (Z) de 6, ¿cuántos neutrones tiene en su núcleo?", options: ["20", "6", "8", "14"], correctIndex: 2 }
+                ]
+            },
+            "tema3": {
+                title: "Iones e Isótopos",
+                reading: `
+                    <br>
+                    <h4>Modificando el Átomo</h4>
+                    <p>Ya sabemos que los protones no se pueden tocar sin cambiar el elemento. Pero, ¿qué pasa si cambiamos las otras partículas?</p>
+                    <ul>
+                        <li><b>Isótopo:</b> Es cuando cambiamos los <i>Neutrones</i>. El elemento sigue siendo el mismo, pero pesa distinto. (Ej: El Carbono-12 y el Carbono-14 son isótopos, ambos son carbono, pero el 14 es más pesado).</li>
+                        <li><b>Ion:</b> Es cuando el átomo gana o pierde <i>Electrones</i>, alterando su carga eléctrica.
+                            <ul>
+                                <li><b>Catión:</b> Si pierde un electrón (negativo), el átomo se vuelve más <b>Positivo</b>.</li>
+                                <li><b>Anión:</b> Si gana un electrón (negativo), el átomo se vuelve más <b>Negativo</b>.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "chem_m1_t3_q1", text: "¿Qué son los isótopos?", options: ["Átomos del mismo elemento pero con diferente número de neutrones.", "Átomos que han perdido todos sus electrones.", "Átomos de diferentes elementos mezclados.", "Átomos que tienen diferente número atómico (Z)."], correctIndex: 0 },
+                    { id: "chem_m1_t3_q2", text: "Si un átomo neutro pierde un electrón (carga negativa), se transforma en un:", options: ["Isótopo", "Anión (carga negativa)", "Catión (carga positiva)", "Nuevo elemento"], correctIndex: 2 },
+                    { id: "chem_m1_t3_q3", text: "Para formar un Anión, el átomo debe:", options: ["Perder un protón.", "Ganar un neutrón.", "Perder un electrón.", "Ganar un electrón."], correctIndex: 3 }
+                ]
+            }
+        };
+    </script>
     <script src="../js/modulo.js"></script>
 </body>
 </html>

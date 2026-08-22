@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2 Matemáticas - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <div class="module-header">
+            <h2 id="module-main-title">Módulo 2: Conjuntos y Relaciones</h2>
+            <button class="close-module-btn" onclick="javascript:history.back()">X</button>
+        </div>
+
+        <div class="module-content">
+            
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                
+                <div class="topic-grid">
+                    <!-- Tarjeta Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=A'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Predicados</h4>
+                            <p>Conoce el Referencial, p(x) y el conjunto de verdad Ap(x).</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tarjeta Tema 4 (NUEVO: OPERACIONES CON CONJUNTOS) -->
+                    <div class="topic-card" data-topic="tema4" onclick="openTopic('tema4')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=∪'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Operaciones con Conjuntos</h4>
+                            <p>Unión, Intersección, Diferencia y Complemento.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tarjeta Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=∀'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Cuantificadores</h4>
+                            <p>Proposiciones usando "Para todo" y "Existe al menos uno".</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tarjeta Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=ƒ'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Función vs Relación</h4>
+                            <p>Diferencias clave entre una relación y una función.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
+
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    Verificar Respuestas
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleId = "math_m2"; // Identificador único del Módulo 2
+
+        window.moduleData = {
+            "tema1": {
+                title: "Predicados: Re, p(x) y Ap(x)",
+                reading: `
+                    <br>
+                    <h4>Elementos de un Predicado</h4>
+                    <p>A diferencia de una proposición que ya es Verdadera o Falsa, un <b>predicado p(x)</b> es una expresión abierta que depende de una variable "x". Para saber si es verdad, necesitamos dos cosas:</p>
+                    <ul>
+                        <li><b>Referencial (Re):</b> Es el conjunto universo o "bolsa de opciones" de donde podemos sacar los valores para la letra "x".</li>
+                        <li><b>Conjunto de Verdad Ap(x):</b> Son únicamente los elementos del Referencial (Re) que, al reemplazarlos en p(x), hacen que la expresión sea <b>Verdadera</b>.</li>
+                    </ul>
+                    <p><b>Ejemplo resuelto:</b><br>
+                    Si Re = {1, 2, 3, 4} y el predicado es p(x): "x es un número par".<br>
+                    Reemplazamos: el 2 y el 4 cumplen la condición. Entonces, <b>Ap(x) = {2, 4}</b>.</p>
+                `,
+                questions: [
+                    { id: "math_m2_t1_q1", text: "¿Qué representa el conjunto Referencial (Re)?", options: ["El conjunto universo o de referencia de donde tomamos valores.", "Una ecuación matemática sin resolver.", "El conjunto de respuestas incorrectas.", "Un predicado falso."], correctIndex: 0 },
+                    { id: "math_m2_t1_q2", text: "Si tenemos p(x): 'x > 5', ¿qué representa p(x)?", options: ["Un conjunto de verdad.", "Un predicado o expresión abierta.", "Una proposición falsa.", "Un referencial."], correctIndex: 1 },
+                    { id: "math_m2_t1_q3", text: "¿Qué es el conjunto de verdad Ap(x)?", options: ["Todos los valores que hacen falso el predicado.", "Una proposición simple.", "El conjunto universo (Re).", "Los valores del Referencial que hacen que p(x) sea Verdadero."], correctIndex: 3 }
+                ]
+            },
+            "tema4": {
+                title: "Operaciones con Conjuntos",
+                reading: `
+                    <br>
+                    <h4>Operaciones Básicas</h4>
+                    <p>Al igual que sumamos o restamos números, podemos operar con los conjuntos:</p>
+                    <ul>
+                        <li><b>Unión (A ∪ B):</b> Juntar todos los elementos de A con todos los de B (sin repetir los que tienen en común).</li>
+                        <li><b>Intersección (A ∩ B):</b> Tomar <b>únicamente</b> los elementos que se repiten (que están en A y también en B).</li>
+                        <li><b>Diferencia (A - B):</b> Son los elementos que están en A, pero le "quitamos" todo lo que pertenezca a B.</li>
+                        <li><b>Complemento (A<sup>c</sup> o A'):</b> Es todo lo que le falta al conjunto A para ser exactamente igual al Referencial (Universo).</li>
+                    </ul>
+                    <p><b>Ejemplo:</b> Si Re = {1,2,3,4,5} y A = {1,2}, su complemento A<sup>c</sup> es {3,4,5}.</p>
+                `,
+                questions: [
+                    { id: "math_m2_t4_q1", text: "Si A = {1, 2, 3} y B = {3, 4, 5}, ¿cuál es la Intersección (A ∩ B)?", options: ["{1, 2, 3, 4, 5}", "{3}", "{1, 2}", "{4, 5}"], correctIndex: 1 },
+                    { id: "math_m2_t4_q2", text: "El conjunto formado por todos los elementos que pertenecen a A, a B, o a ambos, se llama:", options: ["Intersección", "Diferencia", "Unión", "Complemento"], correctIndex: 2 },
+                    { id: "math_m2_t4_q3", text: "¿Qué es el complemento de un conjunto A?", options: ["Los elementos comunes con B.", "Los elementos de A restando los de B.", "Un conjunto vacío.", "Todo lo que le falta a A para ser igual al conjunto referencial."], correctIndex: 3 }
+                ]
+            },
+            "tema2": {
+                title: "Proposiciones con Cuantificadores",
+                reading: `
+                    <br>
+                    <h4>Transformando predicados en proposiciones</h4>
+                    <p>Podemos convertir un predicado p(x) en una proposición (Verdadera o Falsa) usando <b>Cuantificadores</b>:</p>
+                    <ul>
+                        <li><b>Cuantificador Universal (∀):</b> Significa "Para todo". La proposición ∀x, p(x) es Verdadera <b>solo si TODOS</b> los elementos del Referencial cumplen p(x).</li>
+                        <li><b>Cuantificador Existencial (∃):</b> Significa "Existe al menos un". La proposición ∃x, p(x) es Verdadera si <b>con al menos UN elemento</b> del Referencial se cumple p(x).</li>
+                    </ul>
+                    <p><b>Ejemplo resuelto:</b> Si Re = {1, 2, 3} y p(x): "x > 0".<br>
+                    ¿∀x, p(x)? Verdadero, porque TODOS (1, 2 y 3) son mayores a 0.<br>
+                    ¿∃x, p(x)? Verdadero, porque al menos uno cumple la condición.</p>
+                `,
+                questions: [
+                    { id: "math_m2_t2_q1", text: "¿Cuál es el símbolo del cuantificador universal ('Para todo')?", options: ["∃", "∀", "∈", "⊂"], correctIndex: 1 },
+                    { id: "math_m2_t2_q2", text: "¿Cuál es el símbolo del cuantificador existencial ('Existe al menos un')?", options: ["∃", "∀", "∪", "∩"], correctIndex: 0 },
+                    { id: "math_m2_t2_q3", text: "Si Re = {2, 4, 6} y p(x): 'x es impar', ¿cuál es el valor de verdad de ∃x, p(x)?", options: ["Verdadero", "Falso", "No se puede saber", "Es un predicado"], correctIndex: 1 }
+                ]
+            },
+            "tema3": {
+                title: "Diferenciar una Función y una Relación",
+                reading: `
+                    <br>
+                    <h4>¿Toda relación es una función?</h4>
+                    <p>Una <b>Relación</b> es cualquier correspondencia o subconjunto que une elementos de un conjunto de partida (A) con un conjunto de llegada (B).</p>
+                    <p>Una <b>Función</b> es un tipo <i>muy especial y estricto</i> de relación. Para que una relación sea función, debe cumplir una regla de oro: <b>Cada elemento del conjunto de partida debe tener UNA Y SÓLO UNA flecha de salida</b> (imagen) hacia el conjunto de llegada.</p>
+                    <p><b>Conclusión:</b> Toda función es una relación, pero <b>no toda relación es función</b>. Si de un elemento de partida salen dos flechas o ninguna, ¡ya no es función!</p>
+                `,
+                questions: [
+                    { id: "math_m2_t3_q1", text: "¿Cuál es la diferencia principal entre una relación y una función?", options: ["Toda relación es función, pero no al revés.", "En una función cada elemento del dominio tiene una única imagen de salida.", "Las funciones no usan conjuntos.", "No hay diferencia."], correctIndex: 1 },
+                    { id: "math_m2_t3_q2", text: "¿Toda función es una relación?", options: ["Sí, siempre.", "No, nunca.", "Solo en álgebra.", "A veces."], correctIndex: 0 },
+                    { id: "math_m2_t3_q3", text: "Si un elemento del conjunto de partida tiene DOS flechas (imágenes) hacia el conjunto de llegada, ¿es una función?", options: ["Sí.", "No.", "Solo si es una relación matemática.", "Depende del referencial."], correctIndex: 1 }
+                ]
+            }
+        };
+    </script>
+    <script src="../js/modulo.js"></script>
+</body>
+</html>

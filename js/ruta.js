@@ -1,22 +1,60 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Función global para desbloquear un módulo al darle clic
-    window.unlockModule = function(nodeElement) {
+    let currentUser = JSON.parse(localStorage.getItem('brainbox_current_user') || "{}");
+    let completed = currentUser.completedModules || [];
+    let animated = currentUser.animatedNodes || [];
+    let needsSave = false;
+
+    const nodes = document.querySelectorAll('.module-node');
+    
+    nodes.forEach(node => {
+        const moduleId = node.getAttribute('id') ? node.getAttribute('id').replace('node-', '') : null;
+        const req = node.getAttribute('data-requires'); // ¿Qué módulo necesita estar completado?
         
-        // Solo hacemos la animación si el nodo está bloqueado
-        if (nodeElement.classList.contains('locked')) {
-            
-            // 1. Quitamos la clase bloqueada y ponemos la de animación
-            nodeElement.classList.remove('locked');
-            nodeElement.classList.add('unlocking');
-            
-            // 2. Esperamos a que termine la animación (800ms) para dejarlo activo
-            setTimeout(() => {
-                nodeElement.classList.remove('unlocking');
-                nodeElement.classList.add('active');
-                
-                // Opcional: Pequeña celebración
-                // alert("¡Nuevo módulo desbloqueado!");
-            }, 800); 
+        if (!moduleId) return;
+
+        // 1. Si ESTE módulo ya está completado
+        if (completed.includes(moduleId)) {
+            node.className = 'module-node completed';
+        } 
+        // 2. Si no tiene requisitos (Ej: Módulo 1) y no está completado
+        else if (!req) {
+            node.className = 'module-node active';
+        }
+        // 3. Si TIENE un requisito y el requisito ESTÁ completado (¡Hora de desbloquear!)
+        else if (req && completed.includes(req)) {
+            // Verificamos si ya le mostramos la animación de explosión
+            if (!animated.includes(moduleId)) {
+                node.className = 'module-node unlocking';
+                setTimeout(() => {
+                    node.className = 'module-node active';
+                }, 800);
+                animated.push(moduleId);
+                needsSave = true;
+            } else {
+                // Si ya la vio, solo lo dejamos activo
+                node.className = 'module-node active';
+            }
+        } 
+        // 4. Si tiene un requisito y NO está completado
+        else {
+            node.className = 'module-node locked';
+        }
+    });
+
+    // Guardar si hubo nuevas animaciones
+    if (needsSave) {
+        currentUser.animatedNodes = animated;
+        localStorage.setItem('brainbox_current_user', JSON.stringify(currentUser));
+    }
+
+    // --- MANEJADOR DE CLICS EN LOS NODOS ---
+    window.handleNodeClick = function(element, url) {
+        if (element.classList.contains('locked')) {
+            alert("🔒 Debes completar el módulo anterior para desbloquear este.");
+        } else if (element.classList.contains('unlocking')) {
+            // Prevenir clic mientras explota el candado
+        } else {
+            window.location.href = url;
         }
     };
 });

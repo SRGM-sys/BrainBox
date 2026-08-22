@@ -233,3 +233,31 @@ body.module-page {
     transform: translateY(6px);
     box-shadow: 0 0px 0 var(--primary-hover), 0 5px 10px rgba(108, 92, 231, 0.4);
 }
+
+/* --- ESTADO DE LAS TARJETAS (VISTO BUENO) --- */
+.topic-status {
+    margin-left: auto; /* Esto empuja el circulito a la derecha de la tarjeta */
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #DFE6E9; /* Gris por defecto (pendiente) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+/* Estilo cuando el JS le añade la clase 'completed-topic' */
+.topic-card.completed-topic .topic-status {
+    background-color: var(--accent-color); /* Turquesa de completado */
+    box-shadow: 0 0 10px rgba(0, 206, 201, 0.4);
+}
+
+/* Inyectamos el ícono del visto solo cuando está completado */
+.topic-card.completed-topic .topic-status::after {
+    content: '✓';
+}

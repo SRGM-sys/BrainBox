@@ -14,7 +14,7 @@
 
     <!-- Cabecera -->
     <header class="top-nav" style="position: sticky; top: 0; z-index: 20; background-color: var(--surface-color); box-shadow: var(--shadow-sm); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
-        <a href="javascript:history.back()" class="back-btn" style="color: var(--text-muted); font-weight: 600; text-decoration: none;">← Volver</a>
+        <a href="dashboard.html" class="back-btn" style="color: var(--text-muted); font-weight: 600; text-decoration: none;">← Volver</a>
         <h2 style="font-size: 1.2rem; margin: 0; color: var(--primary-color);">Ruta: Física</h2>
         <div style="width: 60px;"></div> <!-- Espaciador -->
     </header>
@@ -31,12 +31,12 @@
         <!-- Línea central que conecta todo -->
         <div class="path-line"></div>
 
-        <!-- Módulo 1 -->
+        <!-- Módulo 1 (Corregido a pos-1 y Mediciones) -->
         <div class="node-wrapper pos-1">
-            <div class="module-node active">
+            <div id="node-phys_m1" class="module-node" onclick="handleNodeClick(this, 'modulo-phys.html')">
                 <div class="icon-container">
                     <span class="lock-icon">🔒</span>
-                    <img src="../assets/icons/phys-1.png" alt="img" class="module-img">
+                    <img src="../assets/icons/phys-1.png" alt="Mediciones" class="module-img" onerror="this.src='https://placehold.co/100x100/transparent/FFFFFF?text=1'">
                 </div>
             </div>
             <span class="module-title">Mediciones</span>
@@ -44,10 +44,10 @@
 
         <!-- Módulo 2 -->
         <div class="node-wrapper pos-2">
-            <div class="module-node locked">
+            <div id="node-phys_m2" class="module-node" data-requires="phys_m1" onclick="handleNodeClick(this, 'modulo-phys-2.html')">
                 <div class="icon-container">
                     <span class="lock-icon">🔒</span>
-                    <img src="../assets/icons/phys-2.png" alt="img" class="module-img">
+                    <img src="../assets/icons/phys-2.png" alt="Vectores" class="module-img" onerror="this.src='https://placehold.co/100x100/transparent/FFFFFF?text=2'">
                 </div>
             </div>
             <span class="module-title">Vectores</span>
@@ -55,40 +55,45 @@
 
         <!-- Módulo 3 -->
         <div class="node-wrapper pos-3">
-            <div class="module-node locked">
+            <div id="node-phys_m3" class="module-node locked" data-requires="phys_m2" onclick="handleNodeClick(this, 'modulo-phys-3.html')">
                 <div class="icon-container">
                     <span class="lock-icon">🔒</span>
-                    <img src="../assets/icons/phys-3.png" alt="img" class="module-img">
+                    <img src="../assets/icons/phys-3.png" alt="Cinemática 1D" class="module-img" onerror="this.src='https://placehold.co/100x100/transparent/FFFFFF?text=3'">
                 </div>
             </div>
             <span class="module-title">Cinemática 1D</span>
         </div>
 
-        <!-- Módulo 4 (ACTIVO) -->
+        <!-- Módulo 4 -->¿
         <div class="node-wrapper pos-4">
-            <div class="module-node locked">
+            <!-- Añadimos el ID, el REQUISITO de la medalla phys_m3 y la ruta de destino -->
+            <div id="node-phys_m4" class="module-node" data-requires="phys_m3" onclick="handleNodeClick(this, 'modulo-phys-4.html')">
                 <div class="icon-container">
                     <span class="lock-icon">🔒</span>
-                    <img src="../assets/icons/phys-4.png" alt="img" class="module-img">
+                    <img src="../assets/icons/phys-4.png" alt="Cinemática 2D" class="module-img" onerror="this.src='https://placehold.co/100x100/transparent/FFFFFF?text=4'">
                 </div>
             </div>
             <span class="module-title">Cinemática 2D</span>
         </div>
 
-        <!-- Módulo 5 (BLOQUEADO) -->
+        <!-- Módulo 5 -->
         <div class="node-wrapper pos-5">
-            <div class="module-node locked">
+            <!-- AQUÍ EL ENLACE MÁGICO AL MÓDULO 5 -->
+            <div id="node-phys_m5" class="module-node" data-requires="phys_m4" onclick="handleNodeClick(this, 'modulo-phys-5.html')">
                 <div class="icon-container">
                     <span class="lock-icon">🔒</span>
-                    <img src="../assets/icons/phys-5.png" alt="img" class="module-img">
+                    <img src="../assets/icons/phys-5.png" alt="Leyes de Newton" class="module-img" onerror="this.src='https://placehold.co/100x100/transparent/FFFFFF?text=5'">
                 </div>
             </div>
             <span class="module-title">Leyes de Newton</span>
         </div>
         
-        <!-- Espacio extra al final para que el último nodo no quede pegado al menú -->
         <div style="height: 40px;"></div>
     </main>
+
+
+    <!-- SCRIPT DE RUTA VITAL PARA LOS CANDADOS -->
+    <script src="../js/ruta.js"></script>
 
 </body>
 </html>

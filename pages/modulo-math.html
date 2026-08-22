@@ -20,32 +20,47 @@
         <div class="module-content">
             
             <!-- VISTA 1: SELECCIÓN DE TEMAS -->
-            <div id="view-topics">
-                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+            <!-- AQUÍ ESTÁ EL ID QUE FALTABA -->
+            <div id="view-topics"> 
                 <div class="topic-grid">
-                    <div class="topic-card" onclick="openTopic('tema1')">
-                        <div class="topic-icon-bg"><span style="font-size: 1.5rem;">📖</span></div>
+                    <!-- Tarjeta Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=📚'">
+                        </div>
                         <div class="topic-info">
                             <h4>Proposiciones</h4>
                             <p>Diferencia entre una expresión y una proposición lógica.</p>
                         </div>
+                        <!-- Indicador de estado -->
+                        <div class="topic-status"></div>
                     </div>
-                    <div class="topic-card" onclick="openTopic('tema2')">
-                        <div class="topic-icon-bg"><span style="font-size: 1.5rem;">⚡</span></div>
+
+                    <!-- Tarjeta Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=⚡'">
+                        </div>
                         <div class="topic-info">
                             <h4>Operadores Lógicos</h4>
                             <p>Negación, conjunción, disyunción y más.</p>
                         </div>
+                        <div class="topic-status"></div>
                     </div>
-                    <div class="topic-card" onclick="openTopic('tema3')">
-                        <div class="topic-icon-bg"><span style="font-size: 1.5rem;">⚖️</span></div>
+
+                    <!-- Tarjeta Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=⚖️'">
+                        </div>
                         <div class="topic-info">
                             <h4>Condición Necesaria y Suficiente</h4>
                             <p>Aprende la estructura de la condicional p → q.</p>
                         </div>
+                        <div class="topic-status"></div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- CIERRE DE view-topics -->
 
             <!-- VISTA 2: CONTENIDO Y QUIZ -->
             <div id="view-content" style="display: none;">
@@ -68,6 +83,7 @@
 
     <!-- DATOS DEL MÓDULO -->
     <script>
+        window.moduleId = "math_m1";
         window.moduleData = {
             "tema1": {
                 title: "Proposiciones vs Expresiones",
@@ -113,9 +129,9 @@
                     <p><b>Ejemplo:</b> "Si llueve (p), entonces la calle se moja (q)". <br>Llover es <i>suficiente</i> para que se moje la calle. Que la calle esté mojada es <i>necesario</i> si es que llovió.</p>
                 `,
                 questions: [
-                    { id: "math_m1_t3_q1", text: "En 'Si estudio, aprobaré el examen', ¿qué tipo de condición es 'estudiar'?", options: ["Necesaria", "Suficiente", "Ambas", "Ninguna"], correctIndex: 1 },
-                    { id: "math_m1_t3_q2", text: "En 'Si soy ecuatoriano, entonces soy sudamericano', ¿qué tipo de condición es 'ser sudamericano'?", options: ["Suficiente", "Necesaria", "Bicondicional", "Negativa"], correctIndex: 1 },
-                    { id: "math_m1_t3_q3", text: "Tener 18 años es condición _____ para sacar la licencia de conducir.", options: ["Suficiente", "Necesaria", "Falsa", "Contradictoria"], correctIndex: 1 }
+                    { id: "math_m1_t3_q1", text: "En 'Si estudio, aprobaré el examen', ¿qué tipo de condición es 'estudiar'?", options: ["Necesaria", "Suficiente"], correctIndex: 1 },
+                    { id: "math_m1_t3_q2", text: "En 'Si soy ecuatoriano, entonces soy sudamericano', ¿qué tipo de condición es 'ser sudamericano'?", options: ["Suficiente", "Necesaria"], correctIndex: 1 },
+                    { id: "math_m1_t3_q3", text: "Tener 18 años es condición _____ para sacar la licencia de conducir.", options: ["Suficiente", "Necesaria"], correctIndex: 1 }
                 ]
             }
         };

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2 Física - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <div class="module-header">
+            <h2 id="module-main-title">Física: Vectores</h2>
+            <button class="close-module-btn" onclick="javascript:history.back()">X</button>
+        </div>
+
+        <div class="module-content">
+            
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                
+                <div class="topic-grid">
+                    <!-- Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=↗️'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Magnitudes Escalares y Vectoriales</h4>
+                            <p>Descubre qué hace tan especial a un vector y sus componentes.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=+'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Suma y Resta de Vectores</h4>
+                            <p>Aprende a sumar vectores analítica y gráficamente.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=×'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Producto Punto y Cruz</h4>
+                            <p>Dos formas distintas de multiplicar vectores y sus resultados.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
+
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    Verificar Respuestas
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleId = "phys_m2"; // Identificador único del Módulo 2 de Física
+
+        window.moduleData = {
+            "tema1": {
+                title: "Magnitudes Escalares y Vectoriales",
+                reading: `
+                    <br>
+                    <h4>¿Qué es un vector?</h4>
+                    <p>En física, una <b>magnitud escalar</b> solo necesita un número y una unidad para estar completa (ej. la masa: 5 kg, o el tiempo: 10 s).</p>
+                    <p>Sin embargo, una <b>magnitud vectorial</b> no está completa solo con el número. Por ejemplo, si te digo "aplica una fuerza de 10 Newtons a la mesa", me preguntarás: <i>¿Hacia dónde?</i> Para definir un vector necesitas:</p>
+                    <ul>
+                        <li><b>Módulo (o Magnitud):</b> Es el tamaño o largo del vector (el número y la unidad, ej. 10 N).</li>
+                        <li><b>Dirección:</b> Es la línea de acción o el ángulo de inclinación (ej. a 45 grados, u horizontal).</li>
+                        <li><b>Sentido:</b> Hacia dónde apunta la flecha (ej. hacia la derecha, o hacia el norte).</li>
+                    </ul>
+                    <p><b>Ejemplos de vectores:</b> Velocidad, Fuerza, Aceleración, Desplazamiento.</p>
+                `,
+                questions: [
+                    { id: "phys_m2_t1_q1", text: "¿Qué componentes son estrictamente necesarios para definir una magnitud vectorial?", options: ["Solo el número y la unidad.", "Módulo, dirección y sentido.", "Masa, peso y volumen.", "Solo la dirección hacia el norte."], correctIndex: 1 },
+                    { id: "phys_m2_t1_q2", text: "Al 'tamaño' o longitud de la flecha de un vector se le conoce como:", options: ["Sentido", "Aceleración", "Módulo o Magnitud", "Escalar"], correctIndex: 2 },
+                    { id: "math_m2_t1_q3", text: "¿Cuál de las siguientes es una magnitud vectorial?", options: ["Velocidad", "Tiempo", "Temperatura", "Masa"], correctIndex: 0 }
+                ]
+            },
+            "tema2": {
+                title: "Suma y Resta de Vectores",
+                reading: `
+                    <br>
+                    <h4>Encontrando el Vector Resultante</h4>
+                    <p>Cuando sumamos dos o más vectores, obtenemos un nuevo vector llamado <b>Vector Resultante</b>. Hay dos formas principales de hacerlo:</p>
+                    <ul>
+                        <li><b>Método Gráfico (Cabeza y Cola):</b> Consiste en dibujar el primer vector, y justo en la punta (cabeza) de este, dibujar la cola del segundo. El vector resultante se traza desde la cola del primero hasta la cabeza del último.</li>
+                        <li><b>Método Analítico (Componentes):</b> Es el método matemático. Separamos los vectores en sus componentes "x" e "y". Para sumar, simplemente sumamos las "x" con las "x" y las "y" con las "y".</li>
+                    </ul>
+                    <p><b>Nota:</b> Para restar vectores, simplemente sumamos el opuesto. Es decir, A - B es lo mismo que A + (-B), donde -B es el vector B apuntando en sentido contrario.</p>
+                `,
+                questions: [
+                    { id: "phys_m2_t2_q1", text: "¿Cómo se le llama al vector que se obtiene tras sumar dos o más vectores?", options: ["Vector Unitario", "Vector Nulo", "Vector Resultante", "Vector Componente"], correctIndex: 2 },
+                    { id: "phys_m2_t2_q2", text: "En el método analítico, ¿cómo se suman dos vectores?", options: ["Sumando las componentes X con X, y las Y con Y.", "Multiplicando sus módulos.", "Sumando todos los números sin importar si son X o Y.", "Restando los ángulos."], correctIndex: 0 },
+                    { id: "phys_m2_t2_q3", text: "¿Qué método gráfico consiste en colocar la cola del segundo vector en la punta del primer vector?", options: ["Método del paralelogramo.", "Método de cabeza y cola (o polígono).", "Método analítico.", "Método de Pitágoras."], correctIndex: 1 }
+                ]
+            },
+            "tema3": {
+                title: "Producto Punto y Producto Cruz",
+                reading: `
+                    <br>
+                    <h4>Multiplicando Vectores</h4>
+                    <p>A diferencia de los números normales, los vectores se pueden multiplicar de dos maneras distintas, dando resultados completamente diferentes:</p>
+                    <p><b>1. Producto Punto (o Escalar): A · B</b><br>
+                    Como su nombre lo indica, el resultado de esta multiplicación <b>es un escalar (solo un número)</b>, ya no es un vector. Nos dice qué tan "paralelos" son dos vectores. Se usa la función <b>Coseno</b> para encontrarlo.</p>
+                    <p><b>2. Producto Cruz (o Vectorial): A × B</b><br>
+                    El resultado de esta multiplicación <b>es un NUEVO vector</b>. Este nuevo vector tiene una característica muy especial: es completamente perpendicular (forma 90 grados) tanto a A como a B (regla de la mano derecha). Se usa la función <b>Seno</b> para calcular su magnitud.</p>
+                `,
+                questions: [
+                    { id: "phys_m2_t3_q1", text: "¿Qué obtenemos como resultado al realizar el Producto Punto (Escalar) de dos vectores?", options: ["Un nuevo vector perpendicular.", "Una matriz.", "Solo un número (escalar).", "Un ángulo."], correctIndex: 2 },
+                    { id: "phys_m2_t3_q2", text: "¿Qué obtenemos como resultado al realizar el Producto Cruz (Vectorial) de dos vectores?", options: ["Un nuevo vector.", "Solo un número (escalar).", "La suma de los módulos.", "Una línea curva."], correctIndex: 0 },
+                    { id: "phys_m2_t3_q3", text: "¿Qué función trigonométrica está asociada al cálculo de la magnitud del Producto Cruz?", options: ["Coseno (cos)", "Tangente (tan)", "Seno (sin)", "Cotangente (cot)"], correctIndex: 2 }
+                ]
+            }
+        };
+    </script>
+    <script src="../js/modulo.js"></script>
+</body>
+</html>

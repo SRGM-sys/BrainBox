@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 5 Física - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <div class="module-header">
+            <h2 id="module-main-title">Física: Leyes de Newton</h2>
+            <button class="close-module-btn" onclick="javascript:history.back()">X</button>
+        </div>
+
+        <div class="module-content">
+            
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                
+                <div class="topic-grid">
+                    <!-- Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=1'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Primera Ley (Inercia)</h4>
+                            <p>El reposo y el movimiento constante.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=2'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Segunda Ley (Dinámica)</h4>
+                            <p>Fuerza, masa y aceleración (F = m·a).</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=3'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Tercera Ley (Acción/Reacción)</h4>
+                            <p>Toda fuerza tiene una respuesta igual y contraria.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
+
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    ✨ Verificar Respuestas
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleId = "phys_m5"; // Identificador único del Módulo 5 de Física
+
+        window.moduleData = {
+            "tema1": {
+                title: "Primera Ley: La Inercia",
+                reading: `
+                    <br>
+                    <h4>La ley de la pereza</h4>
+                    <p>La <b>Primera Ley de Newton</b> establece que un objeto permanecerá en reposo o en movimiento rectilíneo uniforme (MRU) a menos que una fuerza externa actúe sobre él.</p>
+                    <p>A esta resistencia a cambiar su estado se le llama <b>Inercia</b>. Mientras más masa tiene un objeto, más inercia tiene (es más difícil mover un camión que una bicicleta).</p>
+                    <p><b>Ejemplo:</b> Cuando vas en un bus y frena de golpe, tu cuerpo se va hacia adelante. No es que una fuerza te empuje, es tu cuerpo por "inercia" intentando seguir el movimiento que ya tenía.</p>
+                `,
+                questions: [
+                    { id: "phys_m5_t1_q1", text: "¿Qué dice la Primera Ley de Newton sobre un objeto en reposo si no actúan fuerzas sobre él?", options: ["Comenzará a moverse lentamente.", "Se quedará en reposo para siempre.", "Desaparecerá.", "Comenzará a acelerar."], correctIndex: 1 },
+                    { id: "phys_m5_t1_q2", text: "¿Qué propiedad de un objeto determina qué tanta inercia tiene?", options: ["Su volumen.", "Su temperatura.", "Su masa.", "Su forma."], correctIndex: 2 },
+                    { id: "phys_m5_t1_q3", text: "Al arrancar un coche bruscamente, te pegas al asiento. Esto se explica por:", options: ["La Tercera Ley de Newton.", "El rozamiento.", "La Primera Ley de Newton (Inercia).", "La Ley de la gravedad."], correctIndex: 2 }
+                ]
+            },
+            "tema2": {
+                title: "Segunda Ley: La Dinámica",
+                reading: `
+                    <br>
+                    <h4>La fórmula más famosa de la física</h4>
+                    <p>La <b>Segunda Ley de Newton</b> nos da las matemáticas del movimiento: <b>Fuerza = masa × aceleración (F = m·a)</b>.</p>
+                    <ul>
+                        <li><b>Proporcionalidad:</b> Si aplicas más fuerza a un objeto, su aceleración será mayor.</li>
+                        <li><b>Masa como obstáculo:</b> Si aplicas la <i>misma</i> fuerza a un objeto liviano y a uno pesado, el pesado se acelerará mucho menos.</li>
+                    </ul>
+                    <p><b>Nota:</b> La Fuerza se mide en el Sistema Internacional en <b>Newtons (N)</b>.</p>
+                `,
+                questions: [
+                    { id: "phys_m5_t2_q1", text: "¿Cuál es la ecuación matemática de la Segunda Ley de Newton?", options: ["F = m + a", "F = m / a", "F = m · a", "a = F · m"], correctIndex: 2 },
+                    { id: "phys_m5_t2_q2", text: "Si le empujas con la misma fuerza a un auto de juguete y a un auto real, ¿cuál acelera más?", options: ["El auto real, porque tiene más masa.", "El auto de juguete, porque tiene menos masa.", "Ambos aceleran igual.", "Depende del rozamiento."], correctIndex: 1 },
+                    { id: "phys_m5_t2_q3", text: "¿En qué unidad se mide la fuerza según el Sistema Internacional (SI)?", options: ["Metros por segundo (m/s)", "Kilogramos (kg)", "Julios (J)", "Newtons (N)"], correctIndex: 3 }
+                ]
+            },
+            "tema3": {
+                title: "Tercera Ley: Acción y Reacción",
+                reading: `
+                    <br>
+                    <h4>Las fuerzas vienen en pares</h4>
+                    <p>La <b>Tercera Ley de Newton</b> establece que: <i>"Por cada acción, hay una reacción de igual magnitud, en la misma dirección, pero en sentido contrario."</i></p>
+                    <p><b>Regla de Oro:</b> Las fuerzas de acción y reacción <b>nunca</b> actúan sobre el mismo cuerpo, por lo tanto, no se cancelan entre sí.</p>
+                    <p><b>Ejemplo:</b> Cuando caminas, empujas el suelo hacia atrás (Acción). El suelo te empuja a ti hacia adelante con la misma fuerza (Reacción).</p>
+                `,
+                questions: [
+                    { id: "phys_m5_t3_q1", text: "¿Cómo se conoce comúnmente a la Tercera Ley de Newton?", options: ["Ley de Acción y Reacción.", "Ley de la Gravedad Universal.", "Ley de la Inercia.", "Principio de la Conservación."], correctIndex: 0 },
+                    { id: "phys_m5_t3_q2", text: "Las fuerzas de acción y reacción se aplican sobre:", options: ["El mismo cuerpo.", "Cuerpos diferentes.", "Únicamente en el vacío.", "Solo cuando hay movimiento."], correctIndex: 1 },
+                    { id: "phys_m5_t3_q3", text: "Si golpeas una pared con una fuerza de 50 N, ¿con cuánta fuerza te golpea la pared a ti?", options: ["0 N (la pared no se mueve).", "Menos de 50 N.", "Exactamente 50 N en sentido contrario.", "100 N."], correctIndex: 2 }
+                ]
+            }
+        };
+    </script>
+    <script src="../js/modulo.js"></script>
+</body>
+</html>

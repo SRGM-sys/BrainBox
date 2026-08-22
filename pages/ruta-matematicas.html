@@ -31,12 +31,12 @@
         <!-- Línea central que conecta todo -->
         <div class="path-line"></div>
 
+        <!-- Módulo 1 -->
         <div class="node-wrapper pos-1">
-            <div class="module-node active" onclick="window.location.href='modulo-math.html'">
+            <div id="node-math_m1" class="module-node" onclick="handleNodeClick(this, 'modulo-math.html')">
                 <div class="icon-container">
                     <span class="lock-icon">🔒</span>
-                    <!-- Aquí va tu imagen: -->
-                    <img src="../assets/icons/math-1.png" alt="img" class="module-img">
+                    <img src="../assets/icons/math-1.png" alt="Proposiciones" class="module-img" onerror="this.src='https://placehold.co/100x100/transparent/FFFFFF?text=1'">
                 </div>
             </div>
             <span class="module-title">Proposiciones</span>
@@ -44,27 +44,26 @@
 
         <!-- Módulo 2 -->
         <div class="node-wrapper pos-2">
-            <div class="module-node locked">
+            <div id="node-math_m2" class="module-node" data-requires="math_m1" onclick="handleNodeClick(this, 'modulo-math-2.html')">
                 <div class="icon-container">
                     <span class="lock-icon">🔒</span>
-                    <img src="../assets/icons/math-2.png" alt="img" class="module-img">
-                </div>  
+                    <img src="../assets/icons/math-2.png" alt="Conjuntos" class="module-img" onerror="this.src='https://placehold.co/100x100/transparent/FFFFFF?text=2'">
+                </div>
             </div>
             <span class="module-title">Conjuntos</span>
         </div>
 
-        <!-- Módulo 3 -->
+        <!-- Módulo 3 al 10 (Bloqueados temporalmente para diseño) -->
         <div class="node-wrapper pos-3">
-            <div class="module-node locked">
+            <div id="node-math_m3" class="module-node locked" data-requires="math_m2" onclick="handleNodeClick(this, 'modulo-math-3.html')">
                 <div class="icon-container">
                     <span class="lock-icon">🔒</span>
-                    <img src="../assets/icons/math-3.png" alt="img" class="module-img">
+                    <img src="../assets/icons/math-3.png" alt="Reales" class="module-img" onerror="this.src='https://placehold.co/100x100/transparent/FFFFFF?text=3'">
                 </div>
             </div>
             <span class="module-title">Números Reales</span>
         </div>
 
-        <!-- Módulo 4 (ACTIVO) -->
         <div class="node-wrapper pos-4">
             <div class="module-node locked">
                 <div class="icon-container">
@@ -75,7 +74,6 @@
             <span class="module-title">Funciones</span>
         </div>
 
-        <!-- Módulo 5 (BLOQUEADO) -->
         <div class="node-wrapper pos-5">
             <div class="module-node locked">
                 <div class="icon-container">
@@ -86,7 +84,6 @@
             <span class="module-title">Trigonometria</span>
         </div>
 
-        <!-- Módulo 6 -->
         <div class="node-wrapper pos-6">
             <div class="module-node locked">
                 <div class="icon-container">
@@ -97,7 +94,6 @@
             <span class="module-title">Números Complejos</span>
         </div>
 
-        <!-- Módulo 7 -->
         <div class="node-wrapper pos-7">
             <div class="module-node locked">
                 <div class="icon-container">
@@ -108,7 +104,6 @@
             <span class="module-title">Matrices</span>
         </div>
 
-        <!-- Módulo 8 -->
         <div class="node-wrapper pos-8">
             <div class="module-node locked">
                 <div class="icon-container">
@@ -119,7 +114,6 @@
             <span class="module-title">Geometria Plana</span>
         </div>
 
-        <!-- Módulo 9 -->
         <div class="node-wrapper pos-9">
             <div class="module-node locked">
                 <div class="icon-container">
@@ -130,7 +124,6 @@
             <span class="module-title">Geometria en el Espacio</span>
         </div>
 
-        <!-- Módulo 10 (JEFE FINAL) -->
         <div class="node-wrapper pos-10">
             <div class="module-node locked boss-node">
                 <div class="icon-container">
@@ -141,9 +134,12 @@
             <span class="module-title">Geometría Analítica</span>
         </div>
         
-        <!-- Espacio extra al final para que el último nodo no quede pegado al menú -->
         <div style="height: 40px;"></div>
     </main>
+
+
+    <!-- EL SCRIPT MÁGICO QUE FALTABA -->
+    <script src="../js/ruta.js"></script>
 
 </body>
 </html>

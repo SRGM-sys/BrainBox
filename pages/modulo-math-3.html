@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 3 Matemáticas - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <div class="module-header">
+            <h2 id="module-main-title">Módulo 3: Números Reales</h2>
+            <!-- Botón seguro con history.back() -->
+            <button class="close-module-btn" onclick="javascript:history.back()">X</button>
+        </div>
+
+        <div class="module-content">
+            
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                
+                <div class="topic-grid">
+                    <!-- Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=x²'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Propiedades de los Exponentes</h4>
+                            <p>Multiplicación, división y potencia de una potencia.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=√'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Propiedades de los Radicales</h4>
+                            <p>Raíces como exponentes fraccionarios y sus reglas.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=P(x)'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Operaciones con Polinomios</h4>
+                            <p>Suma, resta y multiplicación de expresiones algebraicas.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 4 -->
+                    <div class="topic-card" data-topic="tema4" onclick="openTopic('tema4')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=()'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Factorización</h4>
+                            <p>Factor común, diferencia de cuadrados y trinomios.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 5 -->
+                    <div class="topic-card" data-topic="tema5" onclick="openTopic('tema5')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=x='">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Ecuaciones de 2do Grado</h4>
+                            <p>La fórmula general y el papel del discriminante.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
+
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    ✨ Verificar Respuestas
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleId = "math_m3"; // Identificador único del Módulo 3
+
+        window.moduleData = {
+            "tema1": {
+                title: "Propiedades de los Exponentes",
+                reading: `
+                    <br>
+                    <h4>Reglas Básicas</h4>
+                    <p>Los exponentes nos indican cuántas veces se multiplica un número (la base) por sí mismo. Para operar con ellos, usamos estas reglas fundamentales:</p>
+                    <ul>
+                        <li><b>Multiplicación con igual base:</b> Se suman los exponentes. (Ej: x<sup>3</sup> · x<sup>4</sup> = x<sup>7</sup>)</li>
+                        <li><b>División con igual base:</b> Se restan los exponentes. (Ej: x<sup>5</sup> / x<sup>2</sup> = x<sup>3</sup>)</li>
+                        <li><b>Potencia de una potencia:</b> Se multiplican los exponentes. (Ej: (x<sup>2</sup>)<sup>3</sup> = x<sup>6</sup>)</li>
+                        <li><b>Exponente cero:</b> Todo número diferente de cero elevado a la 0 siempre es 1. (Ej: 5<sup>0</sup> = 1)</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "math_m3_t1_q1", text: "¿Cuál es el resultado de x<sup>3</sup> · x<sup>4</sup>?", options: ["x<sup>12</sup>", "x<sup>7</sup>", "x", "2x<sup>7</sup>"], correctIndex: 1 },
+                    { id: "math_m3_t1_q2", text: "¿A qué es igual la expresión (x<sup>2</sup>)<sup>3</sup>?", options: ["x<sup>5</sup>", "x<sup>6</sup>", "x<sup>8</sup>", "x<sup>23</sup>"], correctIndex: 1 },
+                    { id: "math_m3_t1_q3", text: "Todo número diferente de cero elevado a la potencia cero (x<sup>0</sup>) es igual a:", options: ["0", "1", "El mismo número", "Infinito"], correctIndex: 1 }
+                ]
+            },
+            "tema2": {
+                title: "Propiedades de los Radicales",
+                reading: `
+                    <h4>Las raíces como exponentes</h4>
+                    <p>Un radical (como la raíz cuadrada) no es más que un exponente en forma de fracción. La regla general es: <b>x<sup>m/n</sup> = <sup>n</sup>√(x<sup>m</sup>)</b>.</p>
+                    <p>Propiedades importantes:</p>
+                    <ul>
+                        <li><b>Raíz de un producto:</b> La raíz de una multiplicación se puede separar. √(a·b) = √a · √b.</li>
+                        <li><b>Raíz de una raíz:</b> Si tienes una raíz dentro de otra raíz, sus índices (el número chiquito de la raíz) se multiplican.</li>
+                    </ul>
+                    <p><b>Nota:</b> Recuerda que si el símbolo de la raíz (√) no tiene un número visible, significa que su índice es 2 (raíz cuadrada).</p>
+                `,
+                questions: [
+                    { id: "math_m3_t2_q1", text: "¿Cómo se expresa √x como un exponente fraccionario?", options: ["x<sup>1/2</sup>", "x<sup>2</sup>", "x<sup>-1/2</sup>", "x<sup>1</sup>"], correctIndex: 0 },
+                    { id: "math_m3_t2_q2", text: "¿A qué es igual √a · √b?", options: ["√(a+b)", "√(ab)", "a√b", "ab"], correctIndex: 1 },
+                    { id: "math_m3_t2_q3", text: "¿Qué sucede al calcular la raíz de una raíz, por ejemplo: ³√(√x)?", options: ["Se suman los índices.", "Se multiplican los índices.", "Se restan los índices.", "Se anula la raíz."], correctIndex: 1 }
+                ]
+            },
+            "tema3": {
+                title: "Operaciones con Polinomios",
+                reading: `
+                    <h4>Sumas, Restas y Multiplicaciones</h4>
+                    <p>Un polinomio es una suma o resta de varios términos algebraicos (como 3x<sup>2</sup> + 2x - 5).</p>
+                    <ul>
+                        <li><b>Suma y Resta:</b> Solo puedes sumar o restar <b>términos semejantes</b> (aquellos que tienen exactamente las mismas letras y exponentes). Por ejemplo: 2x + 3x = 5x.</li>
+                        <li><b>Multiplicación:</b> Se aplica la propiedad distributiva. Se multiplica todo por todo usando las reglas de los exponentes. Por ejemplo: x(x + 2) = x<sup>2</sup> + 2x.</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "math_m3_t3_q1", text: "Al sumar (2x + 3) con (3x - 1), el resultado correcto es:", options: ["5x + 2", "5x - 4", "6x + 2", "x + 4"], correctIndex: 0 },
+                    { id: "math_m3_t3_q2", text: "¿Qué condición se debe cumplir para poder sumar términos en un polinomio?", options: ["Que todos sean positivos.", "Que sean únicamente términos semejantes.", "Que tengan distintos exponentes.", "Se deben cambiar los signos de todo."], correctIndex: 1 },
+                    { id: "math_m3_t3_q3", text: "Al aplicar la propiedad distributiva para multiplicar x(x + 2), obtenemos:", options: ["x<sup>2</sup> + 2x", "2x<sup>2</sup>", "x<sup>2</sup> + 2", "3x"], correctIndex: 0 }
+                ]
+            },
+            "tema4": {
+                title: "Factorización",
+                reading: `
+                    <h4>El arte de desarmar multiplicaciones</h4>
+                    <p>La factorización es el proceso inverso a la multiplicación. Significa escribir una suma o resta de términos como el producto de sus factores.</p>
+                    <p><b>Casos más comunes:</b></p>
+                    <ul>
+                        <li><b>Factor Común:</b> Sacar lo que se repite en todos los términos. Ej: 4x<sup>2</sup> + 6x = 2x(2x + 3).</li>
+                        <li><b>Diferencia de Cuadrados:</b> Resta de dos números al cuadrado. Su fórmula es a<sup>2</sup> - b<sup>2</sup> = (a + b)(a - b).</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "math_m3_t4_q1", text: "¿Cuál es el factor común en la expresión 4x<sup>2</sup> + 6x?", options: ["2", "x", "2x", "4x"], correctIndex: 2 },
+                    { id: "math_m3_t4_q2", text: "La factorización correcta de una diferencia de cuadrados (x<sup>2</sup> - y<sup>2</sup>) es:", options: ["(x - y)<sup>2</sup>", "(x + y)(x - y)", "x(x - y)", "(x + y)<sup>2</sup>"], correctIndex: 1 },
+                    { id: "math_m3_t4_q3", text: "Podemos afirmar que factorizar una expresión es el proceso inverso a la:", options: ["Suma", "Radicación", "Multiplicación", "División"], correctIndex: 2 }
+                ]
+            },
+            "tema5": {
+                title: "Ecuaciones de segundo grado",
+                reading: `
+                    <h4>La Fórmula General y el Discriminante</h4>
+                    <p>Una ecuación de segundo grado tiene la forma <b>ax<sup>2</sup> + bx + c = 0</b>. Para resolverla usamos la famosa "Fórmula General".</p>
+                    <p>La parte de adentro de la raíz de la fórmula general (<b>b<sup>2</sup> - 4ac</b>) se llama <b>Discriminante (Δ)</b>. Su valor nos "discrimina" o predice cuántas respuestas reales tendrá la ecuación:</p>
+                    <ul>
+                        <li>Si Δ > 0 (Positivo): Tiene <b>dos</b> soluciones reales distintas.</li>
+                        <li>Si Δ = 0 (Cero): Tiene <b>una</b> solución real (o raíz doble).</li>
+                        <li>Si Δ < 0 (Negativo): <b>No tiene</b> soluciones reales (las raíces son imaginarias).</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "math_m3_t5_q1", text: "En la ecuación ax<sup>2</sup> + bx + c = 0, ¿qué nos indica el valor del discriminante (b<sup>2</sup> - 4ac)?", options: ["El valor final de x.", "La cantidad y tipo de soluciones que tendrá la ecuación.", "El valor exacto de la parábola.", "El punto de corte con el eje Y."], correctIndex: 1 },
+                    { id: "math_m3_t5_q2", text: "Si al calcular el discriminante obtenemos un número NEGATIVO, la ecuación:", options: ["Tiene dos soluciones reales.", "Tiene una solución real.", "No tiene soluciones reales.", "Es una línea recta."], correctIndex: 2 },
+                    { id: "math_m3_t5_q3", text: "¿Cuántas soluciones reales tiene la ecuación simple x<sup>2</sup> - 9 = 0?", options: ["Ninguna", "Una (solo 3)", "Dos (3 y -3)", "Infinitas"], correctIndex: 2 }
+                ]
+            }
+        };
+    </script>
+    <script src="../js/modulo.js"></script>
+</body>
+</html>

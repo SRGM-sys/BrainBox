@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo Física - BrainBox</title>
+    <title>Módulo 1 Física - BrainBox</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/base.css">
@@ -12,42 +12,166 @@
 <body class="module-page">
 
     <div class="module-box">
-        <!-- Cabecera del Módulo -->
         <div class="module-header">
-            <h2 id="module-title" style="margin: 0; font-size: 1.3rem;">Física: [Tema]</h2>
+            <h2 id="module-main-title">Física: Mediciones</h2>
             <button class="close-module-btn" onclick="javascript:history.back()">X</button>
         </div>
 
-        <!-- Contenido Central Scrollable -->
         <div class="module-content">
             
-            <!-- SECCIÓN 1: LECTURA Y EJEMPLOS -->
-            <div id="reading-section">
-                <!-- AQUÍ INYECTAREMOS LA LECTURA QUE ME PASES -->
-                <p style="color: var(--text-muted); text-align: center; margin-top: 50px;">
-                    Espacio preparado para la lectura y los ejercicios resueltos...
-                </p>
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                
+                <div class="topic-grid">
+                    <!-- Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=SI'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Sistema Internacional</h4>
+                            <p>Conoce las 7 magnitudes fundamentales de la física.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=10³'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Prefijos Físicos</h4>
+                            <p>Kilo, centi, mili... aprende a usar potencias de 10.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=0.0'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Cifras Significativas</h4>
+                            <p>Descubre qué números realmente importan al medir.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 4 (NUEVO: CONVERSIONES) -->
+                    <div class="topic-card" data-topic="tema4" onclick="openTopic('tema4')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=km→m'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Conversión de Unidades</h4>
+                            <p>Aprende a usar factores de conversión correctamente.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+                </div>
             </div>
 
-            <div class="section-divider"></div>
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
 
-            <!-- SECCIÓN 2: PREGUNTAS (QUIZ) -->
-            <div id="quiz-section">
-                <h3 style="color: var(--primary-color);">Preguntas del Módulo</h3>
-                <!-- AQUÍ INYECTAREMOS LAS 3 PREGUNTAS -->
-                <p style="color: var(--text-muted); text-align: center;">
-                    Espacio preparado para el test...
-                </p>
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    ✨ Verificar Respuestas
+                </button>
             </div>
-
-            <!-- Botón para completar (Alineado al final) -->
-            <button id="btn-complete-module" class="btn btn-primary" style="width: 100%; margin-top: 30px; display: none;">
-                Completar Módulo y Reclamar Recompensa
-            </button>
 
         </div>
     </div>
 
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleId = "phys_m1"; // Identificador único del Módulo 1 de Física
+
+        window.moduleData = {
+            "tema1": {
+                title: "El Sistema Internacional (SI)",
+                reading: `
+                    <br>
+                    <h4>Magnitudes Fundamentales</h4>
+                    <p>En física, medir es comparar. Para que todos los científicos del mundo se entiendan, usamos el <b>Sistema Internacional de Unidades (SI)</b>.</p>
+                    <p>Existen 7 magnitudes fundamentales de las que se derivan todas las demás. Las tres más comunes en mecánica son:</p>
+                    <ul>
+                        <li><b>Longitud:</b> Se mide en <b>metros (m)</b>.</li>
+                        <li><b>Masa:</b> Se mide en <b>kilogramos (kg)</b> (Ojo, no en gramos).</li>
+                        <li><b>Tiempo:</b> Se mide en <b>segundos (s)</b>.</li>
+                    </ul>
+                    <p>Las otras cuatro son: Temperatura (Kelvin), Intensidad de corriente (Amperio), Cantidad de sustancia (Mol) e Intensidad luminosa (Candela).</p>
+                `,
+                questions: [
+                    { id: "phys_m1_t1_q1", text: "¿Cuál es la unidad fundamental de la masa en el Sistema Internacional?", options: ["Gramo (g)", "Libra (lb)", "Kilogramo (kg)", "Newton (N)"], correctIndex: 2 },
+                    { id: "phys_m1_t1_q2", text: "¿Qué magnitud física se mide en segundos (s)?", options: ["Velocidad", "Tiempo", "Aceleración", "Distancia"], correctIndex: 1 },
+                    { id: "phys_m1_t1_q3", text: "¿Cuál de las siguientes opciones NO es una magnitud fundamental del SI?", options: ["Longitud", "Temperatura", "Velocidad", "Tiempo"], correctIndex: 2 }
+                ]
+            },
+            "tema2": {
+                title: "Prefijos Físicos",
+                reading: `
+                    <br>
+                    <h4>Ahorrando ceros con potencias de 10</h4>
+                    <p>A veces medimos cosas muy grandes (como planetas) o muy pequeñas (como átomos). Los <b>prefijos</b> nos ayudan a escribir estos números fácilmente usando potencias de 10.</p>
+                    <ul>
+                        <li><b>kilo (k):</b> Multiplica por 1,000 (10<sup>3</sup>). Ej: 1 kilómetro = 1000 metros.</li>
+                        <li><b>centi (c):</b> Divide para 100 (10<sup>-2</sup>). Ej: 1 centímetro = 0.01 metros.</li>
+                        <li><b>mili (m):</b> Divide para 1,000 (10<sup>-3</sup>). Ej: 1 miligramo = 0.001 gramos.</li>
+                        <li><b>micro (µ):</b> Divide para 1 millón (10<sup>-6</sup>). Se usa mucho en electrónica y biología.</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "phys_m1_t2_q1", text: "El prefijo 'kilo' (k) representa una potencia de:", options: ["10 elevado a la 2", "10 elevado a la -3", "10 elevado a la 6", "10 elevado a la 3"], correctIndex: 3 },
+                    { id: "phys_m1_t2_q2", text: "¿A cuántos metros equivale 1 centímetro (cm)?", options: ["0.1 m", "0.01 m", "100 m", "10 m"], correctIndex: 1 },
+                    { id: "phys_m1_t2_q3", text: "¿Qué prefijo se utiliza para representar 10 elevado a la -3?", options: ["mili (m)", "micro (µ)", "centi (c)", "kilo (k)"], correctIndex: 0 }
+                ]
+            },
+            "tema3": {
+                title: "Cifras Significativas",
+                reading: `
+                    <br>
+                    <h4>¿Qué números importan?</h4>
+                    <p>Ningún instrumento de medida es perfecto. Las <b>cifras significativas</b> nos dicen qué tan precisa es nuestra medición. Aquí las reglas de oro:</p>
+                    <ol>
+                        <li>Cualquier número diferente de cero <b>SÍ</b> es significativo (Ej: 45 tiene dos).</li>
+                        <li>Los ceros entre números distintos de cero <b>SÍ</b> son significativos (Ej: 1003 tiene cuatro).</li>
+                        <li>Los ceros a la izquierda <b>NO</b> son significativos, solo ubican el decimal (Ej: 0.005 tiene solo una cifra significativa).</li>
+                        <li>Los ceros a la derecha después de un decimal <b>SÍ</b> cuentan (Ej: 2.50 tiene tres).</li>
+                    </ol>
+                `,
+                questions: [
+                    { id: "phys_m1_t3_q1", text: "¿Cuántas cifras significativas tiene el número 0.0045?", options: ["2", "4", "5", "1"], correctIndex: 0 },
+                    { id: "phys_m1_t3_q2", text: "¿Cuántas cifras significativas tiene el valor 1003?", options: ["2", "4", "3", "Ninguna"], correctIndex: 1 },
+                    { id: "phys_m1_t3_q3", text: "¿Para qué sirven principalmente las cifras significativas en la física?", options: ["Para hacer que los números se vean más grandes.", "Para indicar la precisión y límite de error de una medición.", "Para confundir a los estudiantes.", "Para que no haya decimales."], correctIndex: 1 }
+                ]
+            },
+            "tema4": {
+                title: "Conversión de Unidades",
+                reading: `
+                    <br>
+                    <h4>Factores de Conversión</h4>
+                    <p>En física, es vital que todas las medidas estén en el mismo sistema antes de resolver un problema. Para esto usamos los <b>factores de conversión</b>.</p>
+                    <p>Un factor de conversión es una fracción donde el numerador y el denominador valen lo mismo, pero en distintas unidades (ej. 1 km / 1000 m). Al multiplicar tu medida por esta fracción, la unidad original se cancela y te queda la nueva.</p>
+                    <p><b>Ejemplo:</b> Convertir 2 horas a segundos.<br>Sabemos que 1 hora = 3600 segundos.<br>Multiplicamos: 2 h · (3600 s / 1 h) = <b>7200 s</b>. (Las horas se cancelan).</p>
+                `,
+                questions: [
+                    { id: "phys_m1_t4_q1", text: "¿Qué es un factor de conversión?", options: ["Un número que siempre vale cero.", "Una fracción que relaciona dos unidades equivalentes para cambiar de una a otra.", "Una unidad de medida del Sistema Internacional.", "Un error en la medición."], correctIndex: 1 },
+                    { id: "phys_m1_t4_q2", text: "Para convertir 5 kilómetros a metros, sabiendo que 1 km = 1000 m, ¿cuál es el resultado?", options: ["0.005 m", "50 m", "5000 m", "500 m"], correctIndex: 2 },
+                    { id: "phys_m1_t4_q3", text: "¿A cuántos segundos equivale exactamente 1 hora?", options: ["60 s", "100 s", "360 s", "3600 s"], correctIndex: 3 }
+                ]
+            }
+        };
+    </script>
     <script src="../js/modulo.js"></script>
 </body>
 </html>

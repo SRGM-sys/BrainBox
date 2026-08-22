@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 3 Física - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <div class="module-header">
+            <h2 id="module-main-title">Física: Cinemática 1D</h2>
+            <button class="close-module-btn" onclick="javascript:history.back()">X</button>
+        </div>
+
+        <div class="module-content">
+            
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                
+                <div class="topic-grid">
+                    <!-- Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=v=cte'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>MRU</h4>
+                            <p>El Movimiento Rectilíneo Uniforme y su velocidad constante.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=a=cte'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>MRUA</h4>
+                            <p>El Movimiento Rectilíneo Uniformemente Acelerado.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=te'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Tiempo de Encuentro</h4>
+                            <p>Fórmulas para calcular cuándo se cruzan dos móviles.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 4 -->
+                    <div class="topic-card" data-topic="tema4" onclick="openTopic('tema4')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/phys-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/00CEC9?text=g'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Caída Libre</h4>
+                            <p>La gravedad en acción al soltar un objeto en el vacío.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
+
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    ✨ Verificar Respuestas
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleId = "phys_m3"; // Identificador único del Módulo 3 de Física
+
+        window.moduleData = {
+            "tema1": {
+                title: "Movimiento Rectilíneo Uniforme (MRU)",
+                reading: `
+                    <br>
+                    <h4>Cero Aceleración, Velocidad Constante</h4>
+                    <p>En el <b>MRU</b> un objeto se desplaza en línea recta y su característica principal es que su <b>velocidad nunca cambia</b>. Al no haber cambios de velocidad, significa que su aceleración es cero.</p>
+                    <p>La única fórmula que gobierna este movimiento es el clásico triángulo de la cinemática:</p>
+                    <p style="text-align: center; font-size: 1.2rem;"><b>d = v · t</b></p>
+                    <ul>
+                        <li><b>d</b>: Distancia (en metros).</li>
+                        <li><b>v</b>: Velocidad (en m/s).</li>
+                        <li><b>t</b>: Tiempo (en segundos).</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "phys_m3_t1_q1", text: "¿Cuál es la característica principal del MRU?", options: ["La velocidad aumenta progresivamente.", "La aceleración es constante y positiva.", "La velocidad se mantiene constante en todo el trayecto.", "El objeto se mueve en círculos."], correctIndex: 2 },
+                    { id: "phys_m3_t1_q2", text: "En un MRU, ¿cuál es el valor de la aceleración?", options: ["Siempre es positiva.", "Cero.", "Igual a la gravedad.", "Depende del tiempo."], correctIndex: 1 },
+                    { id: "phys_m3_t1_q3", text: "Si despejamos el tiempo (t) de la fórmula d = v · t, nos queda:", options: ["t = d · v", "t = v / d", "t = d / v", "t = d + v"], correctIndex: 2 }
+                ]
+            },
+            "tema2": {
+                title: "Movimiento Rectilíneo Uniformemente Acelerado (MRUA)",
+                reading: `
+                    <br>
+                    <h4>Pisando el Acelerador</h4>
+                    <p>A diferencia del MRU, en el <b>MRUA</b> el objeto sí cambia su velocidad, pero lo hace de manera uniforme. Esto significa que ahora tenemos una <b>aceleración constante</b> diferente de cero.</p>
+                    <p>Las fórmulas principales que debes memorizar son:</p>
+                    <ul>
+                        <li><b>Velocidad final:</b> v<sub>f</sub> = v<sub>0</sub> + a·t</li>
+                        <li><b>Distancia:</b> d = v<sub>0</sub>·t + ½·a·t<sup>2</sup></li>
+                        <li><b>Velocidad al cuadrado:</b> v<sub>f</sub><sup>2</sup> = v<sub>0</sub><sup>2</sup> + 2·a·d</li>
+                    </ul>
+                    <p><i>Nota:</i> Si el objeto frena en lugar de acelerar, la aceleración (a) tendrá signo negativo.</p>
+                `,
+                questions: [
+                    { id: "phys_m3_t2_q1", text: "¿Qué se mantiene constante a lo largo de todo un MRUA?", options: ["La velocidad.", "La aceleración.", "La posición.", "El tiempo."], correctIndex: 1 },
+                    { id: "phys_m3_t2_q2", text: "¿Qué sucede con la aceleración (a) en las fórmulas si el objeto está frenando?", options: ["Se vuelve cero.", "Toma un valor negativo.", "Se multiplica por dos.", "Se ignora en la ecuación."], correctIndex: 1 },
+                    { id: "phys_m3_t2_q3", text: "¿Qué variable física NO está presente en la lista de ecuaciones del MRUA?", options: ["Masa (m)", "Tiempo (t)", "Aceleración (a)", "Velocidad inicial (v0)"], correctIndex: 0 }
+                ]
+            },
+            "tema3": {
+                title: "Tiempo de Encuentro",
+                reading: `
+                    <br>
+                    <h4>¿Cuándo chocan o se cruzan dos móviles?</h4>
+                    <p>Imagina dos autos que están separados por una distancia <b>(d)</b> y viajan el uno hacia el otro en línea recta con velocidades constantes (MRU).</p>
+                    <p>Para calcular en qué momento exacto se van a cruzar, usamos la fórmula del <b>Tiempo de Encuentro (t<sub>e</sub>)</b>. Como van en sentidos opuestos, se acercan más rápido, por lo que sumamos sus velocidades:</p>
+                    <p style="text-align: center; font-size: 1.2rem;"><b>t<sub>e</sub> = d / (v<sub>1</sub> + v<sub>2</sub>)</b></p>
+                    <p><b>Ejemplo:</b> Si están separados 10 metros, uno va a 3 m/s y el otro a 2 m/s. El tiempo será 10 / (3+2) = 2 segundos.</p>
+                `,
+                questions: [
+                    { id: "phys_m3_t3_q1", text: "Al calcular el tiempo de encuentro de dos objetos que viajan uno hacia el otro, en el denominador de la fórmula se debe:", options: ["Restar las velocidades.", "Sumar las velocidades.", "Multiplicar las velocidades.", "Poner la aceleración."], correctIndex: 1 },
+                    { id: "phys_m3_t3_q2", text: "Si dos autos están separados 100 km y cada uno viaja a 25 km/h hacia el otro, ¿en cuánto tiempo se encontrarán?", options: ["4 horas", "2 horas", "1 hora", "50 horas"], correctIndex: 1 },
+                    { id: "phys_m3_t3_q3", text: "¿Cuál es la fórmula correcta para el tiempo de encuentro (te) en un MRU?", options: ["te = d / (v1 - v2)", "te = (v1 + v2) / d", "te = d · (v1 + v2)", "te = d / (v1 + v2)"], correctIndex: 3 }
+                ]
+            },
+            "tema4": {
+                title: "Caída Libre",
+                reading: `
+                    <br>
+                    <h4>La Gravedad en Acción</h4>
+                    <p>La <b>Caída Libre</b> es simplemente un MRUA en el eje vertical (Y). Ocurre cuando dejas caer un objeto en el vacío (sin resistencia del aire).</p>
+                    <p>Tiene dos reglas de oro que facilitan todos los cálculos:</p>
+                    <ul>
+                        <li><b>Velocidad inicial (v<sub>0</sub>) = 0:</b> Si un problema dice "se deja caer un objeto", automáticamente sabes que arranca desde el reposo.</li>
+                        <li><b>La aceleración es la gravedad (g):</b> Siempre toma un valor constante hacia abajo. En la Tierra usamos <b>g ≈ 9.8 m/s<sup>2</sup></b> (o 10 m/s<sup>2</sup> para redondear en los exámenes).</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "phys_m3_t4_q1", text: "Físicamente, la caída libre se clasifica como un caso especial de:", options: ["Movimiento Circular", "MRU", "MRUA", "Tiro Parabólico"], correctIndex: 2 },
+                    { id: "phys_m3_t4_q2", text: "Si un problema indica que un objeto 'se deja caer' desde un balcón, ¿qué valor es seguro asumir?", options: ["Que la velocidad final es 0 m/s.", "Que la velocidad inicial es 0 m/s.", "Que la gravedad es 0.", "Que el tiempo es de 9.8 s."], correctIndex: 1 },
+                    { id: "phys_m3_t4_q3", text: "¿Cuál es el valor aproximado de la aceleración de la gravedad (g) en la Tierra?", options: ["9.8 m/s", "10 km/h", "0 m/s²", "9.8 m/s²"], correctIndex: 3 }
+                ]
+            }
+        };
+    </script>
+    <script src="../js/modulo.js"></script>
+</body>
+</html>
