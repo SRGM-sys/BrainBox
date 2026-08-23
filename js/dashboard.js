@@ -95,4 +95,32 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- 7. ACTUALIZAR CÍRCULOS DE RACHA (L, M, X, J, V, S, D) ---
+    const daysRow = document.getElementById('dash-days-row');
+    if (daysRow && currentUser.studyHistory) {
+        const today = new Date();
+        const dayItems = daysRow.querySelectorAll('.day-item');
+        
+        // Calculamos qué fecha fue el Lunes de esta semana
+        let currentDayOfWeek = today.getDay(); // 0 es Domingo, 1 es Lunes...
+        let distanceToMonday = currentDayOfWeek === 0 ? 6 : currentDayOfWeek - 1;
+        
+        let monday = new Date(today);
+        monday.setDate(today.getDate() - distanceToMonday);
+
+        // Recorremos los 7 circulitos (0 a 6)
+        dayItems.forEach((item, index) => {
+            let iterDate = new Date(monday);
+            iterDate.setDate(monday.getDate() + index); // Lunes + index días
+            let iterDateStr = iterDate.toLocaleDateString();
+            
+            // Si la fecha de ese circulito está en nuestro historial, lo pintamos
+            if (currentUser.studyHistory.includes(iterDateStr)) {
+                item.classList.add('completed');
+            } else {
+                item.classList.remove('completed');
+            }
+        });
+    }
 });

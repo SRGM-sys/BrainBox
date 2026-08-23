@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+
     // 1. VERIFICAR AUTENTICACIÓN
     let currentUserStr = localStorage.getItem('brainbox_current_user');
     if (!currentUserStr) {
@@ -63,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (btnChangeAvatar && inputFile) {
         btnChangeAvatar.addEventListener('click', () => inputFile.click());
+
         inputFile.addEventListener('change', function() {
             if (this.files && this.files[0]) {
                 const reader = new FileReader();
@@ -78,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateUserStorage(updatedUser) {
         localStorage.setItem('brainbox_current_user', JSON.stringify(updatedUser));
+
         let users = JSON.parse(localStorage.getItem('brainbox_users')) || [];
         const index = users.findIndex(u => u.email === updatedUser.email);
         if (index !== -1) {
@@ -86,19 +89,61 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 6. ANIMACIÓN DE GRÁFICOS
+    // --- 6. CÁLCULO DE PROGRESO DE MATERIAS Y ANIMACIÓN ---
+    
+    let answered = currentUser.answeredQuestions || [];
+    let mathTopics = new Set();
+    let physTopics = new Set();
+    let chemTopics = new Set();
+
+    // Agrupamos las preguntas respondidas por "Tema" (Lección)
+    answered.forEach(qId => {
+        // El ID es del tipo: "math_m1_t1_q1", lo cortamos hasta el tema -> "math_m1_t1"
+        let parts = qId.split('_q');
+        if (parts.length > 0) {
+            let topicId = parts[0]; 
+            if (topicId.startsWith('math')) mathTopics.add(topicId);
+            else if (topicId.startsWith('phys')) physTopics.add(topicId);
+            else if (topicId.startsWith('chem')) chemTopics.add(topicId);
+        }
+    });
+
+    // Total de lecciones estipuladas
+    const TOTAL_MATH = 33;
+    const TOTAL_PHYS = 16;
+    const TOTAL_CHEM = 21;
+
+    // Calculamos los porcentajes (redondeados para que no salgan decimales locos)
+    let mathProgress = Math.round((mathTopics.size / TOTAL_MATH) * 100);
+    let physProgress = Math.round((physTopics.size / TOTAL_PHYS) * 100);
+    let chemProgress = Math.round((chemTopics.size / TOTAL_CHEM) * 100);
+
+    // Limitamos a 100 por si acaso en el futuro añades más lecciones de las supuestas
+    mathProgress = Math.min(mathProgress, 100);
+    physProgress = Math.min(physProgress, 100);
+    chemProgress = Math.min(chemProgress, 100);
+
+    // Seleccionamos las 3 tarjetas de la pantalla en orden (Math, Phys, Chem)
     const progressCards = document.querySelectorAll('.circular-chart');
-    progressCards.forEach(card => {
-        let targetProgress = parseInt(card.style.getPropertyValue('--p')) || 0;
+    const targetProgresses = [mathProgress, physProgress, chemProgress];
+
+    progressCards.forEach((card, index) => {
+        let targetProgress = targetProgresses[index] || 0;
         let currentProgress = 0;
-        let speed = 20;
+        let speed = 20; // Velocidad de la animación
+
         if(targetProgress > 0) {
             let progressInterval = setInterval(() => {
                 currentProgress++;
                 card.style.setProperty('--p', currentProgress);
                 card.querySelector('.progress-text').textContent = currentProgress + '%';
+                
                 if(currentProgress >= targetProgress) clearInterval(progressInterval);
             }, speed);
+        } else {
+            // Asegura que muestre 0 si no hay progreso
+            card.style.setProperty('--p', 0);
+            card.querySelector('.progress-text').textContent = '0%';
         }
     });
 });

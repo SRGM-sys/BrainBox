@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!currentUser.email) return;
 
         let answered = currentUser.answeredQuestions || [];
-        let allQuestionsInModule = []; // Guardaremos todas las preguntas del módulo
+        let allQuestionsInModule = []; 
 
         const cards = document.querySelectorAll('.topic-card');
         cards.forEach(card => {
@@ -21,9 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (topicId && window.moduleData && window.moduleData[topicId]) {
                 const questions = window.moduleData[topicId].questions;
                 const questionIds = questions.map(q => q.id);
-                allQuestionsInModule.push(...questionIds); // Llenamos el total de preguntas
+                allQuestionsInModule.push(...questionIds); 
                 
-                // Comprueba si las preguntas de ESTE tema están listas
                 const isCompleted = questionIds.length > 0 && questionIds.every(id => answered.includes(id));
 
                 if (isCompleted) {
@@ -34,13 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // AUTO-FIX: Si tiene TODO respondido, le damos la medalla del módulo por si no la tiene
+        // AUTO-FIX de Medallas
         if (allQuestionsInModule.length > 0 && window.moduleId) {
             let completedWholeModule = allQuestionsInModule.every(id => answered.includes(id));
             if (completedWholeModule) {
                 if (!currentUser.completedModules) currentUser.completedModules = [];
                 if (!currentUser.completedModules.includes(window.moduleId)) {
-                    // Le damos la medalla en silencio
                     currentUser.completedModules.push(window.moduleId);
                     localStorage.setItem('brainbox_current_user', JSON.stringify(currentUser));
                     
@@ -55,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Ejecutamos la revisión apenas carga la página
     updateCardsUI();
 
     // 2. ABRIR TEMA E INYECTAR CONTENIDO
@@ -152,6 +149,39 @@ document.addEventListener('DOMContentLoaded', () => {
         let uniqueQuestions = new Set([...currentUser.answeredQuestions, ...questionIds]);
         currentUser.answeredQuestions = Array.from(uniqueQuestions);
 
+        // ==========================================
+        // 🔥 INICIO DEL MOTOR DE RACHA (STREAK)
+        // ==========================================
+        const todayObj = new Date();
+        const todayStr = todayObj.toLocaleDateString();
+        let streakMsg = "";
+
+        if (currentUser.lastStudyDate !== todayStr) {
+            const yesterdayObj = new Date();
+            yesterdayObj.setDate(yesterdayObj.getDate() - 1);
+            const yesterdayStr = yesterdayObj.toLocaleDateString();
+
+            if (currentUser.lastStudyDate === yesterdayStr) {
+                currentUser.streak = (currentUser.streak || 0) + 1;
+            } else {
+                currentUser.streak = 1;
+            }
+            currentUser.lastStudyDate = todayStr;
+
+            if (!currentUser.studyHistory) currentUser.studyHistory = [];
+            if (!currentUser.studyHistory.includes(todayStr)) {
+                currentUser.studyHistory.push(todayStr);
+            }
+
+            streakMsg = `\n\n🔥 ¡Racha activa! Llevas ${currentUser.streak} día(s) seguidos.`;
+
+            if (currentUser.streak % 5 === 0) {
+                currentUser.points = (currentUser.points || 0) + 5;
+                streakMsg += `\n🎁 ¡BONO DE RACHA! Ganaste +5 Monedas de Oro.`;
+            }
+        }
+        // ==========================================
+
         localStorage.setItem('brainbox_current_user', JSON.stringify(currentUser));
         let users = JSON.parse(localStorage.getItem('brainbox_users')) || [];
         const index = users.findIndex(u => u.email === currentUser.email);
@@ -160,10 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('brainbox_users', JSON.stringify(users));
         }
 
-        // Ejecutar Auto-Fix visual antes del alert final
         updateCardsUI();
 
-        // Calculamos si con esta última pregunta completó todo el módulo
         let allQuestionsInModule = [];
         for(let key in window.moduleData) {
             window.moduleData[key].questions.forEach(q => allQuestionsInModule.push(q.id));
@@ -172,12 +200,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let alertExtra = completedWholeModule ? "\n\n🌟 ¡HAS COMPLETADO EL MÓDULO ENTERO! 🌟\n¡Un nuevo nivel se ha desbloqueado en tu ruta!" : "";
 
         if (currentUser.level > oldLevel) {
-            alert(`✅ ¡Perfecto! 🎉\nHas subido al Nivel ${currentUser.level} (Liga ${rankInfo.rankName})\nGanaste +25 XP y +2 Monedas 🪙` + alertExtra);
+            alert(`✅ ¡Perfecto! 🎉\nHas subido al Nivel ${currentUser.level} (Liga ${rankInfo.rankName})\nGanaste +25 XP y +2 Monedas 🪙` + alertExtra + streakMsg);
         } else {
-            alert(`✅ ¡Perfecto! Todas correctas.\nGanaste +25 XP y +2 Monedas 🪙` + alertExtra);
+            alert(`✅ ¡Perfecto! Todas correctas.\nGanaste +25 XP y +2 Monedas 🪙` + alertExtra + streakMsg);
         }
         
         backToTopics();
     };
-
 });

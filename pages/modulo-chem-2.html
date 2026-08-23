@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2 Química - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <div class="module-header">
+            <h2 id="module-main-title">Química: Estructuras de Lewis</h2>
+            <button class="close-module-btn" onclick="javascript:history.back()">X</button>
+        </div>
+
+        <div class="module-content">
+            
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                
+                <div class="topic-grid">
+                    <!-- Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/chem-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/44BD6E?text=e⁻'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Electrones de Valencia</h4>
+                            <p>Descubre qué son y cómo encontrarlos en la tabla periódica.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/chem-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/44BD6E?text=8'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>La Regla del Octeto</h4>
+                            <p>El secreto de la estabilidad: por qué los átomos forman enlaces.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/chem-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/44BD6E?text=H-O'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Dibujando Estructuras</h4>
+                            <p>Aprende a representar las moléculas usando puntos y líneas.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
+
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    Verificar Respuestas
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleId = "chem_m2"; // Identificador único del Módulo 2 de Química
+
+        window.moduleData = {
+            "tema1": {
+                title: "Electrones de Valencia",
+                reading: `
+                    <br>
+                    <h4>Los únicos que participan en los enlaces</h4>
+                    <p>Un átomo tiene electrones girando en diferentes "capas" o niveles de energía. Pero a la química solo le interesan los de la última capa: los <b>Electrones de Valencia</b>. Estos son los únicos que se usan para unirse a otros átomos.</p>
+                    <p><b>¿Cómo saber cuántos tiene un elemento?</b> ¡Es súper fácil! Solo miras el número del grupo (la columna vertical) en la Tabla Periódica Clásica.</p>
+                    <ul>
+                        <li>Grupo IA (ej. Hidrógeno, Sodio) = 1 electrón de valencia.</li>
+                        <li>Grupo IVA (ej. Carbono) = 4 electrones de valencia.</li>
+                        <li>Grupo VIIA (ej. Cloro, Flúor) = 7 electrones de valencia.</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "chem_m2_t1_q1", text: "¿Qué son los electrones de valencia?", options: ["Los que están más cerca del núcleo.", "Todos los electrones del átomo sumados.", "Los electrones ubicados en la capa más externa del átomo.", "Los electrones que no tienen carga."], correctIndex: 2 },
+                    { id: "chem_m2_t1_q2", text: "¿Por qué son tan importantes los electrones de valencia?", options: ["Porque determinan el peso del átomo.", "Porque son los únicos que participan en los enlaces químicos.", "Porque le dan el color a las cosas.", "Porque se transforman en protones."], correctIndex: 1 },
+                    { id: "chem_m2_t1_q3", text: "Si el Oxígeno está en el Grupo VIA (o 16) de la tabla periódica, ¿cuántos electrones de valencia tiene?", options: ["6", "16", "8", "2"], correctIndex: 0 }
+                ]
+            },
+            "tema2": {
+                title: "La Regla del Octeto",
+                reading: `
+                    <br>
+                    <h4>La búsqueda de la perfección atómica</h4>
+                    <p>Todos los átomos tienen un sueño: quieren parecerse a los <b>Gases Nobles</b> (como el Neón o el Argón). Los gases nobles son los "reyes" de la tabla periódica porque son perfectamente estables, y esto se debe a que tienen exactamente <b>8 electrones de valencia</b>.</p>
+                    <p>La <b>Regla del Octeto</b> dice que los átomos van a ganar, perder o compartir electrones hasta conseguir 8 en su última capa. ¡Por eso se unen y forman moléculas!</p>
+                    <p><i>La gran excepción:</i> El Hidrógeno (H) y el Helio (He) son átomos tan pequeñitos que se llenan y son felices con solo <b>2 electrones</b> (Regla del Dueto).</p>
+                `,
+                questions: [
+                    { id: "chem_m2_t2_q1", text: "¿Qué establece la regla del octeto?", options: ["Que los átomos deben explotar al llegar a 8 electrones.", "Que los átomos buscan completar 8 electrones en su capa externa para ser estables.", "Que un átomo solo puede tener 8 protones.", "Que existen 8 gases nobles."], correctIndex: 1 },
+                    { id: "chem_m2_t2_q2", text: "¿A qué familia de elementos quieren 'imitar' los demás átomos porque ya son naturalmente estables?", options: ["Los Metales Alcalinos.", "Los Halógenos.", "Los Gases Nobles.", "Los No Metales."], correctIndex: 2 },
+                    { id: "chem_m2_t2_q3", text: "¿Qué elemento es una excepción común y se estabiliza con solo 2 electrones?", options: ["Oxígeno", "Carbono", "Hidrógeno", "Cloro"], correctIndex: 2 }
+                ]
+            },
+            "tema3": {
+                title: "Dibujando Estructuras",
+                reading: `
+                    <br>
+                    <h4>Puntos y Rayitas</h4>
+                    <p>La Estructura de Lewis es como un mapa que nos muestra cómo están conectados los átomos en una molécula. Usamos dos símbolos:</p>
+                    <ul>
+                        <li><b>Puntos ( • ):</b> Representan electrones de valencia libres, que no se están compartiendo con nadie.</li>
+                        <li><b>Líneas ( — ):</b> Representan un <b>enlace químico</b>. Cada línea vale por <b>2 electrones compartidos</b> entre dos átomos.</li>
+                    </ul>
+                    <p><b>¿Quién va en el centro?</b> Al dibujar la molécula, el átomo menos electronegativo (el que está más a la izquierda o abajo en la tabla) va en el centro. El Hidrógeno NUNCA va en el centro porque solo puede formar una línea.</p>
+                `,
+                questions: [
+                    { id: "chem_m2_t3_q1", text: "En una estructura de Lewis, ¿qué representa una línea ( — ) entre dos letras?", options: ["Un electrón libre.", "Un enlace químico formado por 2 electrones compartidos.", "Una separación temporal.", "El núcleo del átomo."], correctIndex: 1 },
+                    { id: "chem_m2_t3_q2", text: "¿Cómo se representan los electrones de valencia que NO forman parte de un enlace?", options: ["Como líneas torcidas.", "Como puntos alrededor del símbolo del elemento.", "No se dibujan.", "Como cruces en el centro."], correctIndex: 1 },
+                    { id: "chem_m2_t3_q3", text: "¿Qué elemento NUNCA debe colocarse como átomo central al dibujar una molécula?", options: ["Carbono", "Oxígeno", "Nitrógeno", "Hidrógeno"], correctIndex: 3 }
+                ]
+            }
+        };
+    </script>
+    <script src="../js/modulo.js"></script>
+</body>
+</html>

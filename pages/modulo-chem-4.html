@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 4 Química - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <div class="module-header">
+            <h2 id="module-main-title">Química: Geometría Molecular</h2>
+            <button class="close-module-btn" onclick="javascript:history.back()">X</button>
+        </div>
+
+        <div class="module-content">
+            
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                
+                <div class="topic-grid">
+                    <!-- Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/chem-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/44BD6E?text=↔️'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>La Teoría de Repulsión</h4>
+                            <p>Descubre por qué los átomos se empujan entre ellos.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/chem-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/44BD6E?text=∠'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Geometrías 2D</h4>
+                            <p>Las formas Lineales y Angulares (como el agua).</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/chem-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/44BD6E?text=◬'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Geometrías 3D</h4>
+                            <p>Estructuras Trigonal Plana y Tetraédrica en tres dimensiones.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
+
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    ✨ Verificar Respuestas
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleId = "chem_m4"; // Identificador único del Módulo 4 de Química
+
+        window.moduleData = {
+            "tema1": {
+                title: "La Teoría de Repulsión (RPECV)",
+                reading: `
+                    <br>
+                    <h4>Se odian pero están unidos</h4>
+                    <p>Las moléculas tienen formas en 3D muy definidas gracias a una teoría llamada <b>RPECV</b> (Repulsión de Pares de Electrones de la Capa de Valencia).</p>
+                    <p>El concepto es súper lógico: Los enlaces que unen a los átomos están hechos de electrones. Como todos los electrones tienen carga <b>negativa</b>, ¡se repelen entre sí como imanes del mismo polo!</p>
+                    <p>Por lo tanto, los pares de electrones alrededor de un átomo central siempre intentarán ubicarse <b>lo más lejos posible unos de otros</b> para estar estables. Esa repulsión es la que le da la forma tridimensional a la molécula.</p>
+                `,
+                questions: [
+                    { id: "chem_m4_t1_q1", text: "¿Qué determina principalmente la forma 3D de una molécula según la teoría RPECV?", options: ["El tamaño del núcleo.", "La repulsión entre los pares de electrones.", "La cantidad de protones.", "La gravedad de la Tierra."], correctIndex: 1 },
+                    { id: "chem_m4_t1_q2", text: "¿Qué carga eléctrica tienen los electrones en los enlaces que causa que se repelan?", options: ["Positiva", "Neutra", "Negativa", "Magnética"], correctIndex: 2 },
+                    { id: "chem_m4_t1_q3", text: "Para que una molécula sea estable, sus pares de electrones intentan ubicarse:", options: ["Lo más juntos posible.", "Todos en el mismo lado.", "Lo más lejos posible unos de otros.", "En el núcleo del átomo."], correctIndex: 2 }
+                ]
+            },
+            "tema2": {
+                title: "Geometrías 2D (Lineal y Angular)",
+                reading: `
+                    <br>
+                    <h4>Moviéndose en el plano</h4>
+                    <p>Dependiendo de cuántos átomos se unan al centro, tendremos diferentes formas:</p>
+                    <ul>
+                        <li><b>Lineal:</b> Si un átomo central tiene 2 enlaces y ningún electrón libre, los enlaces se empujan en direcciones opuestas formando una línea recta. Su ángulo es de <b>180 grados</b>. (Ej: Dióxido de carbono, CO<sub>2</sub>).</li>
+                        <li><b>Angular (o Doblada):</b> Ocurre cuando el átomo central tiene 2 enlaces, pero también tiene <b>electrones libres (fantasmas)</b>. Estos electrones invisibles empujan a los enlaces hacia abajo, "doblando" la molécula. (Ej: El agua, H<sub>2</sub>O, tiene esta forma).</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "chem_m4_t2_q1", text: "¿Qué forma tiene una molécula cuyo átomo central tiene 2 enlaces y CERO electrones libres?", options: ["Angular", "Lineal", "Cuadrada", "Tetraédrica"], correctIndex: 1 },
+                    { id: "chem_m4_t2_q2", text: "¿Cuál es el ángulo que se forma en una geometría estrictamente Lineal?", options: ["90 grados", "120 grados", "180 grados", "360 grados"], correctIndex: 2 },
+                    { id: "chem_m4_t2_q3", text: "¿Por qué la molécula de agua (H₂O) tiene forma Angular y no es una línea recta?", options: ["Porque el oxígeno tiene electrones libres que 'empujan' y doblan los enlaces.", "Porque el hidrógeno pesa mucho.", "Porque es líquida.", "Porque tiene 3 enlaces en total."], correctIndex: 0 }
+                ]
+            },
+            "tema3": {
+                title: "Geometrías 3D (Trigonal y Tetraédrica)",
+                reading: `
+                    <br>
+                    <h4>Saliendo del papel</h4>
+                    <p>Cuando agregamos más átomos, la molécula necesita el espacio en 3D para mantenerlos alejados:</p>
+                    <ul>
+                        <li><b>Trigonal Plana:</b> Un átomo central con 3 enlaces. Se acomodan formando un triángulo plano perfecto con ángulos de <b>120 grados</b>.</li>
+                        <li><b>Tetraédrica:</b> Un átomo central con 4 enlaces. Si los pones en cruz, estarían a 90°. ¡Pero en el espacio 3D pueden alejarse más! Forman una especie de pirámide de cuatro caras llamada Tetraedro, con ángulos de <b>109.5 grados</b>. (Ej: El metano, CH<sub>4</sub>).</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "chem_m4_t3_q1", text: "Si un átomo central tiene 3 enlaces y cero electrones libres, ¿qué figura forma?", options: ["Una línea recta.", "Una Trigonal Plana (triángulo).", "Un cuadrado.", "Un círculo."], correctIndex: 1 },
+                    { id: "chem_m4_t3_q2", text: "¿Cuántos enlaces tiene el átomo central en una geometría Tetraédrica perfecta?", options: ["2", "3", "4", "5"], correctIndex: 2 },
+                    { id: "chem_m4_t3_q3", text: "¿Son completamente planas (en 2D) las moléculas con geometría tetraédrica?", options: ["Sí, parecen una cruz plana.", "No, utilizan las 3 dimensiones formando una especie de pirámide.", "Sí, si se dibujan en papel.", "Depende del elemento central."], correctIndex: 1 }
+                ]
+            }
+        };
+    </script>
+    <script src="../js/modulo.js"></script>
+</body>
+</html>

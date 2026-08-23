@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 5 Química - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <div class="module-header">
+            <h2 id="module-main-title">Química: Geometría de Dominio</h2>
+            <button class="close-module-btn" onclick="javascript:history.back()">X</button>
+        </div>
+
+        <div class="module-content">
+            
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                
+                <div class="topic-grid">
+                    <!-- Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/chem-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/44BD6E?text=☁️'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>¿Qué es un Dominio?</h4>
+                            <p>Aprende a contar las "nubes" de electrones alrededor del átomo.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/chem-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/44BD6E?text=👁️'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Dominio vs Molecular</h4>
+                            <p>La diferencia entre lo que "es" y lo que realmente "se ve".</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/chem-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/44BD6E?text=4'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>La Familia de 4 Dominios</h4>
+                            <p>El caso del Metano, el Amoníaco y el Agua.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
+
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    ✨ Verificar Respuestas
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleId = "chem_m5"; // Identificador único del Módulo 5 de Química
+
+        window.moduleData = {
+            "tema1": {
+                title: "¿Qué es un Dominio de Electrones?",
+                reading: `
+                    <br>
+                    <h4>Contando nubes eléctricas</h4>
+                    <p>Un <b>Dominio de Electrones</b> es cualquier región alrededor del átomo central donde haya electrones. Solo existen dos cosas que cuentan como dominio:</p>
+                    <ol>
+                        <li><b>Los Enlaces:</b> Un enlace sencillo, uno doble y uno triple... ¡todos cuentan como <b>UN SOLO</b> dominio! (Porque están en la misma región del espacio uniendo a los mismos dos átomos).</li>
+                        <li><b>Los Pares Libres:</b> Un par de electrones sueltos que no se enlazan con nadie también cuenta como <b>UN</b> dominio.</li>
+                    </ol>
+                    <p><b>Ejemplo:</b> Si un átomo tiene 2 enlaces simples y 1 par de electrones libres, en total tiene <b>3 dominios de electrones</b>.</p>
+                `,
+                questions: [
+                    { id: "chem_m5_t1_q1", text: "¿Qué se considera como un 'Dominio de electrones'?", options: ["Solo los enlaces simples.", "Cualquier enlace o par de electrones libres alrededor del átomo central.", "Solo los electrones que se están compartiendo.", "Únicamente los enlaces dobles."], correctIndex: 1 },
+                    { id: "chem_m5_t1_q2", text: "Si un átomo central está unido a otro por un ENLACE DOBLE, ¿cuántos dominios representa ese enlace?", options: ["Representa DOS dominios.", "Representa UN SOLO dominio.", "Representa CUATRO dominios.", "No representa ningún dominio."], correctIndex: 1 },
+                    { id: "chem_m5_t1_q3", text: "Si un átomo tiene 3 enlaces simples y 1 par de electrones libres, ¿cuántos dominios tiene en total?", options: ["3", "1", "4", "Ninguno"], correctIndex: 2 }
+                ]
+            },
+            "tema2": {
+                title: "Geometría de Dominio vs. Molecular",
+                reading: `
+                    <br>
+                    <h4>Lo que es vs. Lo que se ve</h4>
+                    <p>A veces nos confundimos entre estas dos geometrías, pero la diferencia es simple:</p>
+                    <ul>
+                        <li><b>La Geometría de Dominio:</b> Toma en cuenta TODOS los dominios (enlaces + pares libres) por igual. Para esta geometría, un par de electrones "fantasma" es tan importante como un átomo real.</li>
+                        <li><b>La Geometría Molecular:</b> Es la forma final que tú "ves". Los pares libres siguen ahí empujando (doblando los enlaces), pero a la hora de darle nombre a la figura, los electrones libres se vuelven "invisibles".</li>
+                    </ul>
+                    <p><b>Nota clave:</b> Si una molécula NO tiene pares libres, su geometría de Dominio y su geometría Molecular serán <b>exactamente iguales</b>.</p>
+                `,
+                questions: [
+                    { id: "chem_m5_t2_q1", text: "¿Qué geometría toma en cuenta a los pares libres como si fueran 'brazos' completos de la figura?", options: ["Geometría Lineal", "Geometría Molecular", "Geometría de Dominio", "Geometría Cuántica"], correctIndex: 2 },
+                    { id: "chem_m5_t2_q2", text: "En la geometría Molecular, ¿qué ocurre con los pares de electrones libres?", options: ["Afectan la forma empujando a los demás, pero son invisibles en la figura final.", "Se dibujan como si fueran átomos de oxígeno.", "Se ignoran por completo y no empujan nada.", "Explotan y se van del átomo."], correctIndex: 0 },
+                    { id: "chem_m5_t2_q3", text: "¿En qué caso la Geometría Molecular es exactamente igual a la Geometría de Dominio?", options: ["Cuando hay muchos electrones libres.", "Cuando el átomo central NO tiene pares de electrones libres.", "Cuando es un enlace iónico.", "Nunca pueden ser iguales."], correctIndex: 1 }
+                ]
+            },
+            "tema3": {
+                title: "La Familia de 4 Dominios",
+                reading: `
+                    <br>
+                    <h4>El Agua, el Amoníaco y el Metano</h4>
+                    <p>Estas tres famosas moléculas tienen algo en común: todas tienen <b>4 dominios de electrones</b> alrededor de su centro. Por lo tanto, las tres tienen una <b>Geometría de Dominio Tetraédrica</b>.</p>
+                    <p>¡Pero sus <i>Geometrías Moleculares</i> (las figuras reales) son diferentes porque tienen distintos electrones libres!</p>
+                    <ul>
+                        <li><b>Metano (CH<sub>4</sub>):</b> Tiene 4 enlaces y 0 libres. Su forma molecular es <b>Tetraédrica</b>.</li>
+                        <li><b>Amoníaco (NH<sub>3</sub>):</b> Tiene 3 enlaces y 1 par libre (que empuja hacia abajo). Su forma molecular es <b>Pirámide Trigonal</b>.</li>
+                        <li><b>Agua (H<sub>2</sub>O):</b> Tiene 2 enlaces y 2 pares libres. Su forma molecular es <b>Angular</b> (doblada).</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "chem_m5_t3_q1", text: "Si el Agua (H₂O) tiene 2 enlaces y 2 pares libres, ¿cuál es su Geometría de Dominio (total 4 dominios)?", options: ["Lineal", "Trigonal Plana", "Tetraédrica", "Angular"], correctIndex: 2 },
+                    { id: "chem_m5_t3_q2", text: "¿Cuál es la forma (Geometría Molecular) del Amoníaco (NH₃) sabiendo que tiene 3 enlaces y 1 par fantasma empujándolos?", options: ["Pirámide Trigonal", "Tetraédrica", "Lineal", "Cuadrada"], correctIndex: 0 },
+                    { id: "chem_m5_t3_q3", text: "¿Por qué el Metano, el Amoníaco y el Agua tienen diferentes Geometrías Moleculares si todos tienen 4 dominios?", options: ["Porque usan diferentes átomos centrales.", "Por la diferente cantidad de pares de electrones libres que poseen.", "Porque unas son líquidas y otras gaseosas.", "Porque tienen distinto peso."], correctIndex: 1 }
+                ]
+            }
+        };
+    </script>
+    <script src="../js/modulo.js"></script>
+</body>
+</html>

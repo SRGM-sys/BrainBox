@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 3 Química - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <div class="module-header">
+            <h2 id="module-main-title">Química: Enlaces Químicos</h2>
+            <button class="close-module-btn" onclick="javascript:history.back()">X</button>
+        </div>
+
+        <div class="module-content">
+            
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                
+                <div class="topic-grid">
+                    <!-- Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/chem-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/44BD6E?text=Na⁺Cl⁻'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Enlace Iónico</h4>
+                            <p>Robo y transferencia de electrones entre Metales y No Metales.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/chem-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/44BD6E?text=H₂O'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Enlace Covalente</h4>
+                            <p>Compartiendo electrones para llegar juntos al octeto.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/chem-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/44BD6E?text=Fe'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Enlace Metálico</h4>
+                            <p>El "mar de electrones" que permite conducir electricidad.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
+
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    ✨ Verificar Respuestas
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleId = "chem_m3"; // Identificador único del Módulo 3 de Química
+
+        window.moduleData = {
+            "tema1": {
+                title: "El Enlace Iónico",
+                reading: `
+                    <br>
+                    <h4>Atracción Fatal</h4>
+                    <p>El <b>enlace iónico</b> ocurre cuando un átomo fuerte le <b>roba o transfiere</b> electrones de valencia a un átomo más débil.</p>
+                    <p>Casi siempre sucede entre un <b>Metal</b> (que quiere perder electrones) y un <b>No Metal</b> (que quiere ganar electrones).</p>
+                    <ul>
+                        <li>El átomo que pierde el electrón se vuelve un ion positivo (Catión).</li>
+                        <li>El átomo que roba el electrón se vuelve un ion negativo (Anión).</li>
+                    </ul>
+                    <p><b>¿Por qué se unen?</b> ¡Como si fueran imanes! Las cargas opuestas (positivo y negativo) se atraen fuertemente. Un ejemplo clásico es la sal de mesa (NaCl: Sodio + Cloro).</p>
+                `,
+                questions: [
+                    { id: "chem_m3_t1_q1", text: "¿Qué le sucede a los electrones en un enlace iónico?", options: ["Se comparten equitativamente.", "Flotan libremente por el aire.", "Se transfieren (uno roba y el otro cede).", "Se destruyen al chocar."], correctIndex: 2 },
+                    { id: "chem_m3_t1_q2", text: "¿Entre qué tipos de elementos se da típicamente un enlace iónico?", options: ["Entre dos No Metales.", "Entre un Metal y un No Metal.", "Entre dos Metales.", "Entre dos Gases Nobles."], correctIndex: 1 },
+                    { id: "chem_m3_t1_q3", text: "¿Por qué los átomos se quedan pegados después de transferir el electrón?", options: ["Por la atracción de las cargas eléctricas opuestas (positivo y negativo).", "Porque usan pegamento nuclear.", "Por la fuerza de la gravedad.", "Porque ahora son el mismo elemento."], correctIndex: 0 }
+                ]
+            },
+            "tema2": {
+                title: "El Enlace Covalente",
+                reading: `
+                    <br>
+                    <h4>Compartir es vivir</h4>
+                    <p>El <b>enlace covalente</b> ocurre cuando dos átomos <b>comparten</b> sus electrones de valencia para que ambos puedan completar su octeto (llegar a 8).</p>
+                    <p>Esto sucede típicamente entre <b>dos No Metales</b>, ya que ambos son "fuertes" y ninguno se deja robar electrones, así que se ven obligados a compartir. Al estar jalando los mismos electrones al mismo tiempo, quedan unidos.</p>
+                    <p><b>Ejemplos:</b> El agua (H<sub>2</sub>O) o el gas oxígeno que respiramos (O<sub>2</sub>) están unidos mediante enlaces covalentes.</p>
+                `,
+                questions: [
+                    { id: "chem_m3_t2_q1", text: "¿Qué le sucede a los electrones en un enlace covalente?", options: ["Se transfieren de uno a otro.", "Se comparten entre los átomos.", "Se escapan del núcleo.", "Se convierten en protones."], correctIndex: 1 },
+                    { id: "chem_m3_t2_q2", text: "¿Entre qué tipos de elementos se da típicamente un enlace covalente?", options: ["Un Metal y un No Metal.", "Dos Metales.", "Dos No Metales.", "Metales de transición."], correctIndex: 2 },
+                    { id: "chem_m3_t2_q3", text: "En la molécula de agua (H₂O), el oxígeno y el hidrógeno son no metales. ¿Cómo se unen?", options: ["Por enlace Iónico.", "Por enlace Metálico.", "Por enlace Covalente.", "Por gravedad magnética."], correctIndex: 2 }
+                ]
+            },
+            "tema3": {
+                title: "El Enlace Metálico",
+                reading: `
+                    <br>
+                    <h4>El mar de electrones</h4>
+                    <p>El <b>enlace metálico</b> es la forma en la que se unen los átomos de los <b>Metales</b> entre sí (como en un anillo de oro o un cable de cobre).</p>
+                    <p>Los metales son muy "generosos" y sueltan sus electrones de valencia fácilmente. El resultado es un montón de núcleos positivos nadando en un <b>"mar de electrones"</b> que fluyen libremente por todo el material.</p>
+                    <p><b>Propiedades:</b> Gracias a este mar de electrones móviles, los metales son excelentes conductores de la electricidad y el calor, y pueden ser doblados (maleables) sin romperse como el vidrio.</p>
+                `,
+                questions: [
+                    { id: "chem_m3_t3_q1", text: "¿Cómo se comportan los electrones en un enlace metálico?", options: ["Se comparten en parejas fijas.", "Forman un 'mar de electrones' que fluye libremente.", "Se quedan estáticos junto al núcleo.", "Se transforman en iones negativos."], correctIndex: 1 },
+                    { id: "chem_m3_t3_q2", text: "Gracias al 'mar de electrones', ¿cuál es una de las principales propiedades de los metales?", options: ["Son muy frágiles y se quiebran fácil.", "Son excelentes conductores de electricidad y calor.", "Son transparentes a la luz.", "No pueden cambiar de forma."], correctIndex: 1 },
+                    { id: "chem_m3_t3_q3", text: "Si tienes un cable de cobre puro, sus átomos están unidos internamente mediante enlaces:", options: ["Iónicos", "Covalentes", "Metálicos", "Polares"], correctIndex: 2 }
+                ]
+            }
+        };
+    </script>
+    <script src="../js/modulo.js"></script>
+</body>
+</html>

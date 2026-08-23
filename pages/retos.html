@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto Diario - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <div class="module-header" style="background: linear-gradient(135deg, #FDCB6E, #F39C12);">
+            <h2 id="module-main-title" style="color: white; margin: 0;">Reto Diario Combinado</h2>
+            <button class="close-module-btn" onclick="window.location.href='dashboard.html'">X</button>
+        </div>
+
+        <div class="module-content">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h3 style="color: var(--text-main);">Demuestra lo que sabes</h3>
+                <p style="color: var(--text-muted);">5 preguntas aleatorias. Un solo intento hoy. ¡Gana 5 Monedas de Oro!</p>
+            </div>
+
+            <!-- CONTENEDOR DEL TEST -->
+            <div id="quiz-section"></div>
+
+            <button class="btn-verify" onclick="evaluateChallenge()" style="background: #F39C12; box-shadow: 0 6px 0 #D68910;">
+                Terminar y Evaluar
+            </button>
+        </div>
+    </div>
+
+    <script src="../js/retos.js"></script>
+</body>
+</html>
