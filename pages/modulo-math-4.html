@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 4 Matemáticas - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <div class="module-header">
+            <h2 id="module-main-title">Módulo 4: Funciones</h2>
+            <button class="close-module-btn" onclick="javascript:history.back()">X</button>
+        </div>
+
+        <div class="module-content">
+            
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                
+                <div class="topic-grid">
+                    <!-- Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=D/R'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Dominio y Rango</h4>
+                            <p>Entradas y salidas: el terreno donde vive una función.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=1:1'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Inyectiva, Sobreyectiva y Biyectiva</h4>
+                            <p>Clasificando las funciones según cómo se conectan.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=f⁻¹'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Composición e Inversa</h4>
+                            <p>Funciones dentro de funciones y el viaje de regreso.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
+
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    Verificar Respuestas
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleId = "math_m4"; // Identificador único del Módulo 4 de Matemáticas
+
+        window.moduleData = {
+            "tema1": {
+                title: "Dominio y Rango",
+                reading: `
+                    <br>
+                    <h4>La Máquina Matemática</h4>
+                    <p>Imagina que una función matemática es como una máquina de hacer jugos. Tú le metes frutas (entradas) y la máquina te da un jugo (salida).</p>
+                    <ul>
+                        <li><b>Dominio (Las frutas permitidas):</b> Es el conjunto de todos los valores posibles de <b>"x"</b> que le puedes meter a la función sin que la máquina se rompa (como evitar meter piedras). Por ejemplo, en una función con raíz cuadrada, el dominio exige que los valores de adentro no sean negativos.</li>
+                        <li><b>Rango (Los jugos resultantes):</b> Es el conjunto de todos los valores posibles de <b>"y"</b> (o f(x)) que la máquina te va a devolver después de procesar el dominio.</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "math_m4_t1_q1", text: "¿Qué representa el Dominio de una función?", options: ["Los resultados de la función.", "El conjunto de todos los valores posibles de entrada (x).", "El punto de corte con el eje Y.", "El valor máximo de la función."], correctIndex: 1 },
+                    { id: "math_m4_t1_q2", text: "¿Qué representa el Rango (o imagen) de una función?", options: ["El conjunto de todos los valores posibles de entrada (x).", "Los valores que rompen la función.", "El conjunto de todos los valores posibles de salida (y).", "Las raíces de la función."], correctIndex: 2 },
+                    { id: "math_m4_t1_q3", text: "Si una función es f(x) = √x, ¿cuál es una restricción lógica para su Dominio en los números reales?", options: ["x debe ser negativo.", "x debe ser mayor o igual a cero.", "x no puede ser cero.", "No hay ninguna restricción."], correctIndex: 1 }
+                ]
+            },
+            "tema2": {
+                title: "Inyectiva, Sobreyectiva y Biyectiva",
+                reading: `
+                    <br>
+                    <h4>Comportamientos de las Funciones</h4>
+                    <p>Las funciones se clasifican según cómo conectan el conjunto de partida (las X) con el conjunto de llegada (las Y):</p>
+                    <ul>
+                        <li><b>Inyectiva (Uno a uno):</b> Cada elemento de Y está emparejado, como máximo, con una sola X. Nunca dos X diferentes te darán el mismo valor de Y. No hay "infidelidades".</li>
+                        <li><b>Sobreyectiva:</b> Ningún elemento del conjunto de llegada (Y) se queda solo. Todo el codominio es utilizado, por lo que el Codominio es exactamente igual al Rango.</li>
+                        <li><b>Biyectiva:</b> ¡El emparejamiento perfecto! Es Inyectiva y Sobreyectiva al mismo tiempo. Es un emparejamiento estricto uno a uno donde no sobra nadie.</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "math_m4_t2_q1", text: "Si una función empareja cada elemento de Y con, como máximo, una sola X (no repite resultados), ¿qué tipo de función es?", options: ["Sobreyectiva", "Cuadrática", "Inyectiva", "Nula"], correctIndex: 2 },
+                    { id: "math_m4_t2_q2", text: "Para que una función sea considerada Biyectiva, debe ser:", options: ["Inyectiva y Sobreyectiva a la vez.", "Solamente Inyectiva.", "Constante.", "Ni inyectiva ni sobreyectiva."], correctIndex: 0 },
+                    { id: "math_m4_t2_q3", text: "En una función Sobreyectiva, se cumple estrictamente que:", options: ["El dominio es infinito.", "Todos los elementos del conjunto de llegada (Y) son utilizados.", "La función pasa por el origen.", "Solo se usan números positivos."], correctIndex: 1 }
+                ]
+            },
+            "tema3": {
+                title: "Composición e Inversa",
+                reading: `
+                    <br>
+                    <h4>Manejando Múltiples Máquinas</h4>
+                    <p><b>Función Compuesta: (f ∘ g)(x)</b><br>
+                    Es como conectar dos máquinas en serie. Lo que sale de la máquina <b>g(x)</b> se mete directamente como entrada en la máquina <b>f(x)</b>. Matemáticamente se escribe como <b>f(g(x))</b>.</p>
+                    
+                    <p><b>Función Inversa: f<sup>-1</sup>(x)</b><br>
+                    Es la máquina que hace el proceso al revés. Si metes un número en <b>f(x)</b> y te da un resultado, meter ese resultado en <b>f<sup>-1</sup>(x)</b> te devolverá el número original. (Ej: f(2) = 5, entonces f<sup>-1</sup>(5) = 2).</p>
+                    <p><i>Nota súper importante:</i> ¡Solo las funciones <b>Biyectivas</b> pueden tener una función inversa!</p>
+                `,
+                questions: [
+                    { id: "math_m4_t3_q1", text: "¿Qué significa matemáticamente la composición (f ∘ g)(x)?", options: ["Multiplicar f(x) por g(x).", "Evaluar la función f usando g(x) como su entrada: f(g(x)).", "Sumar ambas funciones.", "Dividir f entre g."], correctIndex: 1 },
+                    { id: "math_m4_t3_q2", text: "¿Cuál es el propósito principal de una Función Inversa?", options: ["Multiplicar por -1 el resultado.", "Deshacer o revertir el proceso de la función original.", "Hacer que la función sea infinita.", "Cambiar la variable X por Y para siempre."], correctIndex: 1 },
+                    { id: "math_m4_t3_q3", text: "¿Qué requisito estricto debe cumplir una función para que pueda tener una función inversa?", options: ["Ser una función cuadrática.", "Ser Inyectiva.", "Ser Biyectiva.", "No tener dominio negativo."], correctIndex: 2 }
+                ]
+            }
+        };
+    </script>
+    <script src="../js/modulo.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Profesor - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <style>
+        .teacher-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+        }
+        .students-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .student-card {
+            background: var(--surface-color);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .student-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .student-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+        }
+        .student-info h4 { margin: 0; font-size: 1.1rem; color: var(--text-main); }
+        .student-info p { margin: 0; font-size: 0.85rem; color: var(--text-muted); }
+        
+        /* Estilos de las barras */
+        .subject-progress {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .bar-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        .bar-bg {
+            background: #E2E8F0;
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease-out;
+        }
+        .fill-math { background: #6C5CE7; }
+        .fill-phys { background: #00CEC9; }
+        .fill-chem { background: #44BD6E; }
+        
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="teacher-header">
+        <h2 style="margin: 0;">Panel de Control</h2>
+        <button onclick="window.location.href='../index.html'" style="background: rgba(255, 123, 123, 0.2); border: none; color: rgb(233, 79, 79); padding: 8px 15px; border-radius: 10px; cursor: pointer; font-weight: bold;">Salir</button>
+    </header>
+
+    <main class="container">
+        <div style="padding: 20px 20px 0;">
+            <h3 style="color: var(--text-main);">Avance de Estudiantes</h3>
+            <p style="color: var(--text-muted);">Monitoreo global de las cuentas registradas.</p>
+        </div>
+
+        <div id="students-container" class="students-grid">
+            <!-- Las tarjetas de los estudiantes se inyectarán aquí -->
+        </div>
+    </main>
+
+    <script src="../js/profesor.js"></script>
+</body>
+</html>

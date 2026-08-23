@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 5 Matemáticas - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <div class="module-header">
+            <h2 id="module-main-title">Módulo 5: Trigonometría</h2>
+            <button class="close-module-btn" onclick="javascript:history.back()">X</button>
+        </div>
+
+        <div class="module-content">
+            
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                
+                <div class="topic-grid">
+                    <!-- Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=π'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Tabla Trigonométrica</h4>
+                            <p>Conoce los valores notables como Sen(π) o Cos(0).</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=Id'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Identidades Fundamentales</h4>
+                            <p>Pitagóricas, recíprocas y de cociente.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=2θ'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Ángulo Doble y Mitad</h4>
+                            <p>Fórmulas para transformar ángulos dentro de las funciones.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
+
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    ✨ Verificar Respuestas
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleId = "math_m5"; // Identificador único del Módulo 5 de Matemáticas
+
+        window.moduleData = {
+            "tema1": {
+                title: "Valores Trigonométricos Notables",
+                reading: `
+                    <br>
+                    <h4>Midiendo en Radianes</h4>
+                    <p>En trigonometría avanzada, usamos <b>radianes</b> en lugar de grados. La equivalencia clave es que <b>π radianes = 180°</b>.</p>
+                    <p>Es fundamental saber de memoria los valores de las funciones para ángulos clave como el 0, π/2 (90°) y π (180°):</p>
+                    <ul>
+                        <li><b>Seno:</b> Comienza en el origen. <b>Sen(0) = 0</b>. Cuando sube a 90° alcanza su máximo: <b>Sen(π/2) = 1</b>. Al caer a 180° vuelve a cero: <b>Sen(π) = 0</b>.</li>
+                        <li><b>Coseno:</b> Empieza en la cima. <b>Cos(0) = 1</b>. A los 90° es cero: <b>Cos(π/2) = 0</b>. Y a los 180° cae a su mínimo: <b>Cos(π) = -1</b>.</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "math_m5_t1_q1", text: "¿Cuál es el valor exacto de Sen(π)?", options: ["1", "-1", "0", "π"], correctIndex: 2 },
+                    { id: "math_m5_t1_q2", text: "¿Cuál es el valor exacto de Cos(0)?", options: ["0", "1", "-1", "Infiníto"], correctIndex: 1 },
+                    { id: "math_m5_t1_q3", text: "Sabiendo que π radianes equivalen a 180°, ¿cuál es el equivalente en radianes de 90°?", options: ["2π", "π/3", "π/4", "π/2"], correctIndex: 3 }
+                ]
+            },
+            "tema2": {
+                title: "Identidades Fundamentales",
+                reading: `
+                    <br>
+                    <h4>El Rompecabezas Trigonométrico</h4>
+                    <p>Las identidades son igualdades matemáticas que siempre se cumplen. Nos ayudan a simplificar ecuaciones complejas. Se dividen en 3 grupos:</p>
+                    <ul>
+                        <li><b>Pitagóricas:</b> Nacen del famoso teorema de Pitágoras. La más importante de toda la trigonometría es: <b>sen<sup>2</sup>(θ) + cos<sup>2</sup>(θ) = 1</b>.</li>
+                        <li><b>De Cociente:</b> Relacionan funciones a través de una división. Ejemplo: <b>tan(θ) = sen(θ) / cos(θ)</b>.</li>
+                        <li><b>Recíprocas:</b> Son las "inversas" multiplicativas (cuando divides 1 para la función). Ejemplo: La recíproca del coseno es la secante <b>sec(θ) = 1 / cos(θ)</b>, y la del seno es la cosecante <b>csc(θ) = 1 / sen(θ)</b>.</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "math_m5_t2_q1", text: "Según la identidad pitagórica principal, ¿a qué es igual sen²(θ) + cos²(θ)?", options: ["0", "tan²(θ)", "1", "-1"], correctIndex: 2 },
+                    { id: "math_m5_t2_q2", text: "Basándote en las identidades de cociente, la expresión sen(θ) / cos(θ) es equivalente a:", options: ["cot(θ)", "tan(θ)", "sec(θ)", "csc(θ)"], correctIndex: 1 },
+                    { id: "math_m5_t2_q3", text: "¿Cuál es la función recíproca del coseno (es decir, 1 / cos(θ))?", options: ["Seno", "Secante", "Cosecante", "Tangente"], correctIndex: 1 }
+                ]
+            },
+            "tema3": {
+                title: "Ángulo Doble y Mitad",
+                reading: `
+                    <br>
+                    <h4>Transformando Ángulos</h4>
+                    <p>A veces el ángulo dentro de la función está multiplicado por 2 (doble) o dividido para 2 (mitad). Hay fórmulas específicas para separarlos:</p>
+                    <p><b>Identidades del Ángulo Doble:</b></p>
+                    <ul>
+                        <li>Seno: <b>sen(2θ) = 2 · sen(θ) · cos(θ)</b></li>
+                        <li>Coseno: <b>cos(2θ) = cos<sup>2</sup>(θ) - sen<sup>2</sup>(θ)</b></li>
+                    </ul>
+                    <p><b>Identidades del Ángulo Mitad:</b> Todas llevan una gran raíz cuadrada. Por ejemplo, el seno de un ángulo mitad es: <b>sen(θ/2) = ±√[ (1 - cos(θ)) / 2 ]</b>.</p>
+                `,
+                questions: [
+                    { id: "math_m5_t3_q1", text: "¿A qué es equivalente la expresión del seno del ángulo doble, sen(2θ)?", options: ["sen²(θ) + cos²(θ)", "2 · sen(θ) · cos(θ)", "cos²(θ) - sen²(θ)", "2 · cos(θ)"], correctIndex: 1 },
+                    { id: "math_m5_t3_q2", text: "¿Cuál de estas opciones representa correctamente a cos(2θ)?", options: ["cos²(θ) - sen²(θ)", "sen²(θ) - cos²(θ)", "2 · sen(θ) · cos(θ)", "1"], correctIndex: 0 },
+                    { id: "math_m5_t3_q3", text: "En la fórmula del ángulo mitad para el seno, es decir sen(θ/2), ¿qué función trigonométrica se utiliza dentro de la raíz cuadrada?", options: ["Seno", "Tangente", "Coseno", "Secante"], correctIndex: 2 }
+                ]
+            }
+        };
+    </script>
+    <script src="../js/modulo.js"></script>
+</body>
+</html>

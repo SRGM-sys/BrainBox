@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 7 Matemáticas - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <div class="module-header">
+            <h2 id="module-main-title">Módulo 7: Matrices</h2>
+            <button class="close-module-btn" onclick="javascript:history.back()">X</button>
+        </div>
+
+        <div class="module-content">
+            
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                
+                <div class="topic-grid">
+                    <!-- Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=Aᵀ'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Transpuesta y Traza</h4>
+                            <p>Rotando la cuadrícula y sumando diagonales.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=det(A)'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>El Determinante</h4>
+                            <p>El número mágico de las matrices cuadradas.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=F₁'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Operaciones de Fila</h4>
+                            <p>Escalando y modificando la matriz por dentro.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
+
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    ✨ Verificar Respuestas
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleId = "math_m7"; // Identificador único del Módulo 7 de Matemáticas
+
+        window.moduleData = {
+            "tema1": {
+                title: "Transpuesta y Traza",
+                reading: `
+                    <br>
+                    <h4>Modificando el arreglo bidimensional</h4>
+                    <p>Una matriz es una cuadrícula de números. Existen dos operaciones básicas muy útiles:</p>
+                    <ul>
+                        <li><b>La Transpuesta (A<sup>T</sup>):</b> Consiste en intercambiar las filas por las columnas. Lo que estaba acostado, ahora se pone de pie. Si tu matriz era de tamaño 2x3 (2 filas, 3 columnas), su transpuesta será de 3x2.</li>
+                        <li><b>La Traza, Tr(A):</b> Solo aplica para matrices cuadradas (mismo número de filas y columnas). Es simplemente la <b>suma de los elementos de la diagonal principal</b> (los que van desde la esquina superior izquierda hasta la inferior derecha).</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "math_m7_t1_q1", text: "Si aplicas la transpuesta a una matriz, ¿qué ocurre con sus elementos?", options: ["Se multiplican por -1.", "Las filas se convierten en columnas.", "Se suman todos entre sí.", "La matriz se vuelve cuadrada."], correctIndex: 1 },
+                    { id: "math_m7_t1_q2", text: "Si tienes una matriz de dimensiones 4x5 y calculas su transpuesta, ¿de qué tamaño será la nueva matriz?", options: ["4x5", "5x4", "9x9", "4x4"], correctIndex: 1 },
+                    { id: "math_m7_t1_q3", text: "¿Qué elementos debes sumar para calcular la Traza de una matriz cuadrada?", options: ["Todos los elementos de la matriz.", "Los elementos de la última fila.", "Los elementos de la diagonal principal.", "Los elementos de la primera columna."], correctIndex: 2 }
+                ]
+            },
+            "tema2": {
+                title: "El Determinante de una Matriz",
+                reading: `
+                    <br>
+                    <h4>El número que lo define todo</h4>
+                    <p>El <b>Determinante</b> es un valor escalar especial que solo se puede calcular en <b>matrices cuadradas</b> (2x2, 3x3, etc.). Se denota como det(A) o |A|.</p>
+                    <p>Para una matriz básica de 2x2 con elementos [a, b] en la primera fila y [c, d] en la segunda, la fórmula es cruzada: <b>det(A) = (a·d) - (b·c)</b>.</p>
+                    <p><b>El dato vital:</b> Si el determinante de una matriz es igual a <b>cero</b>, significa que la matriz "colapsa" el espacio y <b>NO tiene inversa</b>. Se le llama matriz singular.</p>
+                `,
+                questions: [
+                    { id: "math_m7_t2_q1", text: "¿A qué tipo de matrices se les puede calcular el determinante?", options: ["A cualquier matriz.", "Solo a matrices cuadradas.", "Solo a matrices transpuestas.", "Solo a matrices de 1x1."], correctIndex: 1 },
+                    { id: "math_m7_t2_q2", text: "¿Cuál es la fórmula para calcular el determinante de una matriz 2x2 con elementos a, b, c, d?", options: ["(a·c) - (b·d)", "(a·d) + (b·c)", "(a·d) - (b·c)", "a + b + c + d"], correctIndex: 2 },
+                    { id: "math_m7_t2_q3", text: "Si el determinante de una matriz es exactamente CERO, podemos asegurar que:", options: ["La matriz es la Identidad.", "La matriz NO tiene inversa (es singular).", "La matriz solo tiene números negativos.", "La traza también es cero."], correctIndex: 1 }
+                ]
+            },
+            "tema3": {
+                title: "Operaciones Elementales",
+                reading: `
+                    <br>
+                    <h4>Escalando Filas y Columnas</h4>
+                    <p>Para resolver sistemas de ecuaciones o encontrar inversas, a menudo necesitamos "manipular" la matriz usando las tres <b>Operaciones Elementales de Fila</b> (o columna):</p>
+                    <ol>
+                        <li><b>Intercambio:</b> Puedes cambiar de posición dos filas enteras.</li>
+                        <li><b>Escalado (Multiplicación):</b> Puedes multiplicar todos los números de una fila por un número real (escalar) que no sea cero. (Ej: Multiplicar la fila 1 por 5).</li>
+                        <li><b>Suma de filas:</b> Puedes sumarle a una fila el múltiplo de otra fila distinta.</li>
+                    </ol>
+                    <p>Estas reglas son la base del famoso método de <b>Eliminación de Gauss-Jordan</b>.</p>
+                `,
+                questions: [
+                    { id: "math_m7_t3_q1", text: "Al realizar un 'escalado' como operación elemental de fila, ¿qué estamos haciendo?", options: ["Multiplicar una fila entera por un escalar (número) distinto de cero.", "Elevar al cuadrado toda la matriz.", "Dividir la matriz a la mitad.", "Borrar una fila entera."], correctIndex: 0 },
+                    { id: "math_m7_t3_q2", text: "¿Es válido sumar una fila con otra dentro de las operaciones elementales?", options: ["No, solo se puede restar.", "Sí, es una de las operaciones permitidas.", "Solo si la matriz es 2x2.", "No, arruinaría el determinante irreversiblemente."], correctIndex: 1 },
+                    { id: "math_m7_t3_q3", text: "¿Qué famoso algoritmo utiliza exhaustivamente estas operaciones de fila para resolver sistemas de ecuaciones lineales?", options: ["Teorema de Pitágoras.", "Eliminación de Gauss-Jordan.", "Regla de Ruffini.", "Fórmula General."], correctIndex: 1 }
+                ]
+            }
+        };
+    </script>
+    <script src="../js/modulo.js"></script>
+</body>
+</html>

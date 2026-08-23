@@ -11,9 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. MOTOR DE LIGAS
     function getLevelInfo(xp) {
         if (xp < 100) return { level: 1, rankClass: 'rank-bronce', rankName: 'Bronce' };
-        if (xp < 200) return { level: 2, rankClass: 'rank-plata', rankName: 'Plata' };
-        if (xp < 300) return { level: 3, rankClass: 'rank-oro', rankName: 'Oro' };
-        if (xp < 500) return { level: 4, rankClass: 'rank-esmeralda', rankName: 'Esmeralda' };
+        if (xp < 250) return { level: 2, rankClass: 'rank-plata', rankName: 'Plata' };
+        if (xp < 450) return { level: 3, rankClass: 'rank-oro', rankName: 'Oro' };
+        if (xp < 750) return { level: 4, rankClass: 'rank-esmeralda', rankName: 'Esmeralda' };
         return { level: 5, rankClass: 'rank-diamante', rankName: 'Diamante' }; 
     }
     let rankData = getLevelInfo(currentUser.xp || 0);

@@ -127,6 +127,13 @@ document.addEventListener('DOMContentLoaded', () => {
             let users = JSON.parse(localStorage.getItem('brainbox_users')) || [];
             const validUser = users.find(u => u.email === email && u.password === password);
 
+            // CORRECCIÓN: Usamos las variables correctas (email y password) 
+            // Y usamos un correo falso con '@' para engañar al validador del HTML
+            if (email === "profesor@admin.com" && password === "admin123") {
+                window.location.href = 'pages/profesor.html';
+                return; // Detenemos la ejecución normal
+            }
+            
             if (validUser) {
                 localStorage.setItem('brainbox_current_user', JSON.stringify(validUser));
                 window.location.href = 'pages/dashboard.html';

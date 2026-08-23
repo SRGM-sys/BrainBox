@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 6 Matemáticas - BrainBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/modulo.css">
+</head>
+<body class="module-page">
+
+    <div class="module-box">
+        <div class="module-header">
+            <h2 id="module-main-title">Módulo 6: Números Complejos</h2>
+            <button class="close-module-btn" onclick="javascript:history.back()">X</button>
+        </div>
+
+        <div class="module-content">
+            
+            <!-- VISTA 1: SELECCIÓN DE TEMAS -->
+            <div id="view-topics">
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Selecciona una lección para comenzar a aprender:</p>
+                
+                <div class="topic-grid">
+                    <!-- Tema 1 -->
+                    <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=a%2Bbi'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Suma y Multiplicación</h4>
+                            <p>Operaciones básicas con la parte real y la parte imaginaria.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div class="topic-card" data-topic="tema2" onclick="openTopic('tema2')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=|z|'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Módulo y Conjugado</h4>
+                            <p>Distancias, reflejos y la estructura de un número complejo.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div class="topic-card" data-topic="tema3" onclick="openTopic('tema3')">
+                        <div class="topic-icon-bg">
+                            <img src="../assets/icons/math-mod.png" onerror="this.src='https://placehold.co/100x100/transparent/6C5CE7?text=i⁴'">
+                        </div>
+                        <div class="topic-info">
+                            <h4>Propiedades Avanzadas</h4>
+                            <p>El ciclo del número imaginario "i" y trucos de cálculo.</p>
+                        </div>
+                        <div class="topic-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA 2: CONTENIDO Y QUIZ -->
+            <div id="view-content" style="display: none;">
+                <button class="btn-back-topic" onclick="backToTopics()">← Volver a los temas</button>
+                <h3 id="current-topic-title" style="color: var(--primary-color); margin-top: 20px; font-size: 1.5rem; text-align: center;"></h3>
+
+                <div id="reading-section"></div>
+                <div class="section-divider"></div>
+
+                <div id="quiz-section"></div>
+
+                <button class="btn-verify" onclick="verifyAndClaim()">
+                    Verificar Respuestas
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- DATOS DEL MÓDULO -->
+    <script>
+        window.moduleId = "math_m6"; // Identificador único del Módulo 6 de Matemáticas
+
+        window.moduleData = {
+            "tema1": {
+                title: "Suma y Multiplicación de Complejos",
+                reading: `
+                    <br>
+                    <h4>Manejando la Realidad y la Imaginación</h4>
+                    <p>Un número complejo tiene la forma <b>z = a + bi</b>, donde "a" es la parte real y "b" es la parte imaginaria. Recuerda que la letra <b>i</b> representa la raíz cuadrada de -1 (por lo tanto, <b>i<sup>2</sup> = -1</b>).</p>
+                    <ul>
+                        <li><b>Suma y Resta:</b> ¡No mezcles peras con manzanas! Suma la parte real con la real, y la parte imaginaria con la imaginaria. Ej: (2 + 3i) + (1 + 4i) = 3 + 7i.</li>
+                        <li><b>Multiplicación:</b> Usa la propiedad distributiva (multiplica todo por todo). Cuando te encuentres con un <b>i<sup>2</sup></b>, cámbialo inmediatamente por un <b>-1</b> y simplifica.</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "math_m6_t1_q1", text: "¿Cuál es la regla de oro para sumar dos números complejos?", options: ["Sumar parte real con parte real, y parte imaginaria con imaginaria.", "Multiplicarlos en cruz.", "Sumar todos los números juntos.", "No se pueden sumar si tienen la letra i."], correctIndex: 0 },
+                    { id: "math_m6_t1_q2", text: "¿Cuál es el resultado de sumar (2 + 3i) + (1 + 4i)?", options: ["3 + 12i", "2 + 12i", "3 + 7i", "7 + 3i"], correctIndex: 2 },
+                    { id: "math_m6_t1_q3", text: "En la multiplicación de complejos, ¿por qué valor debemos sustituir siempre el término i²?", options: ["1", "i", "0", "-1"], correctIndex: 3 }
+                ]
+            },
+            "tema2": {
+                title: "Módulo y Conjugado",
+                reading: `
+                    <br>
+                    <h4>Espejos y Distancias</h4>
+                    <p>En el plano complejo, el eje X es la parte real y el eje Y es la parte imaginaria.</p>
+                    <ul>
+                        <li><b>El Módulo |z|:</b> Es la longitud o distancia que hay desde el centro (0,0) hasta el número complejo. Se calcula usando el Teorema de Pitágoras: <b>|z| = √(a<sup>2</sup> + b<sup>2</sup>)</b>. Ojo: la letra "i" no entra en la fórmula, solo el número "b".</li>
+                        <li><b>El Conjugado (z̄):</b> Es como el reflejo del número. Para hallarlo, simplemente <b>le cambias el signo a la parte imaginaria</b>. Si z = a + bi, su conjugado es z̄ = a - bi. La parte real nunca cambia de signo.</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "math_m6_t2_q1", text: "¿Cuál es el conjugado del número complejo 3 + 4i?", options: ["3 - 4i", "-3 + 4i", "-3 - 4i", "4 + 3i"], correctIndex: 0 },
+                    { id: "math_m6_t2_q2", text: "¿Cuál es la fórmula para encontrar el módulo |z| de un número complejo a + bi?", options: ["a + b", "√(a² + b²)", "a² + b²", "√(a + b)"], correctIndex: 1 },
+                    { id: "math_m6_t2_q3", text: "Geométricamente, ¿qué representa el módulo de un número complejo?", options: ["El ángulo del vector.", "La distancia desde el origen (0,0).", "El valor del eje Y.", "La parte real del número."], correctIndex: 1 }
+                ]
+            },
+            "tema3": {
+                title: "Propiedades de los Números Complejos",
+                reading: `
+                    <br>
+                    <h4>Trucos del Plano Complejo</h4>
+                    <p>Los números complejos tienen algunas propiedades "mágicas" que facilitan los cálculos:</p>
+                    <ul>
+                        <li><b>Suma con el conjugado:</b> Si sumas un número complejo con su propio conjugado (z + z̄), las partes imaginarias se anulan y te queda el doble de la parte real (<b>2a</b>).</li>
+                        <li><b>Multiplicación por el conjugado:</b> Si multiplicas un número complejo por su conjugado (z · z̄), el resultado es SIEMPRE un número real positivo: <b>a<sup>2</sup> + b<sup>2</sup></b>.</li>
+                        <li><b>El ciclo de la "i":</b> Las potencias de la letra "i" se repiten cada 4 pasos: i<sup>1</sup> = i, i<sup>2</sup> = -1, i<sup>3</sup> = -i, y la más importante <b>i<sup>4</sup> = 1</b>.</li>
+                    </ul>
+                `,
+                questions: [
+                    { id: "math_m6_t3_q1", text: "¿Qué obtenemos al multiplicar un número complejo por su conjugado (z · z̄)?", options: ["Un número imaginario puro.", "Cero.", "Un número real positivo (a² + b²).", "Un vector."], correctIndex: 2 },
+                    { id: "math_m6_t3_q2", text: "Teniendo en cuenta el ciclo de las potencias de 'i', ¿a qué es igual i⁴?", options: ["-1", "1", "i", "-i"], correctIndex: 1 },
+                    { id: "math_m6_t3_q3", text: "Si sumamos un número complejo con su conjugado (z + z̄), el resultado es:", options: ["0", "2bi (el doble de la parte imaginaria)", "2a (el doble de la parte real)", "1"], correctIndex: 2 }
+                ]
+            }
+        };
+    </script>
+    <script src="../js/modulo.js"></script>
+</body>
+</html>
