@@ -14,6 +14,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     let currentUser = JSON.parse(currentUserStr);
+    
+    // --- LÓGICA DE CERRAR SESIÓN GLOBAL ---
+    const btnLogout = document.getElementById('btn-logout');
+    if (btnLogout) {
+        btnLogout.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm("¿Es seguro que deseas salir de la sesión?")) {
+                localStorage.removeItem('brainbox_current_user');
+                window.location.href = '../index.html';
+            }
+        });
+    }
+
+    const greetingElement = document.getElementById('user-greeting');
+    let firstName = currentUser.fullName ? currentUser.fullName.split(' ')[0] : 'Estudiante';
+    firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase();
+    
+    // --- SI ES USUARIO EXTERNO (INVITADO) ---
+    if (currentUser.type === 'external') {
+        if (greetingElement) greetingElement.textContent = `¡Hola, ${firstName}!`;
+        
+        // Escondemos todo lo relacionado al juego
+        document.getElementById('dash-gamification-stats').style.display = 'none';
+        document.getElementById('dash-challenge-card').style.display = 'none';
+        document.getElementById('dash-bottom-nav').style.display = 'none';
+        
+        // Mostramos la caja explicativa
+        document.getElementById('guest-greeting-box').style.display = 'block';
+        return; // Detenemos la ejecución del resto del dashboard gamificado
+    }
+
+    // ==============================================================
+    // A PARTIR DE AQUÍ SOLO SE EJECUTA SI ES USUARIO INTERNO
+    // ==============================================================
+
+    if (greetingElement) greetingElement.textContent = `¡Hola, ${firstName}! 👋`;
+
     let userXp = currentUser.xp || 0;
 
     function getLevelInfo(xp) {
@@ -23,17 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (xp < 750) return { level: 4, rankClass: 'rank-esmeralda', rankName: 'Esmeralda', min: 450, max: 750 };
         return { level: 5, rankClass: 'rank-diamante', rankName: 'Diamante', min: 750, max: 1000 }; 
     }
+    
     let rankData = getLevelInfo(userXp);
-
     currentUser.level = rankData.level;
     currentUser.rankClass = rankData.rankClass;
     localStorage.setItem('brainbox_current_user', JSON.stringify(currentUser));
-
-    const greetingElement = document.getElementById('user-greeting');
-    let firstName = currentUser.fullName ? currentUser.fullName.split(' ')[0] : 'Estudiante';
-    firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase();
-    
-    if (greetingElement) greetingElement.textContent = `¡Hola, ${firstName}! 👋`;
 
     const avatarContainer = document.getElementById('user-avatar-container');
     if (avatarContainer) {
@@ -72,17 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
             elXp.textContent = `${userXp} / ${rankData.max} XP`;
             elProgressFill.style.width = `${percentage}%`;
         }
-    }
-
-    const btnLogout = document.getElementById('btn-logout');
-    if (btnLogout) {
-        btnLogout.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (confirm("¿Es seguro que deseas cerrar sesión?")) {
-                localStorage.removeItem('brainbox_current_user');
-                window.location.href = '../index.html';
-            }
-        });
     }
 
     // --- PINTADO EXACTO DE LA SEMANA DE RACHA ---

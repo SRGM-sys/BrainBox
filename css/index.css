@@ -1,7 +1,6 @@
 /* =========================================
    ESTILOS EXCLUSIVOS DEL HERO (INDEX)
    ========================================= */
-
 .hero {
     position: relative;
     min-height: 100vh;
@@ -102,4 +101,135 @@
     flex-direction: column;
     gap: 15px;
     margin-top: 20px;
+}
+
+/* =========================================
+   SISTEMA DRAG & DROP DEL TOP 3 (NUEVO)
+   ========================================= */
+
+.selected-zone {
+    background-color: #F8F9FC;
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    min-height: 180px;
+}
+
+.drag-zone {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* El rectángulo arrastrable */
+.career-rect {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid var(--border-color);
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: grab;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    user-select: none;
+}
+
+.career-rect:active {
+    cursor: grabbing;
+}
+
+.career-rect.dragging {
+    opacity: 0.5;
+    transform: scale(0.95);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Los bordes se iluminan cuando arrastras algo encima */
+.career-rect.over {
+    border: 2px dashed var(--primary-color);
+    transform: scale(1.02);
+}
+
+/* Insignias de Oro, Plata y Bronce */
+.rank-badge {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    color: white;
+    margin-right: 15px;
+    font-size: 0.9rem;
+}
+.rank-1 { background: linear-gradient(135deg, #FDCB6E, #F39C12); box-shadow: 0 0 10px rgba(243, 156, 18, 0.4); }
+.rank-2 { background: linear-gradient(135deg, #DFE6E9, #B2BEC3); }
+.rank-3 { background: linear-gradient(135deg, #E17055, #D63031); }
+
+.career-name {
+    flex-grow: 1;
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: #ff7675;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0 5px;
+    transition: transform 0.2s;
+}
+.remove-btn:hover {
+    transform: scale(1.2);
+}
+
+/* Píldoras de carreras disponibles */
+.available-zone {
+    background: white;
+}
+
+.pill-pool {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-height: 180px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* Scrollbar bonito para la zona de píldoras */
+.pill-pool::-webkit-scrollbar { width: 5px; }
+.pill-pool::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 10px; }
+
+.career-pill {
+    background: #F0EEFC;
+    color: var(--primary-color);
+    border: 1px solid rgba(108, 92, 231, 0.2);
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.career-pill:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(108, 92, 231, 0.2);
+}
+
+.add-icon {
+    font-size: 1rem;
+    line-height: 1;
 }

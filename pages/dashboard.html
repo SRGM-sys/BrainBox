@@ -4,28 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - BrainBox</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 <body>
-
-    <!-- Barra Superior (Estilo Gamificado Compacto) -->
-    <header class="dashboard-header">
+    <!-- Barra Superior -->
+    <header class="dashboard-header" id="dash-header-section">
         <div class="greeting-row">
             <h2 id="user-greeting">¡Hola, Cargando...! 👋</h2>
             <div class="header-actions">
-                <!-- Botón de Cerrar Sesión Rojito -->
                 <button id="btn-logout" class="btn-logout">Cerrar sesión</button>
             </div>
         </div>
-
-        <!-- Fila de Estadísticas (2 Columnas) -->
-        <div class="stats-row">
-            
-            <!-- Mitad 1: Nivel y Experiencia -->
+        
+        <!-- Fila de Estadísticas Ocultable -->
+        <div class="stats-row" id="dash-gamification-stats">
             <div class="level-card">
                 <div class="level-info">
                     <div class="avatar-img" id="user-avatar-container"></div>
@@ -36,21 +31,18 @@
                 </div>
                 <div class="progress-section">
                     <div class="progress-bar-bg">
-                        <!-- Barra en 0% por defecto -->
                         <div class="progress-bar-fill" id="dash-progress-fill" style="width: 0%;"></div>
                     </div>
-                    <div class="xp-text" id="dash-xp">0 / 500</div>
+                    <div class="xp-text" id="dash-xp">0 / 250</div>
                 </div>
             </div>
-
-            <!-- Mitad 2: Racha Diaria -->
+            
             <div class="streak-section">
                 <div class="streak-header">
                     <span class="streak-title">Racha 🔥</span>
                     <span class="streak-days" id="dash-streak">0 días</span>
                 </div>
                 <div class="days-row" id="dash-days-row">
-                    <!-- Todos sin la clase 'completed' para empezar de cero -->
                     <div class="day-item"><div class="circle">✓</div><span class="day-label">L</span></div>
                     <div class="day-item"><div class="circle">✓</div><span class="day-label">M</span></div>
                     <div class="day-item"><div class="circle">✓</div><span class="day-label">X</span></div>
@@ -65,6 +57,12 @@
 
     <!-- Contenido Principal -->
     <main class="container">
+        <!-- Saludo especial para invitados (Oculto por defecto) -->
+        <div id="guest-greeting-box" style="display: none; background: #F8F9FC; padding: 20px; border-radius: 16px; margin-bottom: 20px; border-left: 4px solid var(--text-muted);">
+            <h3 style="margin: 0 0 5px 0; color: var(--text-main);">Modo Invitado</h3>
+            <p style="margin: 0; color: var(--text-muted); font-size: 0.95rem;">Estás navegando en modo invitado. Puedes explorar libremente todo el contenido teórico de las materias, pero las funciones de progreso, retos y recompensas están desactivadas.</p>
+        </div>
+
         <h2 class="section-title">Elige una materia</h2>
         
         <div class="subject-grid">
@@ -72,19 +70,18 @@
                 <div class="subject-icon">📐</div>
                 <h3>Matemáticas</h3>
             </div>
-            
             <div class="subject-card" onclick="window.location.href='ruta-fisica.html'">
-                <div class="subject-icon">⚛️</div>
+                <div class="subject-icon">🍎</div>
                 <h3>Física</h3>
             </div>
-            
             <div class="subject-card" onclick="window.location.href='ruta-quimica.html'">
                 <div class="subject-icon">🧪</div>
                 <h3>Química</h3>
             </div>
         </div>
 
-        <div class="challenge-card" onclick="window.location.href='retos.html'">
+        <!-- Reto Diario Ocultable -->
+        <div class="challenge-card" id="dash-challenge-card" onclick="window.location.href='retos.html'">
             <div>
                 <h3>Retos Combinados</h3>
                 <p style="font-size: 0.9rem; opacity: 0.9;">Preguntas aleatorias de lo que ya sabes.</p>
@@ -93,8 +90,8 @@
         </div>
     </main>
 
-    <!-- Navegación Inferior Compacta -->
-    <nav class="bottom-nav">
+    <!-- Navegación Inferior Ocultable -->
+    <nav class="bottom-nav" id="dash-bottom-nav">
         <div class="nav-item active" onclick="window.location.href='dashboard.html'">
             <span class="nav-icon">🏠</span>
             <span>Principal</span>
@@ -109,7 +106,6 @@
         </div>
     </nav>
 
-    <!-- Script del Dashboard -->
     <script src="../js/dashboard.js"></script>
 </body>
 </html>

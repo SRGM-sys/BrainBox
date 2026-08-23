@@ -22,6 +22,17 @@
             <!-- VISTA 1: SELECCIÓN DE TEMAS -->
             <!-- AQUÍ ESTÁ EL ID QUE FALTABA -->
             <div id="view-topics"> 
+
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;">Mira este video introductorio antes de comenzar:</p>
+                
+                <!-- REPRODUCTOR DE VIDEO INTRODUCTORIO -->
+                <div style="display: flex; justify-content: center; margin-bottom: 30px;">
+                    <video controls style="width: 100%; max-width: 600px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); background-color: #000; outline: none;">
+                        <source src="../assets/video/video-1.mp4" type="video/mp4">
+                        Tu navegador no soporta el reproductor de video.
+                    </video>
+                </div>
+                
                 <div class="topic-grid">
                     <!-- Tarjeta Tema 1 -->
                     <div class="topic-card" data-topic="tema1" onclick="openTopic('tema1')">

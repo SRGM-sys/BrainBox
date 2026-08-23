@@ -4,149 +4,170 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BrainBox - Aprende STEM</title>
-    
-    <!-- Fuentes de Google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    
-    <!-- Hojas de Estilo Modulares -->
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/index.css"> <!-- NUEVO CSS -->
+    <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-
-    <!-- Sección Principal (Hero) -->
-    <main class="hero">
-        <!-- Efectos de luces difuminadas en el fondo -->
+    <section class="hero">
         <div class="bg-shape shape-1"></div>
         <div class="bg-shape shape-2"></div>
 
         <div class="hero-content">
-            <!-- Logo y Eslogan -->
-            <img src="assets/img/logo.svg" alt="BrainBox Logo" class="hero-logo">
+            <img src="assets/img/logo.svg" alt="BrainBox Logo" class="hero-logo" onerror="this.src='https://placehold.co/600x150/transparent/6C5CE7?text=BrainBox+Logo'">
             
-            <!-- Ilustración central levitando -->
             <div class="illustration-container">
-                <img src="assets/img/computadora.png" alt="Aprende STEM" class="hero-illustration">
+                <img src="assets/img/computadora.png" alt="Estudiante STEM" class="hero-illustration" onerror="this.src='https://placehold.co/300x300/transparent/6C5CE7?text=Ilustracion'">
             </div>
-            
-            <!-- Botones -->
+
             <div class="hero-buttons">
-                <button id="btn-comenzar" class="btn btn-primary pulse-effect">Comenzar</button>
-                <a href="pages/carreras-stem.html" class="btn btn-outline">Explorar el mundo STEM</a>
+                <button id="btn-comenzar" class="btn btn-primary pulse-effect">Comenzar a aprender</button>
+                <button class="btn btn-outline" onclick="window.location.href='pages/carreras-stem.html'">Explorar mundo STEM</button>
             </div>
         </div>
-    </main>
+    </section>
 
     <!-- Modal de Autenticación -->
-    <div id="modal-auth" class="modal-overlay">
+    <div class="modal-overlay" id="modal-auth">
         <div class="modal-content">
-            <span class="close-btn" onclick="showView('view-options')">&times;</span>
-            
-            <!-- Vista 1: Opciones Iniciales -->
-            <div id="view-options" class="view active">
-                <h2 style="text-align: center; margin-bottom: 10px;">¡Bienvenido!</h2>
-                <p style="text-align: center; color: var(--text-muted);">Inicia tu aventura STEM</p>
+            <span class="close-btn">&times;</span>
+
+            <!-- VISTA 0: ELECCIÓN DE TIPO DE USUARIO -->
+            <div id="view-choice" class="view active" style="text-align: center;">
+                <h2 style="margin-bottom: 5px;">Bienvenido a BrainBox</h2>
+                <p style="color: var(--text-muted); margin-bottom: 25px;">¿Cómo deseas ingresar a la plataforma?</p>
+                
                 <div class="auth-options">
-                    <button class="btn btn-primary" id="btn-show-login">Iniciar sesión</button>
-                    <button class="btn btn-outline" id="btn-show-register">Crear cuenta</button>
+                    <button class="btn btn-primary" onclick="showView('view-login-internal')">Estudiante</button>
+                    <button class="btn btn-outline" onclick="showView('view-login-external')" style="color: #2D3436; border-color: #DFE6E9;">Usuario Externo</button>
+                    <div style="margin-top: 20px; font-size: 0.9rem; color: var(--text-muted);">
+                        ¿No tienes cuenta? <a href="#" onclick="showView('view-register')" style="color: var(--primary-color); font-weight: bold;">Regístrate aquí</a>
+                    </div>
                 </div>
             </div>
 
-            <!-- Vista 2: Iniciar Sesión -->
-            <div id="view-login" class="view">
-                <button class="back-btn" onclick="showView('view-options')">← Volver</button>
-                <h2 style="text-align: center; margin-bottom: 20px;">Iniciar Sesión</h2>
-                <!-- Formulario de Login -->
-                <form id="form-login" action="pages/dashboard.html">
-                    <div class="form-group">
-                        <label>Correo electrónico</label>
-                        <input type="email" id="login-email" class="form-control" required>
+            <!-- VISTA 1A: LOGIN INTERNO -->
+            <div id="view-login-internal" class="view">
+                <button class="back-btn" onclick="showView('view-choice')">← Volver</button>
+                <h2 style="text-align: center;">Acceso Estudiantes</h2>
+                <form id="form-login-internal" class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Correo Electrónico</label>
+                        <input type="email" id="login-email-int" class="form-control" placeholder="tu@correo.com" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Contraseña</label>
+                        <input type="password" id="login-pass-int" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-group full-width" style="margin-top: 10px;">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Iniciar Sesión</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- VISTA 1B: LOGIN EXTERNO -->
+            <div id="view-login-external" class="view">
+                <button class="back-btn" onclick="showView('view-choice')">← Volver</button>
+                <h2 style="text-align: center;">Acceso de Invitado</h2>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
+                    Como invitado solo podrás navegar por los módulos teóricos. El progreso y los retos estarán desactivados.
+                </p>
+                <form id="form-login-external" class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Correo Electrónico (Para registro de visita)</label>
+                        <input type="email" id="login-email-ext" class="form-control" placeholder="invitado@correo.com" required>
+                    </div>
+                    <div class="form-group full-width" style="margin-top: 10px;">
+                        <button type="submit" class="btn btn-primary" style="width: 100%; background-color: var(--text-main);">Entrar como Invitado</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- VISTA 2: REGISTRO DATOS PERSONALES -->
+            <div id="view-register" class="view">
+                <button class="back-btn" onclick="showView('view-choice')">← Volver</button>
+                <h2 style="text-align: center; margin-bottom: 5px;">Crea tu cuenta</h2>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Paso 1 de 2: Datos Personales</p>
+                
+                <form id="form-register-step1" class="form-grid">
+                    <!-- Foto de Perfil Central -->
+                    <div class="form-group full-width" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 10px;">
+                        <div id="profile-pic-container" style="width: 90px; height: 90px; background-color: #F0EEFC; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; overflow: hidden; border: 2px dashed var(--primary-color);">
+                            <span id="profile-pic-icon" style="font-size: 1.5rem; color: var(--primary-color);">📷</span>
+                        </div>
+                        <span style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">Foto de Perfil (Opcional)</span>
+                        <input type="file" id="reg-profile-pic" accept="image/*" style="display: none;">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Nombre y Apellido</label>
+                        <input type="text" id="reg-fullname" class="form-control" placeholder="Ej. Pepe Zurita" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Colegio / Unidad Educativa</label>
+                        <input type="text" id="reg-school" class="form-control" placeholder="Ej. Unidad Educativa XYZ" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Correo Electrónico</label>
+                        <input type="email" id="reg-email" class="form-control" placeholder="tu@correo.com" required>
                     </div>
                     <div class="form-group">
                         <label>Contraseña</label>
-                        <input type="password" class="form-control" required>
+                        <input type="password" id="reg-pass1" class="form-control" required>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Entrar</button>
+                    <div class="form-group">
+                        <label>Repetir Contraseña</label>
+                        <input type="password" id="reg-pass2" class="form-control" required>
+                    </div>
+                    <div class="form-group full-width" style="margin-top: 10px;">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Siguiente Paso →</button>
+                    </div>
                 </form>
             </div>
 
-            <!-- Vista 3: Crear Cuenta -->
-            <div id="view-register" class="view">
-                <button class="back-btn" onclick="showView('view-options')">← Volver</button>
-                <h2 style="text-align: center; margin-bottom: 20px;">Crear Cuenta</h2>
-                
-                <!-- Formulario de Registro -->
-                <form id="form-register" action="pages/dashboard.html">
-                    
-                    <!-- Foto de Perfil (Ocupa todo el ancho siempre) -->
-                    <div class="form-group full-width" style="text-align: center; margin-top: 5px;">
-                        <label>Foto de Perfil (Opcional)</label>
-                        <input type="file" id="reg-profile-pic" accept="image/*" style="display: none;">
-                        <div id="profile-pic-container" style="width: 80px; height: 80px; margin: 10px auto; border-radius: 50%; border: 2px dashed var(--primary-color); background-color: rgba(108, 92, 231, 0.05); display: flex; justify-content: center; align-items: center; cursor: pointer; overflow: hidden; transition: background-color var(--transition-fast);">
-                            <span id="profile-pic-icon" style="font-size: 1.5rem; opacity: 0.7;">📷</span>
-                        </div>
-                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">Clic en el círculo para subir foto</p>
+            <!-- VISTA 3: TOP 3 CARRERAS (DRAG AND DROP) -->
+            <div id="view-top-careers" class="view">
+                <button class="back-btn" onclick="showView('view-register')">← Volver</button>
+                <h2 style="text-align: center; margin-bottom: 5px;">Tu Perfil Vocacional</h2>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
+                    Haz clic en una carrera para agregarla a tu <b>TOP 3</b>.<br> 
+                    <span style="color: var(--primary-color);">Luego arrastra los rectángulos para ordenarlos por prioridad.</span>
+                </p>
+
+                <!-- Zona Superior: Las 3 Seleccionadas (Drop Zone) -->
+                <div class="selected-zone">
+                    <h4 style="margin: 0 0 10px 0; color: var(--text-main); font-size: 1rem;"> Tu Top 3 (Orden de preferencia)</h4>
+                    <div id="selected-careers-list" class="drag-zone">
+                        <!-- JS inyectará los rectángulos arrastrables aquí -->
                     </div>
-
-                    <!-- Contenedor Grid (2 columnas en PC, 1 en móvil) -->
-                    <div class="form-grid">
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label>Nombre Completo</label>
-                            <input type="text" id="reg-fullname" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label>Colegio del que viene</label>
-                            <input type="text" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label>Correo electrónico</label>
-                            <input type="email" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label>Fecha de Nacimiento</label>
-                            <input type="date" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label>Contraseña</label>
-                            <input type="password" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label>Confirmar Contraseña</label>
-                            <input type="password" class="form-control" required>
-                        </div>
-                    </div>
-
-                    <!-- Botón de Registro (Ocupa todo el ancho al final) -->
-                    <button type="submit" class="btn btn-primary full-width" style="width: 100%; margin-top: 20px;">Registrarme</button>
-                </form>
-            </div>
-
-            <!-- VISTA 4: Confirmación de Éxito -->
-            <div id="view-success" class="view" style="text-align: center; padding: 20px 0;">
-                <!-- Círculo con el check verde -->
-                <div style="width: 80px; height: 80px; background-color: #44BD6E; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 3rem; margin: 0 auto 20px auto; box-shadow: 0 10px 20px rgba(68, 189, 110, 0.3);">
-                    ✓
                 </div>
-                
-                <h2 style="margin-bottom: 10px;">¡Cuenta creada<br>exitosamente!</h2>
-                <p style="color: var(--text-muted); margin-bottom: 30px;">Ya puedes comenzar a explorar, aprender y ganar recompensas.</p>
-                
-                <button id="btn-enter-dashboard" class="btn btn-primary" style="width: 100%;">Entrar a BrainBox</button>
+
+                <!-- Zona Inferior: Carreras Disponibles -->
+                <div class="available-zone">
+                    <h4 style="margin: 0 0 10px 0; color: var(--text-main); font-size: 0.9rem;">Carreras Disponibles (<span id="available-counter">24</span>)</h4>
+                    <input type="text" id="career-search" class="form-control" placeholder="Buscar carrera..." style="margin-bottom: 15px; padding: 10px; font-size: 0.9rem;">
+                    
+                    <div id="available-careers-list" class="pill-pool">
+                        <!-- JS inyectará las píldoras aquí -->
+                    </div>
+                </div>
+
+                <button id="btn-finish-register" class="btn btn-primary" style="width: 100%; margin-top: 20px;" disabled>Finalizar Registro</button>
             </div>
-            
+
+            <!-- VISTA 4: ÉXITO -->
+            <div id="view-success" class="view" style="text-align: center; padding: 20px 0;">
+                <div style="font-size: 4rem; margin-bottom: 10px;">🎉</div>
+                <h2 style="color: var(--primary-color);">¡Cuenta Creada!</h2>
+                <p style="color: var(--text-muted); margin-bottom: 25px;">Todo listo para empezar tu aventura en el mundo STEM.</p>
+                <button id="btn-enter-dashboard" class="btn btn-primary" style="width: 100%; background-color: var(--accent-color);">Ir al Dashboard</button>
+            </div>
+
         </div>
     </div>
 
-    <!-- Scripts unificados -->
     <script src="js/ui.js"></script>
     <script src="js/auth.js"></script>
 </body>

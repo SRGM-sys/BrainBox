@@ -19,27 +19,74 @@
         }
         .students-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
             padding: 20px;
         }
-        .student-card {
+
+        /* --- MAGIA 3D: EL CONTENEDOR Y LA TARJETA QUE GIRA --- */
+        .student-card-wrapper {
+            perspective: 1000px;
+            min-height: 340px; /* Forzamos una altura para que ambas caras quepan bien */
+        }
+
+        .student-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efecto de rebote al girar */
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .student-card-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .student-card-front, .student-card-back {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
             background: var(--surface-color);
             border-radius: 20px;
             padding: 20px;
             box-shadow: var(--shadow-md);
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            border: 2px solid transparent;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
+
+        .student-card-wrapper:hover .student-card-front,
+        .student-card-wrapper:hover .student-card-back {
+            border-color: rgba(108, 92, 231, 0.4);
+            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.15);
+        }
+
+        /* Frontal */
+        .student-card-front {
+            gap: 12px;
+        }
+
+        /* Trasera (Dorso) */
+        .student-card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(to bottom right, #ffffff, #F8F9FC);
+        }
+
+        /* --- INTERIORES DE LA TARJETA --- */
         .student-header {
             display: flex;
             align-items: center;
             gap: 15px;
+            margin-bottom: 5px;
         }
         .student-avatar {
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid var(--accent-color);
@@ -47,7 +94,6 @@
         .student-info h4 { margin: 0; font-size: 1.1rem; color: var(--text-main); }
         .student-info p { margin: 0; font-size: 0.85rem; color: var(--text-muted); }
         
-        /* Estilos de las barras */
         .subject-progress {
             display: flex;
             flex-direction: column;
@@ -81,6 +127,16 @@
             color: var(--text-muted);
             grid-column: 1 / -1;
         }
+
+        /* Animación para el aviso de girar */
+        .bounce-hint {
+            display: inline-block;
+            animation: bounceHorizontal 1.5s infinite;
+        }
+        @keyframes bounceHorizontal {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
     </style>
 </head>
 <body>
@@ -93,7 +149,7 @@
     <main class="container">
         <div style="padding: 20px 20px 0;">
             <h3 style="color: var(--text-main);">Avance de Estudiantes</h3>
-            <p style="color: var(--text-muted);">Monitoreo global de las cuentas registradas.</p>
+            <p style="color: var(--text-muted);">Toca cualquier tarjeta para girarla y ver el Top 3 de carreras.</p>
         </div>
 
         <div id="students-container" class="students-grid">

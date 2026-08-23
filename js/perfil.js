@@ -1,14 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 1. VERIFICAR AUTENTICACIÓN
     let currentUserStr = localStorage.getItem('brainbox_current_user');
     if (!currentUserStr) {
         window.location.href = '../index.html';
         return;
     }
+    
     let currentUser = JSON.parse(currentUserStr);
 
-    // 2. MOTOR DE LIGAS
+    // Evitar que usuarios externos entren al perfil burlando la URL
+    if (currentUser.type === 'external') {
+        window.location.href = 'dashboard.html';
+        return;
+    }
+
     function getLevelInfo(xp) {
         if (xp < 100) return { level: 1, rankClass: 'rank-bronce', rankName: 'Bronce' };
         if (xp < 250) return { level: 2, rankClass: 'rank-plata', rankName: 'Plata' };
@@ -18,30 +23,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     let rankData = getLevelInfo(currentUser.xp || 0);
 
-    // 3. CARGAR DATOS EN EL DOM
     const nameEl = document.getElementById('profile-name');
     const schoolEl = document.getElementById('profile-school');
     const pointsEl = document.getElementById('profile-points');
     const levelEl = document.getElementById('profile-level');
     
     if (nameEl) nameEl.textContent = currentUser.fullName;
-    // Si la escuela está guardada en la base de datos, la muestra
     if (schoolEl) schoolEl.textContent = currentUser.school || "Unidad Educativa no especificada";
     if (pointsEl) pointsEl.textContent = currentUser.points || 0;
-    
-    // Nivel y Liga fusionados
     if (levelEl) levelEl.textContent = `${rankData.level} (${rankData.rankName})`;
 
-    // 4. CARGAR AVATAR CON MARCO
+    // CARGAR AVATAR
     const avatarContainer = document.getElementById('profile-avatar-container');
     const avatarWrapper = document.getElementById('btn-change-avatar');
 
     function renderAvatar() {
         if (avatarWrapper) {
-            avatarWrapper.className = 'avatar-wrapper'; // Limpiamos
-            avatarWrapper.classList.add(rankData.rankClass); // Agregamos la liga
+            avatarWrapper.className = 'avatar-wrapper'; 
+            avatarWrapper.classList.add(rankData.rankClass); 
         }
-
         avatarContainer.innerHTML = '';
         const img = document.createElement('img');
         img.style.width = '100%';
@@ -58,7 +58,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     renderAvatar();
 
-    // 5. CAMBIAR FOTO
+    // --- CARGAR EL TOP 3 DE INGENIERÍAS ---
+    const topContainer = document.getElementById('top-careers-container');
+    if (topContainer) {
+        const tops = currentUser.topCareers || [];
+        if (tops.length === 0) {
+            topContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">Aún no has seleccionado tus carreras favoritas.</p>';
+        } else {
+            let htmlTops = '';
+            // Paleta de colores para que se vean variadas
+            const colors = ['rgba(108, 92, 231, 0.1)', 'rgba(0, 206, 201, 0.1)', 'rgba(214, 48, 49, 0.1)'];
+            const borders = ['#6C5CE7', '#00CEC9', '#D63031'];
+            
+            tops.forEach((careerName, index) => {
+                let badgeColor = colors[index % colors.length];
+                let borderColor = borders[index % borders.length];
+                
+                htmlTops += `
+                    <div style="background-color: ${badgeColor}; border-left: 5px solid ${borderColor}; padding: 12px 20px; border-radius: 12px; display: flex; align-items: center; gap: 15px;">
+                        <div style="font-size: 1.5rem; color: ${borderColor}; font-weight: 800;">${index + 1}</div>
+                        <div style="font-weight: 800; color: var(--text-main); font-size: 1.05rem;">${careerName}</div>
+                    </div>
+                `;
+            });
+            topContainer.innerHTML = htmlTops;
+        }
+    }
+
+    // CAMBIAR FOTO
     const btnChangeAvatar = document.getElementById('btn-change-avatar');
     const inputFile = document.getElementById('input-update-pic');
     
@@ -80,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateUserStorage(updatedUser) {
         localStorage.setItem('brainbox_current_user', JSON.stringify(updatedUser));
-
         let users = JSON.parse(localStorage.getItem('brainbox_users')) || [];
         const index = users.findIndex(u => u.email === updatedUser.email);
         if (index !== -1) {
@@ -89,16 +115,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 6. CÁLCULO DE PROGRESO DE MATERIAS Y ANIMACIÓN ---
-    
+    // CÁLCULO DE PROGRESO
     let answered = currentUser.answeredQuestions || [];
     let mathTopics = new Set();
     let physTopics = new Set();
     let chemTopics = new Set();
 
-    // Agrupamos las preguntas respondidas por "Tema" (Lección)
     answered.forEach(qId => {
-        // El ID es del tipo: "math_m1_t1_q1", lo cortamos hasta el tema -> "math_m1_t1"
         let parts = qId.split('_q');
         if (parts.length > 0) {
             let topicId = parts[0]; 
@@ -108,40 +131,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Total de lecciones estipuladas
     const TOTAL_MATH = 33;
     const TOTAL_PHYS = 16;
     const TOTAL_CHEM = 21;
 
-    // Calculamos los porcentajes (redondeados para que no salgan decimales locos)
-    let mathProgress = Math.round((mathTopics.size / TOTAL_MATH) * 100);
-    let physProgress = Math.round((physTopics.size / TOTAL_PHYS) * 100);
-    let chemProgress = Math.round((chemTopics.size / TOTAL_CHEM) * 100);
+    let mathProgress = Math.min(Math.round((mathTopics.size / TOTAL_MATH) * 100), 100);
+    let physProgress = Math.min(Math.round((physTopics.size / TOTAL_PHYS) * 100), 100);
+    let chemProgress = Math.min(Math.round((chemTopics.size / TOTAL_CHEM) * 100), 100);
 
-    // Limitamos a 100 por si acaso en el futuro añades más lecciones de las supuestas
-    mathProgress = Math.min(mathProgress, 100);
-    physProgress = Math.min(physProgress, 100);
-    chemProgress = Math.min(chemProgress, 100);
-
-    // Seleccionamos las 3 tarjetas de la pantalla en orden (Math, Phys, Chem)
     const progressCards = document.querySelectorAll('.circular-chart');
     const targetProgresses = [mathProgress, physProgress, chemProgress];
 
     progressCards.forEach((card, index) => {
         let targetProgress = targetProgresses[index] || 0;
         let currentProgress = 0;
-        let speed = 20; // Velocidad de la animación
+        let speed = 20; 
 
         if(targetProgress > 0) {
             let progressInterval = setInterval(() => {
                 currentProgress++;
                 card.style.setProperty('--p', currentProgress);
                 card.querySelector('.progress-text').textContent = currentProgress + '%';
-                
                 if(currentProgress >= targetProgress) clearInterval(progressInterval);
             }, speed);
         } else {
-            // Asegura que muestre 0 si no hay progreso
             card.style.setProperty('--p', 0);
             card.querySelector('.progress-text').textContent = '0%';
         }

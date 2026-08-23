@@ -1,40 +1,27 @@
-// --- FUNCIÓN PARA CAMBIAR VISTAS EN EL MODAL ---
-function showView(viewId) {
+window.showView = function(viewId) {
     const views = document.querySelectorAll('.view');
     views.forEach(view => view.classList.remove('active'));
     document.getElementById(viewId).classList.add('active');
-}
+};
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Botones del Modal
-    document.getElementById('btn-show-login')?.addEventListener('click', () => {
-        showView('view-login');
-    });
-    document.getElementById('btn-show-register')?.addEventListener('click', () => {
-        showView('view-register');
-    });
-
-    // --- VISTA PREVIA DE LA FOTO (Estilo Moderno) ---
+    // --- MANEJO DE FOTO DE PERFIL ---
     const fileInput = document.getElementById('reg-profile-pic');
     const picContainer = document.getElementById('profile-pic-container');
     const picIcon = document.getElementById('profile-pic-icon');
+    let base64Image = null;
 
     if (fileInput && picContainer) {
-        // Al hacer clic en el círculo, simulamos un clic en el input oculto
-        picContainer.addEventListener('click', () => {
-            fileInput.click();
-        });
+        picContainer.addEventListener('click', () => fileInput.click());
 
-        // Cuando el explorador de archivos se cierra y hay una imagen seleccionada
         fileInput.addEventListener('change', function() {
             if (this.files && this.files[0]) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    // Ocultamos el icono de la cámara
                     if (picIcon) picIcon.style.display = 'none';
+                    base64Image = e.target.result;
                     
-                    // Verificamos si ya existe la etiqueta de la imagen; si no, la creamos
                     let imgPreview = document.getElementById('img-preview');
                     if (!imgPreview) {
                         imgPreview = document.createElement('img');
@@ -44,95 +31,233 @@ document.addEventListener('DOMContentLoaded', () => {
                         imgPreview.style.objectFit = 'cover';
                         picContainer.appendChild(imgPreview);
                     }
-                    
-                    // Le asignamos la imagen seleccionada
-                    imgPreview.src = e.target.result;
+                    imgPreview.src = base64Image;
                 };
                 reader.readAsDataURL(this.files[0]);
             }
         });
     }
 
-    // --- 1. LÓGICA DE REGISTRO MODIFICADA ---
-    const formRegister = document.getElementById('form-register');
-    if (formRegister) {
-        formRegister.addEventListener('submit', (e) => {
+    // --- VARIABLES GLOBALES DEL REGISTRO ---
+    let tempUser = {};
+
+    // CATÁLOGO COMPLETO DE CARRERAS (24 en total)
+    const allCareersData = [
+        "Acuicultura", "Ciencia de Datos e IA", "Computación", "Electrónica y Automat.",
+        "Estadística", "Geología", "Ing. Agrícola y Biológica", "Ing. Civil",
+        "Ing. de Minas", "Ing. Eléctrica", "Ing. en Alimentos", "Ing. en Materiales",
+        "Ing. en Petróleos", "Ing. Industrial", "Ing. Mecánica", "Ing. Naval",
+        "Ing. Química", "Logística y Transporte", "Matemática Aplicada", "Mecatrónica",
+        "Nutrición y Dietética", "Oceanografía", "Telecomunicaciones", "Telemática"
+    ];
+
+    let availableCareers = [...allCareersData]; // Clonamos el arreglo
+    let selectedCareers = []; // Aquí guardaremos el Top 3
+
+    // --- PASO 1: REGISTRO (DATOS PERSONALES) ---
+    const formRegStep1 = document.getElementById('form-register-step1');
+    if (formRegStep1) {
+        formRegStep1.addEventListener('submit', (e) => {
             e.preventDefault();
-
             const fullName = document.getElementById('reg-fullname').value;
-            const email = formRegister.querySelector('input[type="email"]').value;
-            const passwords = formRegister.querySelectorAll('input[type="password"]');
+            const schoolName = document.getElementById('reg-school').value;
+            const email = document.getElementById('reg-email').value;
+            const pass1 = document.getElementById('reg-pass1').value;
+            const pass2 = document.getElementById('reg-pass2').value;
             
-            // NUEVO: Capturamos el colegio (es el segundo input de texto en tu HTML)
-            const textInputs = formRegister.querySelectorAll('input[type="text"]');
-            const schoolName = textInputs.length > 1 ? textInputs[1].value : "Unidad Educativa no especificada";
-            
-            const pass1 = passwords[0].value;
-            const pass2 = passwords[1].value;
-
             if (pass1 !== pass2) {
-                alert('Las contraseñas no coinciden. ¡Revisa bien, pana!');
+                alert('Las contraseñas no coinciden. ¡Revisa bien!');
                 return;
             }
 
             let users = JSON.parse(localStorage.getItem('brainbox_users')) || [];
-
             if (users.find(u => u.email === email)) {
                 alert('Este correo ya está registrado. Ve a iniciar sesión.');
                 return;
             }
 
-            // Función interna para guardar el usuario una vez que tengamos la foto procesada
-            const finishRegistration = (profilePicBase64) => {
-                const newUser = {
-                    fullName: fullName,
-                    email: email,
-                    password: pass1,
-                    school: schoolName, // Guardamos la escuela real
-                    level: 1,           // Empieza en Nivel 1
-                    points: 0,          // Puntos en 0
-                    xp: 0,              // Experiencia en 0
-                    streak: 0,          // Racha en 0 días
-                    profilePic: profilePicBase64
-                };
-
-                users.push(newUser);
-                localStorage.setItem('brainbox_users', JSON.stringify(users));
-                localStorage.setItem('brainbox_current_user', JSON.stringify(newUser));
-                
-                // MAGIA AQUÍ: En vez de redirigir, mostramos la pantalla de éxito
-                showView('view-success');
+            tempUser = {
+                fullName: fullName,
+                school: schoolName,
+                email: email,
+                password: pass1,
+                profilePic: base64Image,
+                type: 'internal',
+                level: 1, points: 0, xp: 0, streak: 0,
+                topCareers: []
             };
 
-            // Verificar si el usuario subió una imagen
-            if (fileInput && fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    finishRegistration(e.target.result); // Pasa la imagen en Base64
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            } else {
-                finishRegistration(null); // No subió foto, pasamos null
-            }
+            showView('view-top-careers');
+            renderCareersUI(); // Dibujamos las carreras por primera vez
         });
     }
 
-    // --- 2. LÓGICA DE INICIO DE SESIÓN ---
-    const formLogin = document.getElementById('form-login');
-    if (formLogin) {
-        formLogin.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            const password = formLogin.querySelector('input[type="password"]').value;
-            let users = JSON.parse(localStorage.getItem('brainbox_users')) || [];
-            const validUser = users.find(u => u.email === email && u.password === password);
+    // --- RENDERIZADO DEL TOP 3 Y DRAG & DROP ---
+    const availableContainer = document.getElementById('available-careers-list');
+    const selectedContainer = document.getElementById('selected-careers-list');
+    const btnFinish = document.getElementById('btn-finish-register');
+    const searchInput = document.getElementById('career-search');
 
-            // CORRECCIÓN: Usamos las variables correctas (email y password) 
-            // Y usamos un correo falso con '@' para engañar al validador del HTML
+    // 1. Dibujar el UI
+    function renderCareersUI(filterText = '') {
+        // Renderizar Disponibles (Filtradas)
+        availableContainer.innerHTML = '';
+        const filtered = availableCareers.filter(c => c.toLowerCase().includes(filterText.toLowerCase()));
+        
+        filtered.forEach(career => {
+            const pill = document.createElement('div');
+            pill.className = 'career-pill';
+            pill.innerHTML = `${career}`;
+            pill.onclick = () => addCareer(career);
+            availableContainer.appendChild(pill);
+        });
+
+        // Actualizar contador
+        document.getElementById('available-counter').textContent = availableCareers.length;
+
+        // Renderizar Seleccionadas (Top 3)
+        selectedContainer.innerHTML = '';
+        if (selectedCareers.length === 0) {
+            selectedContainer.innerHTML = '<p style="text-align:center; color:#B2BEC3; font-size:0.9rem; padding: 20px;">No has seleccionado ninguna carrera.</p>';
+        } else {
+            selectedCareers.forEach((career, index) => {
+                const rect = document.createElement('div');
+                rect.className = 'career-rect';
+                rect.draggable = true; // HACERLO ARRASTRABLE
+                rect.dataset.index = index; // Guardar su posición original
+
+                // Asignar clase de medalla según la posición
+                let rankClass = index === 0 ? 'rank-1' : (index === 1 ? 'rank-2' : 'rank-3');
+
+                rect.innerHTML = `
+                    <span class="rank-badge ${rankClass}">${index + 1}</span>
+                    <span class="career-name">≡ ${career}</span>
+                    <button type="button" class="remove-btn" onclick="removeCareer('${career}')">❌</button>
+                `;
+
+                // Eventos de Drag & Drop
+                rect.addEventListener('dragstart', handleDragStart);
+                rect.addEventListener('dragover', handleDragOver);
+                rect.addEventListener('dragenter', handleDragEnter);
+                rect.addEventListener('dragleave', handleDragLeave);
+                rect.addEventListener('drop', handleDrop);
+                rect.addEventListener('dragend', handleDragEnd);
+
+                selectedContainer.appendChild(rect);
+            });
+        }
+
+        // Habilitar botón solo si hay 3 seleccionadas
+        btnFinish.disabled = selectedCareers.length !== 3;
+        btnFinish.textContent = selectedCareers.length === 3 ? "Finalizar Registro" : `Faltan ${3 - selectedCareers.length} carreras`;
+    }
+
+    // 2. Lógica de Agregar y Quitar
+    window.addCareer = function(career) {
+        if (selectedCareers.length >= 3) {
+            alert("Solo puedes tener un TOP 3. Elimina una para agregar otra.");
+            return;
+        }
+        // Quitar de disponibles y pasar a seleccionadas
+        availableCareers = availableCareers.filter(c => c !== career);
+        selectedCareers.push(career);
+        searchInput.value = ''; // Limpiar buscador
+        renderCareersUI();
+    };
+
+    window.removeCareer = function(career) {
+        // Quitar de seleccionadas y regresar a disponibles
+        selectedCareers = selectedCareers.filter(c => c !== career);
+        availableCareers.push(career);
+        availableCareers.sort(); // Mantener orden alfabético
+        renderCareersUI();
+    };
+
+    // 3. Lógica del Drag & Drop (HTML5)
+    let dragStartIndex = null;
+
+    function handleDragStart(e) {
+        dragStartIndex = +this.dataset.index;
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/html', this.innerHTML);
+        this.classList.add('dragging');
+    }
+
+    function handleDragOver(e) {
+        e.preventDefault(); // Necesario para permitir el drop
+        e.dataTransfer.dropEffect = 'move';
+        return false;
+    }
+
+    function handleDragEnter(e) {
+        this.classList.add('over');
+    }
+
+    function handleDragLeave(e) {
+        this.classList.remove('over');
+    }
+
+    function handleDrop(e) {
+        e.stopPropagation();
+        const dragEndIndex = +this.dataset.index;
+
+        if (dragStartIndex !== dragEndIndex && dragStartIndex !== null) {
+            // Intercambiar las posiciones en el arreglo
+            const temp = selectedCareers[dragStartIndex];
+            selectedCareers[dragStartIndex] = selectedCareers[dragEndIndex];
+            selectedCareers[dragEndIndex] = temp;
+            
+            // Volver a dibujar para que los números (1,2,3) se actualicen solos
+            renderCareersUI();
+        }
+        return false;
+    }
+
+    function handleDragEnd(e) {
+        this.classList.remove('dragging');
+        document.querySelectorAll('.career-rect').forEach(rect => rect.classList.remove('over'));
+    }
+
+    // 4. Barra de Búsqueda
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            renderCareersUI(e.target.value);
+        });
+    }
+
+    // --- PASO 2: FINALIZAR REGISTRO ---
+    if (btnFinish) {
+        btnFinish.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Guardar el arreglo ordenado en el usuario
+            tempUser.topCareers = [...selectedCareers];
+
+            // Guardar en Base de Datos LocalStorage
+            let users = JSON.parse(localStorage.getItem('brainbox_users')) || [];
+            users.push(tempUser);
+            localStorage.setItem('brainbox_users', JSON.stringify(users));
+            localStorage.setItem('brainbox_current_user', JSON.stringify(tempUser));
+            
+            showView('view-success');
+        });
+    }
+
+    // --- LOGIN INTERNO (ESTUDIANTES Y PROFESOR) ---
+    const formLoginInt = document.getElementById('form-login-internal');
+    if (formLoginInt) {
+        formLoginInt.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email-int').value;
+            const password = document.getElementById('login-pass-int').value;
+            
             if (email === "profesor@admin.com" && password === "admin123") {
                 window.location.href = 'pages/profesor.html';
-                return; // Detenemos la ejecución normal
+                return; 
             }
+            
+            let users = JSON.parse(localStorage.getItem('brainbox_users')) || [];
+            const validUser = users.find(u => u.email === email && u.password === password && u.type === 'internal');
             
             if (validUser) {
                 localStorage.setItem('brainbox_current_user', JSON.stringify(validUser));
@@ -143,11 +268,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 3. LÓGICA DEL BOTÓN DE ÉXITO ---
+    // --- LOGIN EXTERNO (INVITADOS) ---
+    const formLoginExt = document.getElementById('form-login-external');
+    if (formLoginExt) {
+        formLoginExt.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email-ext').value;
+            
+            const guestUser = {
+                fullName: "Invitado Observador",
+                email: email,
+                type: 'external',
+                level: 1, xp: 0, points: 0, streak: 0
+            };
+
+            localStorage.setItem('brainbox_current_user', JSON.stringify(guestUser));
+            window.location.href = 'pages/dashboard.html';
+        });
+    }
+
+    // --- BOTÓN DE ÉXITO -> DASHBOARD ---
     const btnEnterDashboard = document.getElementById('btn-enter-dashboard');
     if (btnEnterDashboard) {
         btnEnterDashboard.addEventListener('click', () => {
-            // Cuando le den clic al botón verde de éxito, redirigimos al Dashboard
             window.location.href = 'pages/dashboard.html';
         });
     }
