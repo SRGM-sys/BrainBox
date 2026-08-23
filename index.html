@@ -40,7 +40,7 @@
                 <p style="color: var(--text-muted); margin-bottom: 25px;">¿Cómo deseas ingresar a la plataforma?</p>
                 
                 <div class="auth-options">
-                    <button class="btn btn-primary" onclick="showView('view-login-internal')">Estudiante</button>
+                    <button class="btn btn-primary" onclick="showView('view-login-internal')">Estudiante o Profesor</button>
                     <button class="btn btn-outline" onclick="showView('view-login-external')" style="color: #2D3436; border-color: #DFE6E9;">Usuario Externo</button>
                     <div style="margin-top: 20px; font-size: 0.9rem; color: var(--text-muted);">
                         ¿No tienes cuenta? <a href="#" onclick="showView('view-register')" style="color: var(--primary-color); font-weight: bold;">Regístrate aquí</a>
@@ -51,7 +51,7 @@
             <!-- VISTA 1A: LOGIN INTERNO -->
             <div id="view-login-internal" class="view">
                 <button class="back-btn" onclick="showView('view-choice')">← Volver</button>
-                <h2 style="text-align: center;">Acceso Estudiantes</h2>
+                <h2 style="text-align: center;">Acceso Usuarios Internos</h2>
                 <form id="form-login-internal" class="form-grid">
                     <div class="form-group full-width">
                         <label>Correo Electrónico</label>
